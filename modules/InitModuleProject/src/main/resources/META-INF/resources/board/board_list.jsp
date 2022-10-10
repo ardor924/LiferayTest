@@ -145,9 +145,6 @@
 
 
 	
-	
-	<!-- 테스트용  -->
-	<button type="button" onclick="goEvt()">테스트</button>
 	<span>order : ${ORDER} // </span><span>search : ${option} //</span>
 	<span>currentPage : ${bp.currentPage }</span>
 

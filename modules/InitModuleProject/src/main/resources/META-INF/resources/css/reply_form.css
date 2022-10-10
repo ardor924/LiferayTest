@@ -1,0 +1,25 @@
+
+
+.addRep:hover{
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+#replyList div~div:nth-child(3) {
+display: none;
+}
+
+#replyList div~div:nth-child(3).active {
+display: block;
+}
+
+#btn_active{
+	display: none;
+}
+#btn_active.active{
+	display: block;
+}
+
+#toggle-side{
+
+}

@@ -48,26 +48,24 @@
 
 <script type="text/javascript">
 <!-- AjaxTest  -->
- $(document).ready(function(){
 	
  	var page = 1;  //페이징과 같은 방식
  	
- 	
- 	
- 	setAjax(page)
+ 	$(function(){  //페이지가 로드되면 데이터를 가져오고 page를 증가시킨다. (== document.ready와 같음)
+         setAjax(page);
 	console.log(page+"페이지")
+         page++;
+    });	
+ 	
 
     $(window).scroll(function(){   //스크롤이 최하단 으로 내려가면 리스트를 조회하고 page를 증가시킨다.
-             if (Math.round( $(window).scrollTop()) == $(document).height() - $(window).height()) {
+             if ($(window).scrollTop() >= $(document).height() - $(window).height()) {
 			    setAjax(page);
         console.log(page+"페이지")
                    page++;
 				}  
         });
 	 
-	
-	
-	
 	
 	// START : 클릭 이벤트
 	$("#btn_reply_regist").click(function(){
@@ -82,7 +80,6 @@
 		var rIndent = 0;
 		var rAnsNum = 0;
 		var page = 1;
-
 
 		$.ajax({
 			type : 'post',
@@ -123,8 +120,17 @@
 			dataType : "json",
 			success : function(data){
 				
+				 
+				if(data.length < 1 ){
+					html = '<div>댓글이 더이상 존재하지 않습니다.</div>';
+					 $("#replyList").append(html);	
+					 $("#rep_contents").val("") //텍스트박스 댓글 초기화(댓글 작성 완료후)
+					alert("댓글이 더이상 존재하지 않습니다")
+					 event.stopImmediatePropagation()
+				} 
+				
 				//$("#replyList").html('');
-				var html = "<table>";
+				var html = "<div>";
 				
 				// data에 있는 JSONArray 파싱(반복문)
 				for(var i=0; i<data.length; i++){
@@ -142,11 +148,11 @@
 					     html +=         '</div>';
 					     html +=      '</div>';
 					     html +=      '<div id="toggle_end" class="d-flex justify-content-end m-2">';
-					     html +=              '<h3 class="col-2 m-0 p-0" >'
-					     html +=              	'<a id="toggle'+num+'" onclick="btn_toggle()" type="button"><i class="fa-solid fa-ellipsis-vertical"></i></a>'
+					     html +=              '<h3 class="col-2 m-0 p-0" >';
+					     html +=              	'<a id="toggle'+num+'" onclick="btn_toggle()" type="button"><i class="fa-solid fa-ellipsis-vertical"></i></a>';
 					     html +=              '</h3>';
 					     html +=              '<div id="toggle_side'+num+' class="toggle_side" class="m-0 d-flex row">';
-					     html +=              	'<div class="modify_reply btn btn-success text-white mb-2" onclick="modify_reply('+reply.rno+','+reply.bno+','+reply.rWriter+','+reply.rContents+','+reply.rRegDate+')">수정</div>';
+					     html +=              	'<div class="modify_reply btn btn-success text-white mb-2" onclick="update_reply('+reply.rno+','+reply.bno+','+reply.rWriter+','+reply.rContents+','+reply.rRegDate+','+page+')">수정</div>';
 					     html +=              	'<div class="delete_reply btn btn-danger text-white mb-2" onclick="delete_reply('+reply.rno+','+page+')">삭제</div>';
 					     html +=              '</div>';
 					     html +=      '</div>';
@@ -157,7 +163,7 @@
 						num += 1
 				}// END :for문
 				
-				 html += "</table>";
+				 html += "</div>";
 				 $("#replyList").append(html);	
 				 $("#rep_contents").val("") //텍스트박스 댓글 초기화(댓글 작성 완료후)
 				
@@ -170,11 +176,6 @@
 		
 		
 	}; // END : DB정보 호출 이벤트
-
-
-
-	
- }); // END : $(document).ready 이벤트
 
 
 //STRAT : 답글 폼생성
@@ -227,7 +228,7 @@ function btn_toggle(){
 
 //START : 클릭이벤트(삭제)
 function delete_reply(rno,page){
-		alert(page)
+		console.log(page+"페이지")
 	$.ajax({
 		type :"post",
 		url : "${DeleteReplyURL}",
@@ -249,8 +250,8 @@ function delete_reply(rno,page){
 
 
 //////
-function modify_reply(rno,bno,rWriter,rContents,rRegDate){
-	
+function update_reply(rno,bno,rWriter,rContents,rRegDate,page){
+	console.log(page+"페이지")
 	$.ajax({
 		type :"post",
 		url : "${UpdateReplyURL}",
@@ -266,10 +267,10 @@ function modify_reply(rno,bno,rWriter,rContents,rRegDate){
 		dataType : "text",
 		success : function(data){
 			alert(data)
-			alert(data+"댓글 삭제 성공했습니다")			
+			alert(data+"댓글 수정 성공했습니다")			
 		},
 		error : function(err){
-			alert("댓글 삭제 실패했습니다")
+			alert("댓글 수정 실패했습니다")
 		}
 		
 	})

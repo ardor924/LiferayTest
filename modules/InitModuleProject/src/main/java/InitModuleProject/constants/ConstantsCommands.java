@@ -14,6 +14,10 @@ public class ConstantsCommands {
 	public static final String HHLBOARD_UPDATE_PROJECT ="hhl/project/update";
 	public static final String HHLBOARD_DELETE_PROJECT ="hhl/project/delete";
 	
+	// File
+	public static final String HHLBOARD_FILEUPLOAD_PROJECT ="hhl/project/fileupload";
+	
+	
 	// 글 편집
 	public static final String HHLBOARD_EDIT_WRITE_PROJECT ="hhl/project/edit/write";
 	public static final String HHLBOARD_EDIT_UPDATE_PROJECT ="hhl/project/edit/update";

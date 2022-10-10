@@ -51,6 +51,9 @@
  $(document).ready(function(){
 	
  	var page = 1;  //페이징과 같은 방식
+ 	
+ 	
+ 	
  	setAjax(page)
 	console.log(page+"페이지")
 

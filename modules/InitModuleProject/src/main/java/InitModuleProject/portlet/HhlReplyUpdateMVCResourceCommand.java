@@ -31,6 +31,12 @@ public class HhlReplyUpdateMVCResourceCommand implements MVCResourceCommand {
 	public boolean serveResource(ResourceRequest resourceRequest, ResourceResponse resourceResponse)
 			throws PortletException {
 	long rno = ParamUtil.getInteger(resourceRequest, "rno");
+	long bno = ParamUtil.getInteger(resourceRequest, "bno");
+	String rWriter = ParamUtil.getString(resourceRequest, "rWriter");
+	String rContents = ParamUtil.getString(resourceRequest, "rContents");
+	String rRegDate = ParamUtil.getString(resourceRequest, "rRegDate");
+	int rIndent = ParamUtil.getInteger(resourceRequest, "rIndent");
+	int rAnsNum = ParamUtil.getInteger(resourceRequest, "rAnsNum");
 		
 		System.out.println("rno:"+rno);
 
@@ -38,22 +44,27 @@ public class HhlReplyUpdateMVCResourceCommand implements MVCResourceCommand {
 
 			try {
 				REP rep = REPLocalServiceUtil.getREP(rno);
+				
+				rep.setRno(rno);
+				rep.setBno(bno);
+				rep.setRWriter(rWriter);
+				rep.setRContents(rContents);
+				rep.setRRegDate(rRegDate);
+				rep.setRIndent(rIndent);
+				rep.setRAnsNum(rAnsNum);
+				
+				
 				rep = REPLocalServiceUtil.updateREP(rep);
 				
-				resourceResponse.getWriter().write("delete complete");
-				
-				
+				resourceResponse.getWriter().write("update complete");
 				
 				
 			} catch (PortalException | IOException e) {
 				
-				
-				
-				
+			
 				e.printStackTrace();
 			}
 			
-			System.out.println("delete complete!");
 			
 
 

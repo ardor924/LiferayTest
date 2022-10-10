@@ -1,0 +1,4 @@
+Bundle-Name: InitModuleProject
+Bundle-SymbolicName: InitModuleProject
+Bundle-Version: 1.0.0
+Export-Package: InitModuleProject.constants

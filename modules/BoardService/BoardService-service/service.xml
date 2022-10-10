@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 7.2.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_7_2_0.dtd">
+
+<service-builder dependency-injector="ds" package-path="BoardService">
+	<namespace>HHL_PROJECT</namespace>
+	
+	<!-- 게시판 테이블 -->
+	<entity name="TBL" local-service="true">
+	
+		<!-- PK fields -->
+		<column type="long" name="bno" primary="true" />
+		
+		 <!-- Group instance -->
+		<column type="String" name="subject" />
+		<column type="String" name="writer"/>
+		<column type="String" name="contents"/>
+		<column type="String" name="regDate"/>
+		<column type="int" name="hit"/>
+		
+ 		
+ 		<!-- 검색 -->
+		<finder return-type="Collection" name="subject">
+			<finder-column name="subject" comparator="LIKE"/>
+		</finder>
+		<finder return-type="Collection" name="writer">
+			<finder-column name="writer" comparator="LIKE"/>
+		</finder>
+		<finder return-type="Collection" name="contents">
+			<finder-column name="contents" comparator="LIKE"/>
+		</finder>
+	
+	</entity>
+	
+	<!-- 댓글 테이블 -->
+	<entity name="REP" local-service="true">
+	
+		<!-- PK fields -->
+		<column type="long" name="rno" primary="true" />
+		
+		<column type="long" name="bno"/>	
+		 <!-- Group instance -->
+		<column type="String" name="rWriter"/>
+		<column type="String" name="rContents"/>
+		<column type="String" name="rRegDate"/>
+		<column type="int" name="rIndent" />
+		<column type="int" name="rAnsNum"/>
+		
+		<finder return-type="Collection" name="bno">
+			<finder-column name="bno" comparator="="/>
+		</finder>
+		
+	</entity>
+
+</service-builder>

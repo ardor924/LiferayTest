@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="BoardService.model.REP">
+		<field name="rno" type="long" />
+		<field name="bno" type="long" />
+		<field name="rWriter" type="String" />
+		<field name="rContents" type="String" />
+		<field name="rRegDate" type="String" />
+		<field name="rIndent" type="int" />
+		<field name="rAnsNum" type="int" />
+	</model>
+	<model name="BoardService.model.TBL">
+		<field name="bno" type="long" />
+		<field name="subject" type="String" />
+		<field name="writer" type="String" />
+		<field name="contents" type="String" />
+		<field name="regDate" type="String" />
+		<field name="hit" type="int" />
+	</model>
+</model-hints>

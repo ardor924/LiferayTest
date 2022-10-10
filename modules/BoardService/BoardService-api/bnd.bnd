@@ -1,0 +1,10 @@
+Bundle-Name: BoardService-api
+Bundle-SymbolicName: BoardService.api
+Bundle-Version: 1.0.0
+Export-Package:\
+	BoardService.exception,\
+	BoardService.model,\
+	BoardService.service,\
+	BoardService.service.persistence
+-check: EXPORTS
+-includeresource: META-INF/service.xml=../BoardService-service/service.xml

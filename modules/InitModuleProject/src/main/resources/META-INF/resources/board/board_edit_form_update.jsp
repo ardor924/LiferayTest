@@ -83,113 +83,130 @@
 
 <!-- 파일 업로드 스크립트 -->
 <script>
-$(document).ready(function()
-		// input file 파일 첨부시 fileCheck 함수 실행
-		{
-			$("#input_file").on("change", fileCheck);
+
+$(document).ready(function(){
+	
+			// input file 파일 첨부시 fileCheck 함수 실행		
+			$("#input_file").on("change", fileCheck); // 해당 셀렉터 태그에 값이 변함을 감지(change)
 		});
 
-/**
+/*
  * 첨부파일로직
  */
 $(function () {
     $('#btn-upload').click(function (e) {
-        e.preventDefault();
+        e.preventDefault(); // 기본버튼클릭동작 방지 #input_file이 처리되야하기 때문
         $('#input_file').click();
     });
 });
 
-// 파일 현재 필드 숫자 totalCount랑 비교값
+/* ------ START : 변수설정------ */
+
+// 파일 현재 필드 - 설정한 배열의갯수만큼 fileCount가 세팅
 var fileCount = 0;
-// 해당 숫자를 수정하여 전체 업로드 갯수를 정한다.
+// 전체 업로드 갯수 설정 (10개로 세팅)
 var totalCount = 10;
-// 파일 고유넘버
+// 파일 고유넘버링
 var fileNum = 0;
-// 첨부파일 배열
+// 첨부파일 배열에 담기
 var content_files = new Array();
 
+
+/* ------ END : 변수설정------ */
+
+
+/*-----START : fileCheck 이벤트--------- */
 function fileCheck(e) {
+	
+	// 선택한 파일의 files 객체를 취득
     var files = e.target.files;
     
-    // 파일 배열 담기
-    var filesArr = Array.prototype.slice.call(files);
+    // 객체를 파일 배열로 담기
+    var filesArr = Array.prototype.slice.call(files); // 배열로 변환
     
-    // 파일 개수 확인 및 제한
+    // 파일 개수 확인 및 제한(10개제한)
     if (fileCount + filesArr.length > totalCount) {
       $.alert('파일은 최대 '+totalCount+'개까지 업로드 할 수 있습니다.');
       return;
+      
     } else {
-    	 fileCount = fileCount + filesArr.length;
+    	 fileCount = fileCount + filesArr.length; // fileCount = 가져온 파일배열의 갯수(길이)
     }
     
-    // 각각의 파일 배열담기 및 기타
+    // 가져온 파일 배열을 각각으담기 및 기타
     filesArr.forEach(function (f) {
-      var reader = new FileReader();
-      reader.onload = function (e) {
-        content_files.push(f);
-        $('#articlefileChange').append(
-       		'<div id="file' + fileNum + '" onclick="fileDelete(\'file' + fileNum + '\')">'
+      var fileReader = new FileReader(); // 각각의 파일을 읽어서 result 속성에 저장
+      fileReader.onload = function (e) {
+        content_files.push(f); // 빈배열(var content_files)에 각각의 파일을 담기
+        $('#detailfileChange').append( // 준비된 빈 태그에 가져온 파일의 결과 표시
+       		'<div id="file' + fileNum + '" onclick="fileDelete(\'file' + fileNum + '\')">' // 클릭시 제거 가능하도록처리 
        		+ '<font style="font-size:12px">' + fileNum +'. ' + f.name + '</font>'  
        		+ '<i class="fa-solid fa-circle-minus" style="color:red"></i>' 
        		+ '<div/>'
        		+ '<hr/>'
 		);
-        fileNum ++;
+        fileNum ++; // 넘버링 반복할때마다 추가
       };
-      reader.readAsDataURL(f);
+      fileReader.readAsDataURL(f); // 데이터를 URL로 표현으로 변환
     });
-    console.log(content_files);
-    //초기화 한다.
+    console.log(content_files); //콘솔에 첨부한 파일의 배열표시
+    
+    // 첨부파일 태그 값 초기화 (다시 담을수 있게하기위함)
     $("#input_file").val("");
-  }
+    
+  }/*-----END : fileCheck 함수--------- */
+  
+  
+  
 
-// 파일 부분 삭제 함수
-function fileDelete(fileNum){
+// 파일 부분 삭제 함수 처리
+function fileDelete(fileNum){ // 해당 넘버링 인자로 받음
 	
-        var no = fileNum.replace(/[^0-9]/g, "");
-        content_files[no].is_delete = true;
+    var no = fileNum.trim().replace(/[^0-9]/g, ""); // 문자열에서 숫자만 가져오기위해 정규식을 이용해 필터링처리
+    content_files[no].is_delete = true; // content_files배열에 인덱스와 fileNum이 일치함으로 번호로 삭제가능
     	$('#' + fileNum).remove();
     	fileCount --;
         console.log(content_files);
 
 }
 
-/*
- * 폼 submit 로직
- */
+/* ----------- START : 폼 submit 함수 -------------*/
 	function registerAction(){
 		
-	var form = $("form")[0];        
- 	var formData = new FormData(form);
-		for (var x = 0; x < content_files.length; x++) {
+	var form = $("form")[0]; // [0]첫번째 form태그를 가져온다       
+ 	var formData = new FormData(form); // fome태그 내부의 key와 value 전부를 가져온다
+ 	
+		for (var j = 0; j < content_files.length; j++) {
+			
 			// 삭제 안한것만 담아 준다. 
-			if(!content_files[x].is_delete){
-				 formData.append("article_file", content_files[x]);
+			if(!content_files[j].is_delete){
+				 formData.append("content_file", content_files[j]); // key와 value형태로 formData에 세팅
 			}
 		}
-   /*
-   * 파일업로드 multiple ajax처리
-   */    
+
+ 	// 파일업로드 multiple ajax처리
 	$.ajax({
    	      type: "POST",
    	   	  enctype: "multipart/form-data",
-   	      url: "${UploadURL}",
-       	  data : formData,
-       	  processData: false,
-   	      contentType: false,
+   	      url: "${FileUploadURL}",
+       	  data : formData, // form형태를 배열로받아와 데이터 전송
+       	  processData: false, //파일 전송시  query string의 형태는 처리하지 못하므로 false처리
+   	      contentType: false, 	// multipart form-data의 경우 false처리
    	      success: function (data) {
    	    	if(JSON.parse(data)['result'] == "OK"){
    	    		alert("파일업로드 성공");
 			} else
-				alert("서버내 오류로 처리가 지연되고있습니다. 잠시 후 다시 시도해주세요");
+				alert("서버오류입니다! 잠시 후 다시 시도해주세요");
    	      },
    	      error: function (xhr, status, error) {
-   	    	alert("서버오류로 지연되고있습니다. 잠시 후 다시 시도해주시기 바랍니다.");
+   	    	alert("파일 업로드 실패!");
    	     return false;
    	      }
    	    });
    	    return false;
 	}
+	/*----------------- END : 폼 submit 함수 -------------*/
+	
 </script>
 
 

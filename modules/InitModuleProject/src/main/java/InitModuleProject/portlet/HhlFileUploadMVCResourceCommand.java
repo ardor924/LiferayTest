@@ -134,10 +134,10 @@ public class HhlFileUploadMVCResourceCommand implements MVCResourceCommand {
 				  System.out.println("file : " + file.toString()); // 파일절대경로
 				  System.out.println("originalName : " + originalName); // 기존 파일명
 				  System.out.println("fileName : " + file.getName()); // 기존 파일명
-				 System.out.println("savefileName : "+savefileName);
-				 System.out.println("savePath : "+savePath);
-				 System.out.println("### fileName : " + fileNames[j]);
-				 System.out.println("8");
+				  System.out.println("savefileName : "+savefileName);
+				  System.out.println("savePath : "+savePath);
+				  System.out.println("### fileName : " + fileNames[j]);
+				  System.out.println("8");
 				 	try {
 				 		System.out.println("9");
 						  File copy = new File("C:\\file_repo\\"+uuid+fileNames[j]);

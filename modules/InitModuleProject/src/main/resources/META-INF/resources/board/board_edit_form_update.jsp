@@ -35,7 +35,6 @@
 
 
 
-<div>글번호 : ${tbl.bno}</div>
 <div class="container mt-5 justify-content-center">
 		<div class="d-flex justify-content-end">
 			<a class="btn btn-outline-dark" href="${BoardListURL}

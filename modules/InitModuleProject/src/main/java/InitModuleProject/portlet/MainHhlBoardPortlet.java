@@ -43,29 +43,15 @@ public class MainHhlBoardPortlet extends MVCPortlet {
 	@Override
 	public void render(RenderRequest renderRequest, RenderResponse renderResponse)
 			throws IOException, PortletException {
-		
-		
-		
-		System.out.println("12412412412412412412");
 
-/*---------------------------------------------커스텀 서비스 인스턴스화---------------------------------------*/
+
+/*---------------------------------------커스텀 서비스 인스턴스화---------------------------------------------*/
 		ServiceMethod serviceMethod = new ServiceMethod();		
 /*---------------------------------------------더미데이터 생성------------------------------------------------*/
 		// serviceMethod.getDummy();		
 /*------------------------------------------기본세팅----------------------------------------------------------*/
 		// 회원 고유 번호 가져오기
-		 int userNumber = serviceMethod.getUserIdNumber(renderRequest, renderResponse);	
-	
-		// 조회수증가
-		long bno = ParamUtil.getLong(renderRequest, "bno", -1);
-		if(bno > 0) {
-			boolean success = TBLLocalServiceUtil.addHitTBL(bno);
-			if(success) {
-				System.out.println("hit is updated");
-			}else {
-				System.out.println("hit update failed..");
-			}
-		}		 		
+		 int userNumber = serviceMethod.getUserIdNumber(renderRequest, renderResponse);		 		
 		
 		// 회원 아이디 바인딩
 		boolean success = serviceMethod.setUserIdtoName(renderRequest, renderResponse, userNumber);

@@ -44,11 +44,14 @@ public class MainHhlBoardPortlet extends MVCPortlet {
 	public void render(RenderRequest renderRequest, RenderResponse renderResponse)
 			throws IOException, PortletException {
 		
+		
+		
+		System.out.println("12412412412412412412");
 
 /*---------------------------------------------커스텀 서비스 인스턴스화---------------------------------------*/
 		ServiceMethod serviceMethod = new ServiceMethod();		
 /*---------------------------------------------더미데이터 생성------------------------------------------------*/
-		//serviceMethod.getDummy();		
+		// serviceMethod.getDummy();		
 /*------------------------------------------기본세팅----------------------------------------------------------*/
 		// 회원 고유 번호 가져오기
 		 int userNumber = serviceMethod.getUserIdNumber(renderRequest, renderResponse);	
@@ -83,6 +86,8 @@ public class MainHhlBoardPortlet extends MVCPortlet {
 		int currentPage = i; // 현재 머물고 있는 페이지	i(파라미터로 가져온)	
 		int cntPerPage = ParamUtil.getInteger(renderRequest, "cntPerPage",10); // 페이지에 표시할 게시글수
 		String ORDER = "";
+		String searchKeyword = null;
+		String columnName = null;
 		// 표시할 페이지 갯수 옵션 (기본값 :10)
 		renderRequest.setAttribute("cntPerPage", cntPerPage);	
 		
@@ -93,7 +98,7 @@ public class MainHhlBoardPortlet extends MVCPortlet {
 		initRowNumber = bp.getInitRowNumber();
 /*---------------------------------------------페이징----------------------------------------------------------*/
 
-		List<TBL> board_list = serviceMethod.getOrderListResult(ORDER, cntPerPage, initRowNumber);
+		List<TBL> board_list = serviceMethod.getOrderListResult(ORDER, cntPerPage, initRowNumber, searchKeyword, columnName);
 		
 /*-------------------------------------------객체 바인딩----------------------------------------------------------*/	
 	

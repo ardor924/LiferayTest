@@ -37,6 +37,9 @@ public class HhlDeleteMVCActionCommand implements MVCActionCommand {
 	@Override
 	public boolean processAction(ActionRequest actionRequest, ActionResponse actionResponse) throws PortletException {
 
+		
+		System.out.println("진입 확인!");
+		
 		long bno = ParamUtil.getInteger(actionRequest, "bno" ,-1);
 		
 		System.out.println("bno:"+bno);

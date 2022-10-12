@@ -2,8 +2,17 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping auto-import="false" default-lazy="false">
+	<import class="BoardService.model.ADDFILE" />
 	<import class="BoardService.model.REP" />
 	<import class="BoardService.model.TBL" />
+	<class name="BoardService.model.impl.ADDFILEImpl" table="HHL_PROJECT_ADDFILE">
+		<id access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="fno" type="long">
+			<generator class="assigned" />
+		</id>
+		<property access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="bno" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.CamelCasePropertyAccessor" name="fName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property access="com.liferay.portal.dao.orm.hibernate.CamelCasePropertyAccessor" name="fPath" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
 	<class name="BoardService.model.impl.REPImpl" table="HHL_PROJECT_REP">
 		<id access="com.liferay.portal.dao.orm.hibernate.LiferayPropertyAccessor" name="rno" type="long">
 			<generator class="assigned" />

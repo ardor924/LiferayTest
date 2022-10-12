@@ -55,6 +55,12 @@ public class TBLLocalServiceUtil {
 		return getService().addTBL(tbl);
 	}
 
+	public static BoardService.model.TBL addTblWithIncrement(
+		BoardService.model.TBL tbl) {
+
+		return getService().addTblWithIncrement(tbl);
+	}
+
 	/**
 	 * Creates a new tbl with the primary key. Does not add the tbl to the database.
 	 *
@@ -314,6 +320,12 @@ public class TBLLocalServiceUtil {
 	 */
 	public static BoardService.model.TBL updateTBL(BoardService.model.TBL tbl) {
 		return getService().updateTBL(tbl);
+	}
+
+	public static BoardService.model.TBL updateTblWithTbl(
+		BoardService.model.TBL tbl) {
+
+		return getService().updateTblWithTbl(tbl);
 	}
 
 	public static TBLLocalService getService() {

@@ -3,6 +3,7 @@ package InitModuleProject.service;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.OrderFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
@@ -184,14 +185,39 @@ public class ServiceMethod {
 			
 			
 			
+			// 검색 키워드 파라미터를 받아와서 칼럼명으로 리턴
+						public String getOptionToColumnName(String option, String keyword) {
+							
+							String columnName = null;
+							
+							if(option.equals("keyword_S".trim())) {	
+								columnName = "subject";
+								
+							}if(option.equals("keyword_W".trim())) {	
+								columnName = "writer";
+							
+							}if(option.equals("keyword_C".trim())) {	
+								columnName = "contents";
+						}
+
+							return columnName;
+
+						}
+			
+			
 			
 			
 			
 			// 순서정렬한 게시판 목록 결과 호출
-			public List<TBL> getOrderListResult(String ORDER, int cntPerPage, int initRowNumber){
+			public List<TBL> getOrderListResult(String ORDER, int cntPerPage, int initRowNumber, String searchKeyword, String columnName){
 				
 				List<TBL> board_list = null;
 				
+				
+				// 검색어 없는경우
+				if(searchKeyword == null)  	
+				
+				{
 				if(ORDER.equals("") || ORDER == null) {	 // 기본(디폴트) 내림차순
 					DynamicQuery userQuery = DynamicQueryFactoryUtil.forClass(TBL.class, "tbl",PortalClassLoaderUtil.getClassLoader());
 					userQuery.addOrder(OrderFactoryUtil.desc("tbl.bno"));
@@ -228,7 +254,58 @@ public class ServiceMethod {
 					board_list = TBLLocalServiceUtil.dynamicQuery(userQuery,initRowNumber, initRowNumber+cntPerPage);			
 				}
 				
+				// 검색어 있는경우
+				}else {
+
+					if(ORDER.equals("") || ORDER == null) {	 // 기본(디폴트) 내림차순
+						DynamicQuery userQuery = DynamicQueryFactoryUtil.forClass(TBL.class, "tbl",PortalClassLoaderUtil.getClassLoader());
+						userQuery.add(RestrictionsFactoryUtil.like("tbl."+columnName, "%" + searchKeyword + "%"));
+						userQuery.addOrder(OrderFactoryUtil.desc("tbl.bno"));
+						board_list = TBLLocalServiceUtil.dynamicQuery(userQuery,initRowNumber, initRowNumber+cntPerPage);
+						
+					}if(ORDER.equals("bnoDown")) { // 번호 내림차순
+						DynamicQuery userQuery = DynamicQueryFactoryUtil.forClass(TBL.class, "tbl",PortalClassLoaderUtil.getClassLoader());
+						userQuery.add(RestrictionsFactoryUtil.like("tbl."+columnName, "%" + searchKeyword + "%"));
+						userQuery.addOrder(OrderFactoryUtil.desc("tbl.bno"));
+						board_list = TBLLocalServiceUtil.dynamicQuery(userQuery,initRowNumber, initRowNumber+cntPerPage);
+						
+					}if(ORDER.equals("bnoUp")) { // 번호 오름차순
+						DynamicQuery userQuery = DynamicQueryFactoryUtil.forClass(TBL.class, "tbl",PortalClassLoaderUtil.getClassLoader());
+						userQuery.add(RestrictionsFactoryUtil.like("tbl."+columnName, "%" + searchKeyword + "%"));
+						userQuery.addOrder(OrderFactoryUtil.asc("tbl.bno"));
+						board_list = TBLLocalServiceUtil.dynamicQuery(userQuery,initRowNumber, initRowNumber+cntPerPage);
+						
+					}if(ORDER.equals("regDown")) { // 등록일짜 내림차순
+						DynamicQuery userQuery = DynamicQueryFactoryUtil.forClass(TBL.class, "tbl",PortalClassLoaderUtil.getClassLoader());
+						userQuery.add(RestrictionsFactoryUtil.like("tbl."+columnName, "%" + searchKeyword + "%"));
+						userQuery.addOrder(OrderFactoryUtil.desc("tbl.regDate"));
+						board_list = TBLLocalServiceUtil.dynamicQuery(userQuery,initRowNumber, initRowNumber+cntPerPage);
+						
+					}if(ORDER.equals("regUp")) { // 등록일짜 오름차순
+						DynamicQuery userQuery = DynamicQueryFactoryUtil.forClass(TBL.class, "tbl",PortalClassLoaderUtil.getClassLoader());
+						userQuery.add(RestrictionsFactoryUtil.like("tbl."+columnName, "%" + searchKeyword + "%"));
+						userQuery.addOrder(OrderFactoryUtil.asc("tbl.regDate"));
+						board_list = TBLLocalServiceUtil.dynamicQuery(userQuery,initRowNumber, initRowNumber+cntPerPage);
+						
+					}if(ORDER.equals("hitDown")) { // 조회수 내림차순
+						DynamicQuery userQuery = DynamicQueryFactoryUtil.forClass(TBL.class, "tbl",PortalClassLoaderUtil.getClassLoader());
+						userQuery.add(RestrictionsFactoryUtil.like("tbl."+columnName, "%" + searchKeyword + "%"));
+						userQuery.addOrder(OrderFactoryUtil.desc("tbl.hit"));
+						board_list = TBLLocalServiceUtil.dynamicQuery(userQuery,initRowNumber, initRowNumber+cntPerPage);
+						
+					}if(ORDER.equals("hitUp")) { // 조회수 오름차순
+						DynamicQuery userQuery = DynamicQueryFactoryUtil.forClass(TBL.class, "tbl",PortalClassLoaderUtil.getClassLoader());
+						userQuery.add(RestrictionsFactoryUtil.like("tbl."+columnName, "%" + searchKeyword + "%"));
+						userQuery.addOrder(OrderFactoryUtil.asc("tbl.hit"));
+						board_list = TBLLocalServiceUtil.dynamicQuery(userQuery,initRowNumber, initRowNumber+cntPerPage);			
+					}
+					
+					
+					
+				}
 				
+					System.out.println("columnName : : : > >"+columnName);
+					System.out.println("SearchKeyword : : : > >"+searchKeyword);
 					System.out.println("ORDER : "+ORDER);
 					System.out.println("cntPerPage : "+cntPerPage);
 					System.out.println("initRowNumber : "+initRowNumber);

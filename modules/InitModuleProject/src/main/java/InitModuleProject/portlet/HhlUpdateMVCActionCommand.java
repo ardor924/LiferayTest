@@ -21,10 +21,13 @@ import javax.portlet.PortletURL;
 
 import org.osgi.service.component.annotations.Component;
 
+import BoardService.model.ADDFILE;
 import BoardService.model.TBL;
+import BoardService.service.ADDFILELocalServiceUtil;
 import BoardService.service.TBLLocalServiceUtil;
 import InitModuleProject.constants.ConstantsCommands;
 import InitModuleProject.constants.MainHhlBoardPortletKeys;
+import InitModuleProject.model.FileVO;
 @Component(
 		immediate = true,
 		property = {
@@ -38,6 +41,8 @@ public class HhlUpdateMVCActionCommand implements MVCActionCommand {
 
 	@Override
 	public boolean processAction(ActionRequest actionRequest, ActionResponse actionResponse) throws PortletException {
+		System.out.println("-----------------UpdateActionCommand--------------------------");
+		System.out.println("-----------------UpdateActionCommand--------------------------");
 		System.out.println("-----------------UpdateActionCommand--------------------------");
 		
 		try {
@@ -79,9 +84,8 @@ public class HhlUpdateMVCActionCommand implements MVCActionCommand {
 			tbl.setRegDate(strDate);
 			
 			tbl = TBLLocalServiceUtil.updateTBL(tbl);
+			
 
-			
-			
 			
 			
 			// 보낼 url설정

@@ -50,5 +50,22 @@
 		</finder>
 		
 	</entity>
+	
+	<!-- 파일업로드 테이블 -->
+	<entity name="ADDFILE" local-service="true">
+	
+		<!-- PK fields -->
+		<column type="long" name="fno" primary="true"/>
+		
+		<column type="long" name="bno"/>
+		 <!-- Group instance -->
+		<column type="String" name="fName"/>
+		<column type="String" name="fPath"/>
+		
+		<finder return-type="Collection" name="bno">
+			<finder-column name="bno" comparator="="/>
+		</finder>
+	</entity>
+
 
 </service-builder>

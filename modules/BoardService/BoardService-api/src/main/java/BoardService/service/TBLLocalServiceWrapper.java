@@ -50,6 +50,13 @@ public class TBLLocalServiceWrapper
 		return _tblLocalService.addTBL(tbl);
 	}
 
+	@Override
+	public BoardService.model.TBL addTblWithIncrement(
+		BoardService.model.TBL tbl) {
+
+		return _tblLocalService.addTblWithIncrement(tbl);
+	}
+
 	/**
 	 * Creates a new tbl with the primary key. Does not add the tbl to the database.
 	 *
@@ -327,6 +334,11 @@ public class TBLLocalServiceWrapper
 	@Override
 	public BoardService.model.TBL updateTBL(BoardService.model.TBL tbl) {
 		return _tblLocalService.updateTBL(tbl);
+	}
+
+	@Override
+	public BoardService.model.TBL updateTblWithTbl(BoardService.model.TBL tbl) {
+		return _tblLocalService.updateTblWithTbl(tbl);
 	}
 
 	@Override

@@ -12,22 +12,45 @@
 	<liferay-portlet:param name="mvcRenderCommandName" value="<%=ConstantsCommands.HHLBOARD_LIST_PROJECT%>"/>
 </liferay-portlet:renderURL>
 
+<!-- 게시글 보기 -->
+<liferay-portlet:renderURL var="SubjectViewURL" windowState="<%=WindowState.MAXIMIZED.toString() %>">
+	<liferay-portlet:param name="mvcRenderCommandName" value="<%=ConstantsCommands.HHLBOARD_VIEW_PROJECT%>"/>
+</liferay-portlet:renderURL>
+
 
 <!-- 글수정 -->
 <liferay-portlet:actionURL var="UpdateSubjectURL" name="<%=ConstantsCommands.HHLBOARD_UPDATE_PROJECT%>">
 <liferay-portlet:param name="bno" value="${tbl.bno}"/>
 </liferay-portlet:actionURL>
 
+<!-- 파일업로드 -->
+<liferay-portlet:resourceURL var="FileUploadURL" id="<%=ConstantsCommands.HHLBOARD_FILEUPLOAD_PROJECT%>">
+<liferay-portlet:param name="bno" value="${tbl.bno}"/>
+</liferay-portlet:resourceURL>
+
+<!-- 파일삭제 리소스 -->
+<liferay-portlet:resourceURL var="FileFormDeleteURL" id="<%=ConstantsCommands.HHLBOARD_FILEDELETE_PROJECT %>"/>
+
+
+
+
 
 <div>글번호 : ${tbl.bno}</div>
 <div class="container mt-5 justify-content-center">
 		<div class="d-flex justify-content-end">
-			<a class="btn btn-outline-dark" href="${BoardListURL}&<portlet:namespace/>i=${currentPage}&<portlet:namespace/>cntPerPage=${cntPerPage}&<portlet:namespace/>ORDER=${ORDER}">목록</a>
+			<a class="btn btn-outline-dark" href="${BoardListURL}
+				&<portlet:namespace/>i=${currentPage}
+				&<portlet:namespace/>cntPerPage=${cntPerPage}
+				&<portlet:namespace/>option=${option}
+				&<portlet:namespace/>keyword=${keyword}
+				&<portlet:namespace/>ORDER=${ORDER}">
+				목록
+			</a>
 		</div>
 		<hr>	
    <div class="w-100 shadow p-5">
       <h3 class="mb-5">글수정</h3>
-      <form name="editForm" method="post" action="${UpdateSubjectURL}" enctype="multipart/form-data">          
+      <form id="editForm" name="editForm" onsubmit="return false;" method="post" action="${UpdateSubjectURL}" enctype="multipart/form-data">          
          <div class="d-flex form-group">
             <label for="writer" class="col-md-1 mt-2">작성자</label>
             <span>${userName}</span>
@@ -56,29 +79,40 @@
          	<div class="d-flex form-group data_file_txt">
          	 	<label class="col-md-1 mt-2">상세:</label>
 				<br />
-				<div id="articlefileChange" class="w-100 border">
+				<div id="detailfileChange" class="w-100 border">
 					<span style="color: gray;">※첨부파일은 최대 10개까지 등록이 가능합니다.</span>
 					<hr/>
 				</div>
          	</div>
          	
 
-         <hr>
+        <hr>
+         
+         <c:if test="${fileList != null}">
+		<div class="d-flex row justify-content-between">
+<!-- 			<div class="d-flex justify-content-start">
+
+			</div> -->
+					
+			<!-- 파일테이블 --> 		
+			<c:forEach var="li" items="${fileList}">
+				<hr>
+				<div id="li-${li.fno}" class="d-flex align-items-center">
+					<button class="btn btn-primary" type="button" onclick="fileDown(${li.fno})">${li.FName}</button><i class="fa-solid fa-trash" onclick="fileDeleteDB(${li.fno})"></i>
+				</div>
+				<hr>
+			</c:forEach>					
+		</div>
+		</c:if>
          
          <div class="form-group mt-4 text-center">
-            <button type="button" onclick="inputChk()" class="btn btn-primary m-1" ><i class="fa-solid fa-check"></i> 수정</button>
-            <a type="button" class="btn btn-danger m-1" 
-            		href='${BoardListURL}
-            		&<portlet:namespace/>i=${currentPage}
-            		&<portlet:namespace/>cntPerPage=${cntPerPage}
-            		&<portlet:namespace/>ORDER=${OREDER}'>
-            		<i class="fa-solid fa-x"></i> 
-            		취소
-            </a>
+            <button type="submit" class="btn btn-primary m-1" ><i class="fa-solid fa-check"></i> 등록</button>
+            <a type="button" class="btn btn-danger m-1" href='${BoardListURL}'><i class="fa-solid fa-x"></i> 취소</a>
          </div>		
       </form>
    </div>
 </div>
+
 
 
 <!-- 파일 업로드 스크립트 -->
@@ -99,7 +133,31 @@ $(function () {
         $('#input_file').click();
     });
 });
-
+function fileDeleteDB(fno){
+	var pass = confirm('파일을 삭제하시겠습니까?');
+	if(pass){
+		$.ajax({
+			url : "${FileFormDeleteURL}",
+			type : 'POST',
+			data : {
+				<portlet:namespace/>fno : fno
+			},
+			dataType : 'json',
+			error : function(xhr, status, error) {
+	   	    	alert("파일 삭제 실패!");
+	   	     return false;
+	   	      },
+			success: function (data) {
+	   	    	  console.log("data : ", data)
+	   	    	if(data['result'] == "OK"){
+	   	    		alert("파일이 삭제되었습니다.");
+	   	    		$('#li-'+fno).remove();
+				} else
+					alert("서버오류입니다! 잠시 후 다시 시도해주세요");
+	   	      }
+		});
+	}
+}
 /* ------ START : 변수설정------ */
 
 // 파일 현재 필드 - 설정한 배열의갯수만큼 fileCount가 세팅
@@ -113,6 +171,83 @@ var content_files = new Array();
 
 
 /* ------ END : 변수설정------ */
+
+
+
+$("#editForm").on("submit",function(e){
+	
+	//FormData 새로운 객체 생성 
+	var formData = new FormData();
+	
+	
+	
+
+	 //제목 필수입력 
+   var subject = $("#subject").val();
+	if(subject.length == 0){
+		alert("제목을 입력해주세요!");
+		editForm.subject.focus();
+		return;
+	}
+	
+	
+
+
+	 //제목 필수입력(정규식) 
+	var subjectVaild = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|\s]+$/;
+	if(subjectVaild.test(editForm.subject.value) == false){
+		alert("제목 입력에는 (영문+한글+숫자)의 조합으로만 작성이 가능합니다. ");
+		editForm.subject.focus();
+		return false;
+	}
+	formData.append('<portlet:namespace/>subject', subject);
+	 //내용 필수입력 
+	var contents = CKEDITOR.instances.editor4.getData()
+	if(contents.length < 1){
+		alert("내용을 입력해주세요!");
+		
+		return false;
+	}
+	formData.append('<portlet:namespace/>contents', contents);
+	var form = $("form")[0]; // [0]첫번째 form태그를 가져온다       
+//  	var formData = new FormData(form); // fome태그 내부의 key와 value 전부를 가져온다
+ 		
+		for (var j = 0; j < content_files.length; j++) {
+			
+			// 삭제 안한것만 담아 준다. 
+			if(!content_files[j].is_delete){
+				 formData.append("content_file", content_files[j]); // key와 value형태로 formData에 세팅
+			}
+		}
+		 console.log(formData);
+ 	// 파일업로드 multiple ajax처리
+	$.ajax({
+   	      type: "POST",
+   	   	  enctype: "multipart/form-data",
+   	      url: "${FileUploadURL}",
+       	  data : formData, // form형태를 배열로받아와 데이터 전송
+       	  dataType :"json",
+       	  processData: false, //파일 전송시  query string의 형태는 처리하지 못하므로 false처리
+   	      contentType: false, 	// multipart form-data의 경우 false처리
+   	      success: function (data) {
+   	    	  console.log("data : ", data)
+   	    	if(data['result'] == "OK"){
+   	    		alert("게시글이 수정되었습니다.");
+   	    		window.location.href = '${SubjectViewURL}&<portlet:namespace/>bno='+data['bno'];
+			} else
+				alert("서버오류입니다! 잠시 후 다시 시도해주세요");
+   	      },
+   	      error: function (xhr, status, error) {
+   	    	alert("파일 업로드 실패!");
+   	     return false;
+   	      }
+   	    });
+   	    return false;
+	
+// 	document.editForm.submit();
+	
+})
+
 
 
 /*-----START : fileCheck 이벤트--------- */
@@ -152,6 +287,7 @@ function fileCheck(e) {
     console.log(content_files); //콘솔에 첨부한 파일의 배열표시
     
     // 첨부파일 태그 값 초기화 (다시 담을수 있게하기위함)
+    // *input file multiple 특성상 중복파일은 업로드안됨 초기화 해야 중복파일도 업데이트가 가능
     $("#input_file").val("");
     
   }/*-----END : fileCheck 함수--------- */
@@ -170,42 +306,8 @@ function fileDelete(fileNum){ // 해당 넘버링 인자로 받음
 
 }
 
-/* ----------- START : 폼 submit 함수 -------------*/
-	function registerAction(){
-		
-	var form = $("form")[0]; // [0]첫번째 form태그를 가져온다       
- 	var formData = new FormData(form); // fome태그 내부의 key와 value 전부를 가져온다
- 	
-		for (var j = 0; j < content_files.length; j++) {
-			
-			// 삭제 안한것만 담아 준다. 
-			if(!content_files[j].is_delete){
-				 formData.append("content_file", content_files[j]); // key와 value형태로 formData에 세팅
-			}
-		}
 
- 	// 파일업로드 multiple ajax처리
-	$.ajax({
-   	      type: "POST",
-   	   	  enctype: "multipart/form-data",
-   	      url: "${FileUploadURL}",
-       	  data : formData, // form형태를 배열로받아와 데이터 전송
-       	  processData: false, //파일 전송시  query string의 형태는 처리하지 못하므로 false처리
-   	      contentType: false, 	// multipart form-data의 경우 false처리
-   	      success: function (data) {
-   	    	if(JSON.parse(data)['result'] == "OK"){
-   	    		alert("파일업로드 성공");
-			} else
-				alert("서버오류입니다! 잠시 후 다시 시도해주세요");
-   	      },
-   	      error: function (xhr, status, error) {
-   	    	alert("파일 업로드 실패!");
-   	     return false;
-   	      }
-   	    });
-   	    return false;
-	}
-	/*----------------- END : 폼 submit 함수 -------------*/
+
 	
 </script>
 
@@ -215,8 +317,8 @@ function fileDelete(fileNum){ // 해당 넘버링 인자로 받음
 <!-- 텍스트ui설정 -->
 <script type="text/javascript" src="${ctx}/js/editor4_setting.js"></script>
 <!-- 제목/내용 필수입력(유효성검사).js -->
-<script type="text/javascript" src="${ctx}/js/edit_valid.js"></script>
-<!-- 파일처리 -->
+<%-- <script type="text/javascript" src="${ctx}/js/edit_valid.js"></script>
+ --%><!-- 파일처리 -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>

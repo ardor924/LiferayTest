@@ -86,7 +86,7 @@ public class TBLModelImpl extends BaseModelImpl<TBL> implements TBLModel {
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table HHL_PROJECT_TBL (bno LONG not null primary key,subject VARCHAR(75) null,writer VARCHAR(75) null,contents VARCHAR(75) null,regDate VARCHAR(75) null,hit INTEGER)";
+		"create table HHL_PROJECT_TBL (bno LONG not null primary key,subject VARCHAR(75) null,writer VARCHAR(75) null,contents TEXT null,regDate VARCHAR(75) null,hit INTEGER)";
 
 	public static final String TABLE_SQL_DROP = "drop table HHL_PROJECT_TBL";
 

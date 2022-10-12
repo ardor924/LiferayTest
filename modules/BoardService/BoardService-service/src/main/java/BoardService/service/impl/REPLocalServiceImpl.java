@@ -48,7 +48,7 @@ public class REPLocalServiceImpl extends REPLocalServiceBaseImpl {
 	 * Never reference this class directly. Use <code>BoardService.service.REPLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>BoardService.service.REPLocalServiceUtil</code>.
 	 */
 	
-	
+	// 해당 게시글의 댓글만 가져오기
 	public List<REP> getREPListBybno(long bno ,int offset,int limit){
 		List<REP> list = this.repPersistence.findBybno(bno, offset, offset+limit);
 		return list;

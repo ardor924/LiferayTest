@@ -42,6 +42,8 @@ public class HhlListMVCRenderCommand implements MVCRenderCommand {
 
 		// 검색 키워드 옵션별 분류
 		String searchKeyword = serviceMethod.getOptionToSearchKeyword(option, keyword);
+		// 검색어별 컬럼네임 리턴 
+		String columnName = serviceMethod.getOptionToColumnName(option, searchKeyword);
 		// 페이지번호 i 파라미터 가져오기
 		int i = ParamUtil.getInteger(renderRequest, "i" ,1);
 		
@@ -60,17 +62,20 @@ public class HhlListMVCRenderCommand implements MVCRenderCommand {
 
 		List<TBL> board_list = null;
 		// 검색어 없는경우
-		if(searchKeyword == null) { 	
+		
 			
 			// 리스트 결과 리턴
-			board_list = serviceMethod.getOrderListResult(ORDER, cntPerPage, initRowNumber);
+			board_list = serviceMethod.getOrderListResult(ORDER, cntPerPage, initRowNumber, searchKeyword, columnName);
 			
 		// 검색어 있는경우			 
-		}else { 			
+					
 			
-			// 리스트 결과 리턴(순서정렬은 OrderByComparator 참고)
-			board_list = TBLLocalServiceUtil.getTBLListBySearch(searchKeyword, option, cntPerPage, initRowNumber);
-		}
+			/*
+			 * // 리스트 결과 리턴(순서정렬은 OrderByComparator 참고) board_list =
+			 * TBLLocalServiceUtil.getTBLListBySearch(searchKeyword, option, cntPerPage,
+			 * initRowNumber);
+			 */
+		
 
 
 

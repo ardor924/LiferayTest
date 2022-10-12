@@ -121,13 +121,13 @@
 			success : function(data){
 				
 				 
-				if(data.length < 1 ){
+/* 				if(data.length < 1 ){
 					html = '<div>댓글이 더이상 존재하지 않습니다.</div>';
 					 $("#replyList").append(html);	
 					 $("#rep_contents").val("") //텍스트박스 댓글 초기화(댓글 작성 완료후)
 					alert("댓글이 더이상 존재하지 않습니다")
 					 event.stopImmediatePropagation()
-				} 
+				}  */
 				
 				//$("#replyList").html('');
 				var html = "<div>";

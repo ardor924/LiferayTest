@@ -17,6 +17,7 @@ package BoardService.service.base;
 import BoardService.model.TBL;
 
 import BoardService.service.TBLLocalService;
+import BoardService.service.persistence.ADDFILEPersistence;
 import BoardService.service.persistence.REPPersistence;
 import BoardService.service.persistence.TBLPersistence;
 
@@ -398,6 +399,9 @@ public abstract class TBLLocalServiceBaseImpl
 			throw new SystemException(exception);
 		}
 	}
+
+	@Reference
+	protected ADDFILEPersistence addfilePersistence;
 
 	@Reference
 	protected REPPersistence repPersistence;

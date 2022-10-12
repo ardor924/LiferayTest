@@ -17,6 +17,7 @@ package BoardService.service.base;
 import BoardService.model.REP;
 
 import BoardService.service.REPService;
+import BoardService.service.persistence.ADDFILEPersistence;
 import BoardService.service.persistence.REPPersistence;
 import BoardService.service.persistence.TBLPersistence;
 
@@ -105,6 +106,9 @@ public abstract class REPServiceBaseImpl
 			throw new SystemException(exception);
 		}
 	}
+
+	@Reference
+	protected ADDFILEPersistence addfilePersistence;
 
 	@Reference
 	protected BoardService.service.REPLocalService repLocalService;

@@ -20,10 +20,21 @@
 <liferay-portlet:actionURL var="SubjectDeleteURL" name="<%=ConstantsCommands.HHLBOARD_DELETE_PROJECT%>"/>
 
 
+<!-- 파일 다운로드 액션 -->
+<liferay-portlet:actionURL var="DownFileURL" name="<%=ConstantsCommands.HHLBOARD_FILEDOWNLOAD_PROJECT%>"/>	
+
+
 
 <div class="container p-5">
 		<div class="d-flex justify-content-end">
-			<a class="btn btn-outline-dark" href="${BoardListURL}&<portlet:namespace/>i=${currentPage}&<portlet:namespace/>cntPerPage=${cntPerPage}&<portlet:namespace/>ORDER=${ORDER}">목록</a>
+			<a class="btn btn-outline-dark" href="${BoardListURL}
+				&<portlet:namespace/>i=${currentPage}
+				&<portlet:namespace/>cntPerPage=${cntPerPage}
+				&<portlet:namespace/>option=${option}
+				&<portlet:namespace/>keyword=${keyword}
+				&<portlet:namespace/>ORDER=${ORDER}">
+				목록
+			</a>
 		</div>
 		<hr>
 <div class="shadow p-4">
@@ -32,6 +43,8 @@
 		<input type="hidden" value="${tbl.bno}" name="<portlet:namespace/>bno">
 		<input type="hidden" value="${currentPage}" name="<portlet:namespace/>currentPage">
 		<input type="hidden" value="${cntPerPage}" name="<portlet:namespace/>cntPerPage">
+		<input type="hidden" value="${option}" name="<portlet:namespace/>option">
+		<input type="hidden" value="${keyword}" name="<portlet:namespace/>keyword">
 		<input type="hidden" value="${ORDER}" name="<portlet:namespace/>ORDER">
 		<h2>${tbl.subject}</h2>
 			<div class="d-flex justify-content-between">
@@ -48,51 +61,88 @@
 			<section>${tbl.contents}</section><!-- 큰 이미지 화면 처리방법 구상할것 -->
 		</div>
 		<hr>
-		<c:if test="${file == null}">
+		
+		
+		
+		
+		
+		<!-- 작성자 본인이 아닐때-->
+		<c:if test="${fileList == null}">
 		<div class="d-flex justify-content-between">
+			
+			
+			<!-- 파일 있을때 -->	
+			<c:forEach var="li" items="${fileList}">
+				<hr>
+				<button class="btn btn-primary" type="button" onclick="fileDown(${li.fno})">${li.FName}</button>
+				<hr>
+			</c:forEach>
+			<!-- 파일없을때 -->
+			<c:if test="${fileList == null}">		
 			<div class="d-flex justify-content-start">
-				<button type="button" class="btn btn-primary m-1" onclick="javascript:alert('다운받을 데이터가 없습니다.')"><i class="fa-solid fa-check"></i>이미지 다운로드</button>
+					<button type="button" class="btn btn-primary m-1" onclick="fileDown()"><i class="fa-solid fa-check"></i>파일 다운로드</button>
+					<input id="bnoVal" type="hidden" value="${bno}">
 			</div>
-			<!-- 작성자가 본인이 아니거나 게스트인경우 -->
-			<c:if test="${(userName != tbl.writer || userName == 'guest') && userName != 'admin'}">
-			<div class="d-flex justify-content-end">
-				<button type="button" class="btn btn-success m-1" onclick="userValModifyChk()" >수정</button>
-				<button type="button" class="btn btn-danger m-1" onclick="userValDeleteChk()" >삭제</button>		
-			</div>			
-			</c:if>
-			<!-- 일반 유저의 경우 본인것만 수정 / 삭제 가능 -->
-			<c:if test="${userName == tbl.writer && userName != 'admin'}">
-			<div class="d-flex justify-content-end">
-				<button type="submit" class="btn btn-success m-1" >수정</button>
-				<a class="btn btn-danger m-1" id='btn-delete' href="${SubjectDeleteURL}&<portlet:namespace/>bno=${tbl.bno}">삭제</a>		
-			</div>			
-			</c:if>
-			<!-- 관리자: 모두 수정 / 삭제 가능 -->
-			<c:if test="${userName == 'admin'}">
-			<div class="d-flex justify-content-end">
-				<button type="submit" class="btn btn-success m-1" >수정</button>
-				<a class="btn btn-danger m-1" id='btn-delete' href="${SubjectDeleteURL}&<portlet:namespace/>bno=${tbl.bno}">삭제</a>		
-			</div>			
-			</c:if>
-		</div>
+			</c:if>			
+
+		</div>	
 		</c:if>
+	
 		
 		
-<%-- 		<c:if test="${file != null}">
+		
+		
+		
+		<!-- 작성자 본인인경우 -->
+		<c:if test="${mine}">
 		<div class="d-flex justify-content-between">
-			<div class="d-flex justify-content-start">
-				<button class="btn btn-primary m-1"><i class="fa-solid fa-check"></i>이미지 다운로드</button>
+			
+			
+			<!-- 파일 있을때 -->	
+			<span>파일다운</span>	
+			<c:forEach var="li" items="${fileList}">
+				<hr>
+				<li class="row">	
+				<button class="btn btn-primary" type="button" onclick="fileDown(${li.fno})">${li.FName}</button>
+				</li>	
+				<hr>
+			</c:forEach>
+			<!-- 파일없을때 -->
+			<c:if test="${fileList == null}">		
+				<button type="button" class="btn btn-primary m-1" onclick="fileDown()"><i class="fa-solid fa-check"></i>파일 다운로드</button>
+				<input id="bnoVal" type="hidden" value="${bno}">
 			</div>
+			</c:if>			
+			
 			<div class="d-flex justify-content-end">
 				<button type="submit" class="btn btn-success m-1">수정</button>
-				<a class="btn btn-danger m-1" id='btn-delete' href="${DeleteSubject}&<portlet:namespace/>bno=${tbl.bno}">삭제</a>		
+				<a class="btn btn-danger m-1" id='btn-delete' href="${SubjectDeleteURL}&<portlet:namespace/>bno=${tbl.bno}">삭제</a>		
 			</div>			
-		</div>
-		</c:if> --%>
+		</div>		
+		</c:if>
+		
+
 		
 		
 	</form>
 	<hr>
+	
+	
+	
+<script type="text/javascript">
+
+function fileDown(fno){
+	window.location.href = '${DownFileURL}&<portlet:namespace/>fno='+fno;	
+}
+
+
+
+
+</script>
+	
+	
+	
+	
 	
 	
 <%@ include file="/board/reply_form.jsp"%>

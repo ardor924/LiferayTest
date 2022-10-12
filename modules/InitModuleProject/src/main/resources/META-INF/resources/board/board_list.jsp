@@ -79,6 +79,8 @@
 						<portlet:namespace/>currentPage=${bp.currentPage}&
 						<portlet:namespace/>cntPerPage=${bp.cntPerPage}&
 						<portlet:namespace/>ORDER=${ORDER}&
+						<portlet:namespace/>option=${option}&
+						<portlet:namespace/>keyword=${keyword}&
 						<portlet:namespace/>userName=${userName}&"
 						>
 						${li.subject}

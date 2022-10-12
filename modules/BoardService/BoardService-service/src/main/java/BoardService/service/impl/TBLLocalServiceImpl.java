@@ -50,6 +50,15 @@ public class TBLLocalServiceImpl extends TBLLocalServiceBaseImpl {
 	 * Never reference this class directly. Use <code>BoardService.service.TBLLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>BoardService.service.TBLLocalServiceUtil</code>.
 	 */
 	
+	public TBL addTblWithIncrement(TBL tbl) {
+		long bno = this.counterLocalService.increment(TBL.class.toString());
+		tbl.setBno(bno);
+		return this.addTBL(tbl);
+	}
+	public TBL updateTblWithTbl(TBL tbl) {
+		System.out.println("!!");
+		return this.tblLocalService.updateTBL(tbl);
+	}
 	// 조회수 증가
 		public boolean addHitTBL(long bno) {
 

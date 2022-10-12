@@ -1,11 +1,21 @@
 <?xml version="1.0"?>
 
 <model-hints>
+	<model name="BoardService.model.ADDFILE">
+		<field name="fno" type="long" />
+		<field name="bno" type="long" />
+		<field name="fName" type="String" />
+		<field name="fPath" type="String">
+			<hint name="max-length">4096</hint>
+		</field>
+	</model>
 	<model name="BoardService.model.REP">
 		<field name="rno" type="long" />
 		<field name="bno" type="long" />
 		<field name="rWriter" type="String" />
-		<field name="rContents" type="String" />
+		<field name="rContents" type="String">
+			<hint name="max-length">4096</hint>
+		</field>
 		<field name="rRegDate" type="String" />
 		<field name="rIndent" type="int" />
 		<field name="rAnsNum" type="int" />
@@ -14,7 +24,9 @@
 		<field name="bno" type="long" />
 		<field name="subject" type="String" />
 		<field name="writer" type="String" />
-		<field name="contents" type="String" />
+		<field name="contents" type="String">
+			<hint name="max-length">4096</hint>
+		</field>
 		<field name="regDate" type="String" />
 		<field name="hit" type="int" />
 	</model>

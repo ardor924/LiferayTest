@@ -16,6 +16,10 @@ public class ConstantsCommands {
 	
 	// File
 	public static final String HHLBOARD_FILEUPLOAD_PROJECT ="hhl/project/fileupload";
+	public static final String HHLBOARD_FILEDOWNLOAD_PROJECT ="hhl/project/filedownload";
+	
+	public static final String HHLBOARD_FILEDELETE_PROJECT ="hhl/project/filedelete";
+	
 	
 	
 	// 글 편집
@@ -26,4 +30,7 @@ public class ConstantsCommands {
 	public static final String HHLBOARD_REPLY_ADDLIST_PROJECT ="hhl/project/add/reply";
 	public static final String HHLBOARD_REPLY_DELETE_PROJECT ="hhl/project/delete/reply";
 	public static final String HHLBOARD_REPLY_UPDATE_PROJECT ="hhl/project/update/reply";
+	
+	// 업로드 테스트
+	public static final String HHLBOARD_UPLOADTEST ="hhl/project/test/upload";
 }

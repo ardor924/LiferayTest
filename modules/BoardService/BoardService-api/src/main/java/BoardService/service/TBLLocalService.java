@@ -76,6 +76,8 @@ public interface TBLLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public TBL addTBL(TBL tbl);
 
+	public TBL addTblWithIncrement(TBL tbl);
+
 	/**
 	 * Creates a new tbl with the primary key. Does not add the tbl to the database.
 	 *
@@ -272,5 +274,7 @@ public interface TBLLocalService
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	public TBL updateTBL(TBL tbl);
+
+	public TBL updateTblWithTbl(TBL tbl);
 
 }

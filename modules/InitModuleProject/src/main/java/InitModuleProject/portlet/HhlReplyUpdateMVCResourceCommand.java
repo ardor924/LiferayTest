@@ -35,8 +35,8 @@ public class HhlReplyUpdateMVCResourceCommand implements MVCResourceCommand {
 	String rWriter = ParamUtil.getString(resourceRequest, "rWriter");
 	String rContents = ParamUtil.getString(resourceRequest, "rContents");
 	String rRegDate = ParamUtil.getString(resourceRequest, "rRegDate");
-	int rIndent = ParamUtil.getInteger(resourceRequest, "rIndent");
-	int rAnsNum = ParamUtil.getInteger(resourceRequest, "rAnsNum");
+	int parent = ParamUtil.getInteger(resourceRequest, "parent");
+	int seqOrder = ParamUtil.getInteger(resourceRequest, "seqOrder");
 		
 		System.out.println("rno:"+rno);
 
@@ -50,8 +50,8 @@ public class HhlReplyUpdateMVCResourceCommand implements MVCResourceCommand {
 				rep.setRWriter(rWriter);
 				rep.setRContents(rContents);
 				rep.setRRegDate(rRegDate);
-				rep.setRIndent(rIndent);
-				rep.setRAnsNum(rAnsNum);
+				rep.setParent(parent);
+				rep.setSeqOrder(seqOrder);
 				
 				
 				rep = REPLocalServiceUtil.updateREP(rep);

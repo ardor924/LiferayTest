@@ -11,8 +11,8 @@ create table HHL_PROJECT_REP (
 	rWriter VARCHAR(75) null,
 	rContents TEXT null,
 	rRegDate VARCHAR(75) null,
-	rIndent INTEGER,
-	rAnsNum INTEGER
+	parent INTEGER,
+	seqOrder INTEGER
 );
 
 create table HHL_PROJECT_TBL (

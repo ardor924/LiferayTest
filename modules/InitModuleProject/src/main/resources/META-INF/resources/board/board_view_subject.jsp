@@ -76,14 +76,7 @@
 				<hr>
 				<button class="btn btn-primary" type="button" onclick="fileDown(${li.fno})">${li.FName}</button>
 				<hr>
-			</c:forEach>
-			<!-- 파일없을때 -->
-			<c:if test="${fileList == null}">		
-			<div class="d-flex justify-content-start">
-					<button type="button" class="btn btn-primary m-1" onclick="fileDown()"><i class="fa-solid fa-check"></i>파일 다운로드</button>
-					<input id="bnoVal" type="hidden" value="${bno}">
-			</div>
-			</c:if>			
+			</c:forEach>	
 
 		</div>	
 		</c:if>
@@ -99,8 +92,8 @@
 			
 			
 			<!-- 파일 있을때 -->	
+			<c:forEach var="li" items="${fileList}">	
 			<span>파일다운</span>	
-			<c:forEach var="li" items="${fileList}">
 				<hr>
 				<li class="row">	
 				<button class="btn btn-primary" type="button" onclick="fileDown(${li.fno})">${li.FName}</button>
@@ -108,11 +101,11 @@
 				<hr>
 			</c:forEach>
 			<!-- 파일없을때 -->
-			<c:if test="${fileList == null}">		
+			<c:if test="${fileList == null}">
 				<button type="button" class="btn btn-primary m-1" onclick="fileDown()"><i class="fa-solid fa-check"></i>파일 다운로드</button>
 				<input id="bnoVal" type="hidden" value="${bno}">
-			</div>
-			</c:if>			
+			</c:if>		
+			</div>	
 			
 			<div class="d-flex justify-content-end">
 				<button type="submit" class="btn btn-success m-1">수정</button>

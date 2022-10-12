@@ -35,8 +35,8 @@ public class REPSoap implements Serializable {
 		soapModel.setRWriter(model.getRWriter());
 		soapModel.setRContents(model.getRContents());
 		soapModel.setRRegDate(model.getRRegDate());
-		soapModel.setRIndent(model.getRIndent());
-		soapModel.setRAnsNum(model.getRAnsNum());
+		soapModel.setParent(model.getParent());
+		soapModel.setSeqOrder(model.getSeqOrder());
 
 		return soapModel;
 	}
@@ -129,20 +129,20 @@ public class REPSoap implements Serializable {
 		_rRegDate = rRegDate;
 	}
 
-	public int getRIndent() {
-		return _rIndent;
+	public int getParent() {
+		return _parent;
 	}
 
-	public void setRIndent(int rIndent) {
-		_rIndent = rIndent;
+	public void setParent(int parent) {
+		_parent = parent;
 	}
 
-	public int getRAnsNum() {
-		return _rAnsNum;
+	public int getSeqOrder() {
+		return _seqOrder;
 	}
 
-	public void setRAnsNum(int rAnsNum) {
-		_rAnsNum = rAnsNum;
+	public void setSeqOrder(int seqOrder) {
+		_seqOrder = seqOrder;
 	}
 
 	private long _rno;
@@ -150,7 +150,7 @@ public class REPSoap implements Serializable {
 	private String _rWriter;
 	private String _rContents;
 	private String _rRegDate;
-	private int _rIndent;
-	private int _rAnsNum;
+	private int _parent;
+	private int _seqOrder;
 
 }

@@ -142,7 +142,7 @@ $("#editForm").on("submit",function(e){
 		editForm.subject.focus();
 		return false;
 	}
-	formData.append('<portlet:namespace/>subject', subject);
+	formData.append('<portlet:namespace/>subject', subject); // 폼데이터 사용할때는 key ,value 값으로 append 해준다.
 	 //내용 필수입력 
 	var contents = CKEDITOR.instances.editor4.getData()
 	if(contents.length < 1){
@@ -190,6 +190,10 @@ $("#editForm").on("submit",function(e){
 // 	document.editForm.submit();
 	
 })
+
+// ajax data 넘길때의  formData
+// 폼데이터에 들어가는 내용
+// 게시글 등록/수정 할때 넘기는 파라미터값 + 멀티폼 데이터 안에 들어가는 바이너리 데이터값
 
 
 

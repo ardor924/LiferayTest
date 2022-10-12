@@ -30,6 +30,8 @@ public class HhlEditWriteMVCRenderCommand implements MVCRenderCommand {
 		String userName = ParamUtil.getString(renderRequest, "userName");
 		renderRequest.setAttribute("userName", userName);
 		
+		
+		
 
 		
 		return "/board/board_edit_form_write.jsp";

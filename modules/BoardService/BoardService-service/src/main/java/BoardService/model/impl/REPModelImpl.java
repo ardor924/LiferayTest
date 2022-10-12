@@ -69,8 +69,8 @@ public class REPModelImpl extends BaseModelImpl<REP> implements REPModel {
 	public static final Object[][] TABLE_COLUMNS = {
 		{"rno", Types.BIGINT}, {"bno", Types.BIGINT},
 		{"rWriter", Types.VARCHAR}, {"rContents", Types.VARCHAR},
-		{"rRegDate", Types.VARCHAR}, {"rIndent", Types.INTEGER},
-		{"rAnsNum", Types.INTEGER}
+		{"rRegDate", Types.VARCHAR}, {"parent", Types.INTEGER},
+		{"seqOrder", Types.INTEGER}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -82,12 +82,12 @@ public class REPModelImpl extends BaseModelImpl<REP> implements REPModel {
 		TABLE_COLUMNS_MAP.put("rWriter", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("rContents", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("rRegDate", Types.VARCHAR);
-		TABLE_COLUMNS_MAP.put("rIndent", Types.INTEGER);
-		TABLE_COLUMNS_MAP.put("rAnsNum", Types.INTEGER);
+		TABLE_COLUMNS_MAP.put("parent", Types.INTEGER);
+		TABLE_COLUMNS_MAP.put("seqOrder", Types.INTEGER);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table HHL_PROJECT_REP (rno LONG not null primary key,bno LONG,rWriter VARCHAR(75) null,rContents TEXT null,rRegDate VARCHAR(75) null,rIndent INTEGER,rAnsNum INTEGER)";
+		"create table HHL_PROJECT_REP (rno LONG not null primary key,bno LONG,rWriter VARCHAR(75) null,rContents TEXT null,rRegDate VARCHAR(75) null,parent INTEGER,seqOrder INTEGER)";
 
 	public static final String TABLE_SQL_DROP = "drop table HHL_PROJECT_REP";
 
@@ -132,8 +132,8 @@ public class REPModelImpl extends BaseModelImpl<REP> implements REPModel {
 		model.setRWriter(soapModel.getRWriter());
 		model.setRContents(soapModel.getRContents());
 		model.setRRegDate(soapModel.getRRegDate());
-		model.setRIndent(soapModel.getRIndent());
-		model.setRAnsNum(soapModel.getRAnsNum());
+		model.setParent(soapModel.getParent());
+		model.setSeqOrder(soapModel.getSeqOrder());
 
 		return model;
 	}
@@ -294,12 +294,12 @@ public class REPModelImpl extends BaseModelImpl<REP> implements REPModel {
 		attributeGetterFunctions.put("rRegDate", REP::getRRegDate);
 		attributeSetterBiConsumers.put(
 			"rRegDate", (BiConsumer<REP, String>)REP::setRRegDate);
-		attributeGetterFunctions.put("rIndent", REP::getRIndent);
+		attributeGetterFunctions.put("parent", REP::getParent);
 		attributeSetterBiConsumers.put(
-			"rIndent", (BiConsumer<REP, Integer>)REP::setRIndent);
-		attributeGetterFunctions.put("rAnsNum", REP::getRAnsNum);
+			"parent", (BiConsumer<REP, Integer>)REP::setParent);
+		attributeGetterFunctions.put("seqOrder", REP::getSeqOrder);
 		attributeSetterBiConsumers.put(
-			"rAnsNum", (BiConsumer<REP, Integer>)REP::setRAnsNum);
+			"seqOrder", (BiConsumer<REP, Integer>)REP::setSeqOrder);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -391,24 +391,24 @@ public class REPModelImpl extends BaseModelImpl<REP> implements REPModel {
 
 	@JSON
 	@Override
-	public int getRIndent() {
-		return _rIndent;
+	public int getParent() {
+		return _parent;
 	}
 
 	@Override
-	public void setRIndent(int rIndent) {
-		_rIndent = rIndent;
+	public void setParent(int parent) {
+		_parent = parent;
 	}
 
 	@JSON
 	@Override
-	public int getRAnsNum() {
-		return _rAnsNum;
+	public int getSeqOrder() {
+		return _seqOrder;
 	}
 
 	@Override
-	public void setRAnsNum(int rAnsNum) {
-		_rAnsNum = rAnsNum;
+	public void setSeqOrder(int seqOrder) {
+		_seqOrder = seqOrder;
 	}
 
 	public long getColumnBitmask() {
@@ -451,8 +451,8 @@ public class REPModelImpl extends BaseModelImpl<REP> implements REPModel {
 		repImpl.setRWriter(getRWriter());
 		repImpl.setRContents(getRContents());
 		repImpl.setRRegDate(getRRegDate());
-		repImpl.setRIndent(getRIndent());
-		repImpl.setRAnsNum(getRAnsNum());
+		repImpl.setParent(getParent());
+		repImpl.setSeqOrder(getSeqOrder());
 
 		repImpl.resetOriginalValues();
 
@@ -552,9 +552,9 @@ public class REPModelImpl extends BaseModelImpl<REP> implements REPModel {
 			repCacheModel.rRegDate = null;
 		}
 
-		repCacheModel.rIndent = getRIndent();
+		repCacheModel.parent = getParent();
 
-		repCacheModel.rAnsNum = getRAnsNum();
+		repCacheModel.seqOrder = getSeqOrder();
 
 		return repCacheModel;
 	}
@@ -637,8 +637,8 @@ public class REPModelImpl extends BaseModelImpl<REP> implements REPModel {
 	private String _rWriter;
 	private String _rContents;
 	private String _rRegDate;
-	private int _rIndent;
-	private int _rAnsNum;
+	private int _parent;
+	private int _seqOrder;
 	private long _columnBitmask;
 	private REP _escapedModel;
 

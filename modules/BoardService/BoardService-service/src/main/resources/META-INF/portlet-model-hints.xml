@@ -17,8 +17,8 @@
 			<hint name="max-length">4096</hint>
 		</field>
 		<field name="rRegDate" type="String" />
-		<field name="rIndent" type="int" />
-		<field name="rAnsNum" type="int" />
+		<field name="parent" type="int" />
+		<field name="seqOrder" type="int" />
 	</model>
 	<model name="BoardService.model.TBL">
 		<field name="bno" type="long" />

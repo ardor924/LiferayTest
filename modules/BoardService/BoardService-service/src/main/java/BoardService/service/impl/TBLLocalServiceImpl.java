@@ -55,6 +55,8 @@ public class TBLLocalServiceImpl extends TBLLocalServiceBaseImpl {
 		tbl.setBno(bno);
 		return this.addTBL(tbl);
 	}
+	
+	
 	public TBL updateTblWithTbl(TBL tbl) {
 		System.out.println("!!");
 		return this.tblLocalService.updateTBL(tbl);

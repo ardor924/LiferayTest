@@ -39,9 +39,6 @@ public class HhlReplyAddMVCResourceCommand implements MVCResourceCommand {
 	public boolean serveResource(ResourceRequest resourceRequest, ResourceResponse resourceResponse)
 			throws PortletException {
 /*------------------------------------기본설정-------------------------------------------------------------*/	
-		
-		HttpServletRequest request = PortalUtil.getHttpServletRequest(resourceRequest);
-		HttpServletResponse response = PortalUtil.getHttpServletResponse(resourceResponse);
 		ServiceMethod serviceMethod = new ServiceMethod();
 		
 		String ajaxType = ParamUtil.get(resourceRequest, "ajaxType","get");
@@ -58,8 +55,8 @@ public class HhlReplyAddMVCResourceCommand implements MVCResourceCommand {
 		String rContents = ParamUtil.getString(resourceRequest, "rContents","error");
 		String rWriter = ParamUtil.getString(resourceRequest, "rWriter","error");
 		String rRegDate = serviceMethod.getStrNowDate();
-		int rIndent = 0;
-		int rAnsNum = 0;
+		int parent = 0;
+		int seqOrder = 0;
 		
 	
 /*-----------------------------------DB에 REP 저장-----------------------------------------------------------------*/		
@@ -72,8 +69,9 @@ public class HhlReplyAddMVCResourceCommand implements MVCResourceCommand {
 		rep.setRContents(rContents);
 		rep.setRWriter(rWriter);
 		rep.setRRegDate(rRegDate);
-		rep.setRIndent(rIndent);
-		rep.setRAnsNum(rAnsNum);
+		rep.setParent(parent);
+		rep.setSeqOrder(seqOrder);
+		
 
 
 		rep = REPLocalServiceUtil.addREP(rep);
@@ -102,8 +100,8 @@ public class HhlReplyAddMVCResourceCommand implements MVCResourceCommand {
 			sObject.put("rWriter", reply_list.get(i).getRWriter());                        
 			sObject.put("rContents", reply_list.get(i).getRContents());                        
 			sObject.put("rRegDate", reply_list.get(i).getRRegDate());                     
-			sObject.put("rIndent", reply_list.get(i).getRIndent());                        
-			sObject.put("rAnswer", reply_list.get(i).getRAnsNum());                        
+			sObject.put("parent", reply_list.get(i).getParent());                        
+			sObject.put("seqOrder", reply_list.get(i).getParent());                        
 			jArray.put(sObject);
 			}  		 
 		  

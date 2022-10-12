@@ -127,31 +127,31 @@ public interface REPModel extends BaseModel<REP> {
 	public void setRRegDate(String rRegDate);
 
 	/**
-	 * Returns the r indent of this rep.
+	 * Returns the parent of this rep.
 	 *
-	 * @return the r indent of this rep
+	 * @return the parent of this rep
 	 */
-	public int getRIndent();
+	public int getParent();
 
 	/**
-	 * Sets the r indent of this rep.
+	 * Sets the parent of this rep.
 	 *
-	 * @param rIndent the r indent of this rep
+	 * @param parent the parent of this rep
 	 */
-	public void setRIndent(int rIndent);
+	public void setParent(int parent);
 
 	/**
-	 * Returns the r ans num of this rep.
+	 * Returns the seq order of this rep.
 	 *
-	 * @return the r ans num of this rep
+	 * @return the seq order of this rep
 	 */
-	public int getRAnsNum();
+	public int getSeqOrder();
 
 	/**
-	 * Sets the r ans num of this rep.
+	 * Sets the seq order of this rep.
 	 *
-	 * @param rAnsNum the r ans num of this rep
+	 * @param seqOrder the seq order of this rep
 	 */
-	public void setRAnsNum(int rAnsNum);
+	public void setSeqOrder(int seqOrder);
 
 }

@@ -45,8 +45,8 @@ public class REPWrapper
 		attributes.put("rWriter", getRWriter());
 		attributes.put("rContents", getRContents());
 		attributes.put("rRegDate", getRRegDate());
-		attributes.put("rIndent", getRIndent());
-		attributes.put("rAnsNum", getRAnsNum());
+		attributes.put("parent", getParent());
+		attributes.put("seqOrder", getSeqOrder());
 
 		return attributes;
 	}
@@ -83,16 +83,16 @@ public class REPWrapper
 			setRRegDate(rRegDate);
 		}
 
-		Integer rIndent = (Integer)attributes.get("rIndent");
+		Integer parent = (Integer)attributes.get("parent");
 
-		if (rIndent != null) {
-			setRIndent(rIndent);
+		if (parent != null) {
+			setParent(parent);
 		}
 
-		Integer rAnsNum = (Integer)attributes.get("rAnsNum");
+		Integer seqOrder = (Integer)attributes.get("seqOrder");
 
-		if (rAnsNum != null) {
-			setRAnsNum(rAnsNum);
+		if (seqOrder != null) {
+			setSeqOrder(seqOrder);
 		}
 	}
 
@@ -107,6 +107,16 @@ public class REPWrapper
 	}
 
 	/**
+	 * Returns the parent of this rep.
+	 *
+	 * @return the parent of this rep
+	 */
+	@Override
+	public int getParent() {
+		return model.getParent();
+	}
+
+	/**
 	 * Returns the primary key of this rep.
 	 *
 	 * @return the primary key of this rep
@@ -117,16 +127,6 @@ public class REPWrapper
 	}
 
 	/**
-	 * Returns the r ans num of this rep.
-	 *
-	 * @return the r ans num of this rep
-	 */
-	@Override
-	public int getRAnsNum() {
-		return model.getRAnsNum();
-	}
-
-	/**
 	 * Returns the r contents of this rep.
 	 *
 	 * @return the r contents of this rep
@@ -134,16 +134,6 @@ public class REPWrapper
 	@Override
 	public String getRContents() {
 		return model.getRContents();
-	}
-
-	/**
-	 * Returns the r indent of this rep.
-	 *
-	 * @return the r indent of this rep
-	 */
-	@Override
-	public int getRIndent() {
-		return model.getRIndent();
 	}
 
 	/**
@@ -176,6 +166,16 @@ public class REPWrapper
 		return model.getRWriter();
 	}
 
+	/**
+	 * Returns the seq order of this rep.
+	 *
+	 * @return the seq order of this rep
+	 */
+	@Override
+	public int getSeqOrder() {
+		return model.getSeqOrder();
+	}
+
 	@Override
 	public void persist() {
 		model.persist();
@@ -192,6 +192,16 @@ public class REPWrapper
 	}
 
 	/**
+	 * Sets the parent of this rep.
+	 *
+	 * @param parent the parent of this rep
+	 */
+	@Override
+	public void setParent(int parent) {
+		model.setParent(parent);
+	}
+
+	/**
 	 * Sets the primary key of this rep.
 	 *
 	 * @param primaryKey the primary key of this rep
@@ -202,16 +212,6 @@ public class REPWrapper
 	}
 
 	/**
-	 * Sets the r ans num of this rep.
-	 *
-	 * @param rAnsNum the r ans num of this rep
-	 */
-	@Override
-	public void setRAnsNum(int rAnsNum) {
-		model.setRAnsNum(rAnsNum);
-	}
-
-	/**
 	 * Sets the r contents of this rep.
 	 *
 	 * @param rContents the r contents of this rep
@@ -219,16 +219,6 @@ public class REPWrapper
 	@Override
 	public void setRContents(String rContents) {
 		model.setRContents(rContents);
-	}
-
-	/**
-	 * Sets the r indent of this rep.
-	 *
-	 * @param rIndent the r indent of this rep
-	 */
-	@Override
-	public void setRIndent(int rIndent) {
-		model.setRIndent(rIndent);
 	}
 
 	/**
@@ -259,6 +249,16 @@ public class REPWrapper
 	@Override
 	public void setRWriter(String rWriter) {
 		model.setRWriter(rWriter);
+	}
+
+	/**
+	 * Sets the seq order of this rep.
+	 *
+	 * @param seqOrder the seq order of this rep
+	 */
+	@Override
+	public void setSeqOrder(int seqOrder) {
+		model.setSeqOrder(seqOrder);
 	}
 
 	@Override

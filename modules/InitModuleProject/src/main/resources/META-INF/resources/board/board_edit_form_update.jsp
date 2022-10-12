@@ -229,10 +229,11 @@ $("#editForm").on("submit",function(e){
        	  processData: false, //파일 전송시  query string의 형태는 처리하지 못하므로 false처리
    	      contentType: false, 	// multipart form-data의 경우 false처리
    	      success: function (data) {
+   	    	 console.log(data['result'])
    	    	  console.log("data : ", data)
    	    	if(data['result'] == "OK"){
    	    		alert("게시글이 수정되었습니다.");
-   	    		window.location.href = '${SubjectViewURL}&<portlet:namespace/>bno='+data['bno'];
+   	    		window.location.href = '${SubjectViewURL}&<portlet:namespace/>bno='+data['bno']+"&<portlet:namespace/>writer="+data['writer'];
 			} else
 				alert("서버오류입니다! 잠시 후 다시 시도해주세요");
    	      },

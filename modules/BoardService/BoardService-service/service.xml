@@ -42,8 +42,8 @@
 		<column type="String" name="rWriter"/>
 		<column type="String" name="rContents"/>
 		<column type="String" name="rRegDate"/>
-		<column type="int" name="rIndent" />
-		<column type="int" name="rAnsNum"/>
+		<column type="int" name="parent" />
+		<column type="int" name="seqOrder"/>
 		
 		<finder return-type="Collection" name="bno">
 			<finder-column name="bno" comparator="="/>

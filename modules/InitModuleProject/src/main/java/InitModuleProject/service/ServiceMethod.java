@@ -13,8 +13,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.portlet.ActionRequest;
+import javax.portlet.ActionResponse;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
+import javax.portlet.ResourceRequest;
+import javax.portlet.ResourceResponse;
 
 import BoardService.model.TBL;
 import BoardService.service.TBLLocalServiceUtil;
@@ -105,7 +109,37 @@ public class ServiceMethod {
 
 
 		}
+		
+		// 유저의 screenName 가져오기(Resource)
+		public String getScreenNameResource(ResourceRequest resourceRequest,ResourceResponse resourceResponse) {
 			
+			ThemeDisplay themeDisplay = (ThemeDisplay) resourceRequest.getAttribute(WebKeys.THEME_DISPLAY);
+			User user = themeDisplay.getUser();
+			String screenName = user.getScreenName();
+			
+			return screenName; 
+		}
+			
+		// 유저의 screenName 가져오기(Render)
+		public String getScreenNameRender(RenderRequest renderRequest,RenderResponse renderResponse) {
+			
+			ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
+			User user = themeDisplay.getUser();
+			String screenName = user.getScreenName();
+			
+			return screenName; 
+		}
+		
+		// 유저의 screenName 가져오기(Action)
+		public String getScreenNameAction(ActionRequest actionRequest,ActionResponse actionResponse) {
+			
+			ThemeDisplay themeDisplay = (ThemeDisplay) actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
+			User user = themeDisplay.getUser();
+			String screenName = user.getScreenName();
+			
+			return screenName; 
+		}
+		
 		
 		
 	/*---------------------------------------검색결과---------------------------------------------------------*/	

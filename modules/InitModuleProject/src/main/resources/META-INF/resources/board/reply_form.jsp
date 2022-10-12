@@ -144,7 +144,6 @@
 					     html +=         '<p>'+ reply.rContents +'</p>';
 					     html +=         '<div>';
 					     html +=             '<span>'+ reply.rRegDate +'</span>';
-					     html +=             '<label class="text-black addRep" onclick="addRep('+num+')">   답글쓰기</label>';
 					     html +=         '</div>';
 					     html +=      '</div>';
 					     html +=      '<div id="toggle_end" class="d-flex justify-content-end m-2">';

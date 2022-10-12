@@ -180,7 +180,8 @@ $("#editForm").on("submit",function(e){
 				alert("서버오류입니다! 잠시 후 다시 시도해주세요");
    	      },
    	      error: function (xhr, status, error) {
-   	    	alert("파일 업로드 실패!");
+   	    	window.location.href = '${SubjectViewURL}&<portlet:namespace/>bno='+data['bno'];
+   	    	
    	     return false;
    	      }
    	    });

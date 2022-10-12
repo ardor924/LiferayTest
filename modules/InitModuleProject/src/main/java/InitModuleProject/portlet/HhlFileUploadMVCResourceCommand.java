@@ -96,87 +96,104 @@ public class HhlFileUploadMVCResourceCommand implements MVCResourceCommand {
 			System.out.println("5");
 		}
 		System.out.println("6");
+		
 		 File[] files = uploadRequest.getFiles("content_file");
+		 System.out.println(files);
+		 System.out.println("8");
 		 String[] fileNames = uploadRequest.getFileNames("content_file");
-		 System.out.println("files : " + files.length);
+		 System.out.println("9");
 		 String ResourceFolder = "\\resources\\"; 
+		 System.out.println("10");
 		 String UPLOAD_DIR = "file_repo";
+		 System.out.println("11");
 		 String uploadPath = reqest.getContextPath()+File.separator+ResourceFolder+UPLOAD_DIR;
+		 System.out.println("12");
 
-		 int j = 0; System.out.println("files>>>>>>>>>>>"+files.length);
+		 int j = 0;
+
 		 // 생성할 파일의 경로 및 파일명 으로 File 객체 생성
-		 for (File file : files) { 
-		 System.out.println("-------------");
+		 
+		 // 파일이 있을때 등록처리
+		 if (files != null) {
+			 
+			 for (File file : files) { 
+				 System.out.println("-------------");
 
-		 String originalName = file.getName(); 
-		 String fileName = originalName.substring(originalName.lastIndexOf("\\") + 1);
-		 
-		 String uuid = UUID.randomUUID().toString();
-		 
-		 
-		 String savefileName = uploadPath + File.separator + uuid + "_" + fileName;
-		 
-		 Path savePath = Paths.get(savefileName); // 파일명+라이프레이 리소스내부 경로
-		 
-		  System.out.println("Size: "+ file.length()); // 파일사이즈 
-		  System.out.println("file : " + file.toString()); // 파일절대경로
-		  System.out.println("originalName : " + originalName); // 기존 파일명
-		  System.out.println("fileName : " + file.getName()); // 기존 파일명
-		 System.out.println("savefileName : "+savefileName);
-		 System.out.println("savePath : "+savePath);
-		 System.out.println("### fileName : " + fileNames[j]);
-		 
-		 	try {
-				  File copy = new File("C:\\file_repo\\"+uuid+fileNames[j]);
-				  
-				  long fSize = file.length(); // 원본 파일 크기 변환
-				  System.out.println("fileSize : " + fSize);
-				  
-				  FileInputStream fis = new FileInputStream(file);
-				  FileOutputStream fos = new FileOutputStream(copy);
-				  
-				  int input=0, count=0;
-				  
-				  byte[] data = new byte[1024];
-				  
-				  while((input=fis.read(data))!=-1){
-				   // 배열을 할 때는 0부터 끝까지 넣어야함
-				   fos.write(data, 0, input);
-				   count+=input;
-				   
-				   // (읽은 바이트 수 / 전체 파일 크기) * 100
-				   float per = ((float)count/fSize) * 100;
-					/* System.out.println((int)per + "% copy complete"); */
-				   
-				  }
-		 	}catch (IOException e) {
-		 			
-		 			
-		 		
-		 				e.printStackTrace();
-					 }
-		 	
+				
+				 String originalName = file.getName(); 
+				 String fileName = originalName.substring(originalName.lastIndexOf("\\") + 1);
+				 
+				 String uuid = UUID.randomUUID().toString();
+				 
+				 
+				 String savefileName = uploadPath + File.separator + uuid + "_" + fileName;
+				 
+				 Path savePath = Paths.get(savefileName); // 파일명+라이프레이 리소스내부 경로
+				 
+				  System.out.println("Size: "+ file.length()); // 파일사이즈 
+				  System.out.println("file : " + file.toString()); // 파일절대경로
+				  System.out.println("originalName : " + originalName); // 기존 파일명
+				  System.out.println("fileName : " + file.getName()); // 기존 파일명
+				 System.out.println("savefileName : "+savefileName);
+				 System.out.println("savePath : "+savePath);
+				 System.out.println("### fileName : " + fileNames[j]);
+				 System.out.println("8");
+				 	try {
+				 		System.out.println("9");
+						  File copy = new File("C:\\file_repo\\"+uuid+fileNames[j]);
+						  
+						  long fSize = file.length(); // 원본 파일 크기 변환
+						  System.out.println("fileSize : " + fSize);
+						  
+						  FileInputStream fis = new FileInputStream(file);
+						  FileOutputStream fos = new FileOutputStream(copy);
+						  
+						  int input=0, count=0;
+						  
+						  byte[] data = new byte[1024];
+						  
+						  while((input=fis.read(data))!=-1){
+						   // 배열을 할 때는 0부터 끝까지 넣어야함
+						   fos.write(data, 0, input);
+						   count+=input;
+						   
+						   // (읽은 바이트 수 / 전체 파일 크기) * 100
+						   float per = ((float)count/fSize) * 100;
+							/* System.out.println((int)per + "% copy complete"); */
+						   
+						  }
+				 	}catch (IOException e) {
+				 			
+				 		System.out.println("9");
+				 		
+				 				e.printStackTrace();
+							 }
+				 	
 
-			
-			 ADDFILE addFile = ADDFILELocalServiceUtil.createADDFILE(0);
-			 
-			 System.out.println("bno : " + bno);
-			 addFile.setBno(bno);
-			 addFile.setFName(fileNames[j]);
-			 addFile.setFPath("C:\\file_repo\\"+uuid+fileNames[j]);
-			 
-			 
-			 addFile = ADDFILELocalServiceUtil.addADDFILEWithIncrement(addFile);
-			 
-			 
-			 
-			 
+				 	System.out.println("10");
+					 ADDFILE addFile = ADDFILELocalServiceUtil.createADDFILE(0);
+					 
+					 System.out.println("bno : " + bno);
+					 addFile.setBno(bno);
+					 addFile.setFName(fileNames[j]);
+					 addFile.setFPath("C:\\file_repo\\"+uuid+fileNames[j]);
+					 
+					 
+					 addFile = ADDFILELocalServiceUtil.addADDFILEWithIncrement(addFile);
+					 
+					 
+				 	
+				 	j++;
+					} // END for문
 
-	        
-		 	
-		 	j++;
-			} // END for문
-		 	
+		 } // END if문
+		 
+		 
+		 
+		 
+		 
+		 
+		 	// 파일이 없을때는 일반적으로 처리
 		 	json.put("result", "OK");
 		 	json.put("bno", bno);
 		 	try {

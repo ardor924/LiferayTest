@@ -82,6 +82,21 @@ public interface ADDFILEModel extends BaseModel<ADDFILE> {
 	public void setBno(long bno);
 
 	/**
+	 * Returns the f real name of this addfile.
+	 *
+	 * @return the f real name of this addfile
+	 */
+	@AutoEscape
+	public String getFRealName();
+
+	/**
+	 * Sets the f real name of this addfile.
+	 *
+	 * @param fRealName the f real name of this addfile
+	 */
+	public void setFRealName(String fRealName);
+
+	/**
 	 * Returns the f name of this addfile.
 	 *
 	 * @return the f name of this addfile
@@ -110,5 +125,20 @@ public interface ADDFILEModel extends BaseModel<ADDFILE> {
 	 * @param fPath the f path of this addfile
 	 */
 	public void setFPath(String fPath);
+
+	/**
+	 * Returns the f date of this addfile.
+	 *
+	 * @return the f date of this addfile
+	 */
+	@AutoEscape
+	public String getFDate();
+
+	/**
+	 * Sets the f date of this addfile.
+	 *
+	 * @param fDate the f date of this addfile
+	 */
+	public void setFDate(String fDate);
 
 }

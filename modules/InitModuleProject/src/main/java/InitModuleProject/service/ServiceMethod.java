@@ -52,11 +52,22 @@ public class ServiceMethod {
 		
 		
 	/*---------------------------------------날짜 포맷---------------------------------------------------------*/	
-		
+	
+	// 게시판용 날짜포맷
 	public String getStrNowDate() {
 		
 		Date nowDate = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm");
+		String strDate = sdf.format(nowDate);
+		
+		return strDate;
+	}
+	
+	// 폴더용 날짜포맷
+	public String getFolderDate() {
+		
+		Date nowDate = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		String strDate = sdf.format(nowDate);
 		
 		return strDate;

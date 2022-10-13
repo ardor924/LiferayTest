@@ -68,8 +68,9 @@ public class ADDFILEModelImpl
 	public static final String TABLE_NAME = "HHL_PROJECT_ADDFILE";
 
 	public static final Object[][] TABLE_COLUMNS = {
-		{"fno", Types.BIGINT}, {"bno", Types.BIGINT}, {"fName", Types.VARCHAR},
-		{"fPath", Types.VARCHAR}
+		{"fno", Types.BIGINT}, {"bno", Types.BIGINT},
+		{"fRealName", Types.VARCHAR}, {"fName", Types.VARCHAR},
+		{"fPath", Types.VARCHAR}, {"fDate", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -78,12 +79,14 @@ public class ADDFILEModelImpl
 	static {
 		TABLE_COLUMNS_MAP.put("fno", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("bno", Types.BIGINT);
+		TABLE_COLUMNS_MAP.put("fRealName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("fName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("fPath", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("fDate", Types.VARCHAR);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table HHL_PROJECT_ADDFILE (fno LONG not null primary key,bno LONG,fName VARCHAR(75) null,fPath TEXT null)";
+		"create table HHL_PROJECT_ADDFILE (fno LONG not null primary key,bno LONG,fRealName VARCHAR(75) null,fName VARCHAR(75) null,fPath TEXT null,fDate VARCHAR(75) null)";
 
 	public static final String TABLE_SQL_DROP =
 		"drop table HHL_PROJECT_ADDFILE";
@@ -126,8 +129,10 @@ public class ADDFILEModelImpl
 
 		model.setFno(soapModel.getFno());
 		model.setBno(soapModel.getBno());
+		model.setFRealName(soapModel.getFRealName());
 		model.setFName(soapModel.getFName());
 		model.setFPath(soapModel.getFPath());
+		model.setFDate(soapModel.getFDate());
 
 		return model;
 	}
@@ -283,12 +288,18 @@ public class ADDFILEModelImpl
 		attributeGetterFunctions.put("bno", ADDFILE::getBno);
 		attributeSetterBiConsumers.put(
 			"bno", (BiConsumer<ADDFILE, Long>)ADDFILE::setBno);
+		attributeGetterFunctions.put("fRealName", ADDFILE::getFRealName);
+		attributeSetterBiConsumers.put(
+			"fRealName", (BiConsumer<ADDFILE, String>)ADDFILE::setFRealName);
 		attributeGetterFunctions.put("fName", ADDFILE::getFName);
 		attributeSetterBiConsumers.put(
 			"fName", (BiConsumer<ADDFILE, String>)ADDFILE::setFName);
 		attributeGetterFunctions.put("fPath", ADDFILE::getFPath);
 		attributeSetterBiConsumers.put(
 			"fPath", (BiConsumer<ADDFILE, String>)ADDFILE::setFPath);
+		attributeGetterFunctions.put("fDate", ADDFILE::getFDate);
+		attributeSetterBiConsumers.put(
+			"fDate", (BiConsumer<ADDFILE, String>)ADDFILE::setFDate);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -332,6 +343,22 @@ public class ADDFILEModelImpl
 
 	@JSON
 	@Override
+	public String getFRealName() {
+		if (_fRealName == null) {
+			return "";
+		}
+		else {
+			return _fRealName;
+		}
+	}
+
+	@Override
+	public void setFRealName(String fRealName) {
+		_fRealName = fRealName;
+	}
+
+	@JSON
+	@Override
 	public String getFName() {
 		if (_fName == null) {
 			return "";
@@ -360,6 +387,22 @@ public class ADDFILEModelImpl
 	@Override
 	public void setFPath(String fPath) {
 		_fPath = fPath;
+	}
+
+	@JSON
+	@Override
+	public String getFDate() {
+		if (_fDate == null) {
+			return "";
+		}
+		else {
+			return _fDate;
+		}
+	}
+
+	@Override
+	public void setFDate(String fDate) {
+		_fDate = fDate;
 	}
 
 	public long getColumnBitmask() {
@@ -400,8 +443,10 @@ public class ADDFILEModelImpl
 
 		addfileImpl.setFno(getFno());
 		addfileImpl.setBno(getBno());
+		addfileImpl.setFRealName(getFRealName());
 		addfileImpl.setFName(getFName());
 		addfileImpl.setFPath(getFPath());
+		addfileImpl.setFDate(getFDate());
 
 		addfileImpl.resetOriginalValues();
 
@@ -477,6 +522,14 @@ public class ADDFILEModelImpl
 
 		addfileCacheModel.bno = getBno();
 
+		addfileCacheModel.fRealName = getFRealName();
+
+		String fRealName = addfileCacheModel.fRealName;
+
+		if ((fRealName != null) && (fRealName.length() == 0)) {
+			addfileCacheModel.fRealName = null;
+		}
+
 		addfileCacheModel.fName = getFName();
 
 		String fName = addfileCacheModel.fName;
@@ -491,6 +544,14 @@ public class ADDFILEModelImpl
 
 		if ((fPath != null) && (fPath.length() == 0)) {
 			addfileCacheModel.fPath = null;
+		}
+
+		addfileCacheModel.fDate = getFDate();
+
+		String fDate = addfileCacheModel.fDate;
+
+		if ((fDate != null) && (fDate.length() == 0)) {
+			addfileCacheModel.fDate = null;
 		}
 
 		return addfileCacheModel;
@@ -573,8 +634,10 @@ public class ADDFILEModelImpl
 	private long _bno;
 	private long _originalBno;
 	private boolean _setOriginalBno;
+	private String _fRealName;
 	private String _fName;
 	private String _fPath;
+	private String _fDate;
 	private long _columnBitmask;
 	private ADDFILE _escapedModel;
 

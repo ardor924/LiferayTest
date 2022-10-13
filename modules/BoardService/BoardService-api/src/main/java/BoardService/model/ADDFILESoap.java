@@ -32,8 +32,10 @@ public class ADDFILESoap implements Serializable {
 
 		soapModel.setFno(model.getFno());
 		soapModel.setBno(model.getBno());
+		soapModel.setFRealName(model.getFRealName());
 		soapModel.setFName(model.getFName());
 		soapModel.setFPath(model.getFPath());
+		soapModel.setFDate(model.getFDate());
 
 		return soapModel;
 	}
@@ -103,6 +105,14 @@ public class ADDFILESoap implements Serializable {
 		_bno = bno;
 	}
 
+	public String getFRealName() {
+		return _fRealName;
+	}
+
+	public void setFRealName(String fRealName) {
+		_fRealName = fRealName;
+	}
+
 	public String getFName() {
 		return _fName;
 	}
@@ -119,9 +129,19 @@ public class ADDFILESoap implements Serializable {
 		_fPath = fPath;
 	}
 
+	public String getFDate() {
+		return _fDate;
+	}
+
+	public void setFDate(String fDate) {
+		_fDate = fDate;
+	}
+
 	private long _fno;
 	private long _bno;
+	private String _fRealName;
 	private String _fName;
 	private String _fPath;
+	private String _fDate;
 
 }

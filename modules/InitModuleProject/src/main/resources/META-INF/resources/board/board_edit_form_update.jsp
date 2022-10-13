@@ -63,7 +63,7 @@
          
          <div class="d-flex form-group">
             <label for="contents" class="col-md-1 mt-2">내용</label>
-            <textarea class="form-control" rows="10" id="editor4" name="<portlet:namespace/>contents" title="내용을 입력해 주세요">${tbl.subject}</textarea>
+            <textarea class="form-control" rows="10" id="editor4" name="<portlet:namespace/>contents" title="내용을 입력해 주세요">${tbl.contents}</textarea>
           </div>
 			
   			

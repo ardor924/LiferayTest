@@ -4,10 +4,12 @@
 	<model name="BoardService.model.ADDFILE">
 		<field name="fno" type="long" />
 		<field name="bno" type="long" />
+		<field name="fRealName" type="String" />
 		<field name="fName" type="String" />
 		<field name="fPath" type="String">
 			<hint name="max-length">4096</hint>
 		</field>
+		<field name="fDate" type="String" />
 	</model>
 	<model name="BoardService.model.REP">
 		<field name="rno" type="long" />

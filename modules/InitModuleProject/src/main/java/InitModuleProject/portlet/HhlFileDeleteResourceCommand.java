@@ -38,8 +38,10 @@ public class HhlFileDeleteResourceCommand implements MVCResourceCommand {
 		try {
 			ADDFILE addFile =  ADDFILELocalServiceUtil.getADDFILE(fno);
 			String fPath = addFile.getFPath();
+			String fRealName = addFile.getFRealName();
 			
-			File file = new File(fPath);
+			
+			File file = new File(fPath+fRealName);
 			
 			
 			boolean delete = file.delete();

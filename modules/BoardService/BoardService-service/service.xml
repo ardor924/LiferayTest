@@ -59,8 +59,10 @@
 		
 		<column type="long" name="bno"/>
 		 <!-- Group instance -->
+		<column type="String" name="fRealName"/>
 		<column type="String" name="fName"/>
 		<column type="String" name="fPath"/>
+		<column type="String" name="fDate"/>
 		
 		<finder return-type="Collection" name="bno">
 			<finder-column name="bno" comparator="="/>

@@ -1,8 +1,10 @@
 create table HHL_PROJECT_ADDFILE (
 	fno LONG not null primary key,
 	bno LONG,
+	fRealName VARCHAR(75) null,
 	fName VARCHAR(75) null,
-	fPath TEXT null
+	fPath TEXT null,
+	fDate VARCHAR(75) null
 );
 
 create table HHL_PROJECT_REP (

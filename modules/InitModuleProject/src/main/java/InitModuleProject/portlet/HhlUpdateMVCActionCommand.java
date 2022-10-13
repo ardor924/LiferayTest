@@ -41,63 +41,21 @@ public class HhlUpdateMVCActionCommand implements MVCActionCommand {
 
 	@Override
 	public boolean processAction(ActionRequest actionRequest, ActionResponse actionResponse) throws PortletException {
-		System.out.println("-----------------UpdateActionCommand--------------------------");
-		System.out.println("-----------------UpdateActionCommand--------------------------");
-		System.out.println("-----------------UpdateActionCommand--------------------------");
 		
-		try {
-			actionRequest.setCharacterEncoding("UTF-8");
-		} catch (UnsupportedEncodingException e1) {
-			e1.printStackTrace();
-		}
-		
-		Date nowDate = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm");
-		
-		
-		long bno = ParamUtil.getInteger(actionRequest, "bno");		
-		String subject = ParamUtil.getString(actionRequest, "subject");
-		String writer = ParamUtil.getString(actionRequest, "writer");
-		String contents = ParamUtil.getString(actionRequest, "contents");
-		String strDate = sdf.format(nowDate);
-		
-		String currentPage = ParamUtil.getString(actionRequest, "currentPage");
-		String cntPerPage = ParamUtil.getString(actionRequest, "cntPerPage");
-		String ORDER = ParamUtil.getString(actionRequest, "ORDER");
-		
-		
-		System.out.println("bno : writer :  subject : contents : regDate");
-		System.out.println("---------------------------------------------------------------");
-		System.out.printf(" %s : %s : %s : %s : %s",bno,writer,subject,contents,strDate);
-
-		
-			
 
 		try {
-			
-			TBL tbl = TBLLocalServiceUtil.getTBL(bno);
-			
-			tbl.setBno(bno);
-			tbl.setSubject(subject);
-			tbl.setWriter(writer);
-			tbl.setContents(contents);
-			tbl.setRegDate(strDate);
-			
-			tbl = TBLLocalServiceUtil.updateTBL(tbl);
-			
-
-			
-			
 			// 보낼 url설정
 			PortletURL portletURL = PortletURLFactoryUtil.create(actionRequest, MainHhlBoardPortletKeys.MAINHHLBOARD, Lifecycle.RENDER.toString());	
 			portletURL.setPortletMode(PortletMode.VIEW); 
 			portletURL.setParameter("mvcRenderCommandName", ConstantsCommands.HHLBOARD_LIST_PROJECT);	
 			actionResponse.sendRedirect(portletURL.toString());
-			} 
-		catch (IOException | PortalException e) {
+		} catch (IOException e) {
+
 			e.printStackTrace();
-			
 		}
+			
+
+		
 		return false;
 	}
 

@@ -59,16 +59,20 @@ public class ADDFILECacheModel implements CacheModel<ADDFILE>, Externalizable {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(9);
+		StringBundler sb = new StringBundler(13);
 
 		sb.append("{fno=");
 		sb.append(fno);
 		sb.append(", bno=");
 		sb.append(bno);
+		sb.append(", fRealName=");
+		sb.append(fRealName);
 		sb.append(", fName=");
 		sb.append(fName);
 		sb.append(", fPath=");
 		sb.append(fPath);
+		sb.append(", fDate=");
+		sb.append(fDate);
 		sb.append("}");
 
 		return sb.toString();
@@ -80,6 +84,13 @@ public class ADDFILECacheModel implements CacheModel<ADDFILE>, Externalizable {
 
 		addfileImpl.setFno(fno);
 		addfileImpl.setBno(bno);
+
+		if (fRealName == null) {
+			addfileImpl.setFRealName("");
+		}
+		else {
+			addfileImpl.setFRealName(fRealName);
+		}
 
 		if (fName == null) {
 			addfileImpl.setFName("");
@@ -95,6 +106,13 @@ public class ADDFILECacheModel implements CacheModel<ADDFILE>, Externalizable {
 			addfileImpl.setFPath(fPath);
 		}
 
+		if (fDate == null) {
+			addfileImpl.setFDate("");
+		}
+		else {
+			addfileImpl.setFDate(fDate);
+		}
+
 		addfileImpl.resetOriginalValues();
 
 		return addfileImpl;
@@ -105,8 +123,10 @@ public class ADDFILECacheModel implements CacheModel<ADDFILE>, Externalizable {
 		fno = objectInput.readLong();
 
 		bno = objectInput.readLong();
+		fRealName = objectInput.readUTF();
 		fName = objectInput.readUTF();
 		fPath = objectInput.readUTF();
+		fDate = objectInput.readUTF();
 	}
 
 	@Override
@@ -114,6 +134,13 @@ public class ADDFILECacheModel implements CacheModel<ADDFILE>, Externalizable {
 		objectOutput.writeLong(fno);
 
 		objectOutput.writeLong(bno);
+
+		if (fRealName == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(fRealName);
+		}
 
 		if (fName == null) {
 			objectOutput.writeUTF("");
@@ -128,11 +155,20 @@ public class ADDFILECacheModel implements CacheModel<ADDFILE>, Externalizable {
 		else {
 			objectOutput.writeUTF(fPath);
 		}
+
+		if (fDate == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(fDate);
+		}
 	}
 
 	public long fno;
 	public long bno;
+	public String fRealName;
 	public String fName;
 	public String fPath;
+	public String fDate;
 
 }

@@ -43,8 +43,10 @@ public class ADDFILEWrapper
 
 		attributes.put("fno", getFno());
 		attributes.put("bno", getBno());
+		attributes.put("fRealName", getFRealName());
 		attributes.put("fName", getFName());
 		attributes.put("fPath", getFPath());
+		attributes.put("fDate", getFDate());
 
 		return attributes;
 	}
@@ -63,6 +65,12 @@ public class ADDFILEWrapper
 			setBno(bno);
 		}
 
+		String fRealName = (String)attributes.get("fRealName");
+
+		if (fRealName != null) {
+			setFRealName(fRealName);
+		}
+
 		String fName = (String)attributes.get("fName");
 
 		if (fName != null) {
@@ -74,6 +82,12 @@ public class ADDFILEWrapper
 		if (fPath != null) {
 			setFPath(fPath);
 		}
+
+		String fDate = (String)attributes.get("fDate");
+
+		if (fDate != null) {
+			setFDate(fDate);
+		}
 	}
 
 	/**
@@ -84,6 +98,16 @@ public class ADDFILEWrapper
 	@Override
 	public long getBno() {
 		return model.getBno();
+	}
+
+	/**
+	 * Returns the f date of this addfile.
+	 *
+	 * @return the f date of this addfile
+	 */
+	@Override
+	public String getFDate() {
+		return model.getFDate();
 	}
 
 	/**
@@ -117,6 +141,16 @@ public class ADDFILEWrapper
 	}
 
 	/**
+	 * Returns the f real name of this addfile.
+	 *
+	 * @return the f real name of this addfile
+	 */
+	@Override
+	public String getFRealName() {
+		return model.getFRealName();
+	}
+
+	/**
 	 * Returns the primary key of this addfile.
 	 *
 	 * @return the primary key of this addfile
@@ -139,6 +173,16 @@ public class ADDFILEWrapper
 	@Override
 	public void setBno(long bno) {
 		model.setBno(bno);
+	}
+
+	/**
+	 * Sets the f date of this addfile.
+	 *
+	 * @param fDate the f date of this addfile
+	 */
+	@Override
+	public void setFDate(String fDate) {
+		model.setFDate(fDate);
 	}
 
 	/**
@@ -169,6 +213,16 @@ public class ADDFILEWrapper
 	@Override
 	public void setFPath(String fPath) {
 		model.setFPath(fPath);
+	}
+
+	/**
+	 * Sets the f real name of this addfile.
+	 *
+	 * @param fRealName the f real name of this addfile
+	 */
+	@Override
+	public void setFRealName(String fRealName) {
+		model.setFRealName(fRealName);
 	}
 
 	/**

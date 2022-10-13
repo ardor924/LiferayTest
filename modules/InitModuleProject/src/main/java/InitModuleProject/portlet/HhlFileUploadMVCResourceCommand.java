@@ -1,27 +1,21 @@
 package InitModuleProject.portlet;
 
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
-import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCResourceCommand;
-import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.upload.UploadPortletRequest;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
-import com.liferay.portal.kernel.util.WebKeys;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.UUID;
 
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.osgi.service.component.annotations.Component;
 
@@ -31,7 +25,6 @@ import BoardService.service.ADDFILELocalServiceUtil;
 import BoardService.service.TBLLocalServiceUtil;
 import InitModuleProject.constants.ConstantsCommands;
 import InitModuleProject.constants.MainHhlBoardPortletKeys;
-import InitModuleProject.model.FileVO;
 import InitModuleProject.service.ServiceMethod;
 
 @Component(immediate = true, property = {
@@ -59,36 +52,75 @@ public class HhlFileUploadMVCResourceCommand implements MVCResourceCommand {
 		String writer = serviceMethod.getScreenNameResource(resourceRequest, resourceResponse); // 설명 : themeDisplay로 user의 screenName을 가져온다.
 		String regDate = serviceMethod.getStrNowDate(); // 설명 : simpleDateFormat 으로 String 형태로 변환한 날짜값을 가져온다.
 		
+		
 		long bno = ParamUtil.getLong(uploadRequest, "bno"); 	              // 설명 : 각각의 파라미터를 가져온다
 		String subject = ParamUtil.getString(uploadRequest, "subject", "");   //
 		String contents = ParamUtil.getString(uploadRequest, "contents", ""); //
 	/* --------------------------------------------- DB에 글 등록 처리(등록/수정) ------------------------------------------------------------*/System.out.println(3);	
+		
+		
+		if(bno > 0) { // 이미 존재하는 게시글은 번호가 1 이상 이므로 업데이트 처리한다.
+			
+			try {
+				TBL tbl = TBLLocalServiceUtil.getTBL(bno);
+				tbl.setBno(bno);
+				tbl.setWriter(writer);                         
+				tbl.setContents(contents);                     
+				tbl.setSubject(subject);                       
+				tbl.setRegDate(regDate);
+				tbl = TBLLocalServiceUtil.updateTBL(tbl);		
+				
+			} catch (PortalException e) {
+				e.printStackTrace();
+			}
+		}
+		else {	// 번호가 0일때는 게시글이 없는 상태이므로 게시글을 등록 처리한다.
 		TBL tbl = TBLLocalServiceUtil.createTBL(0);  // 설명 : 테이블에 새로운 게시글을 생성 (bno를 먼저세팅할경우 중복된값이 들어갈수 있으므로 하단에 빼놓음)					                   
+		tbl.setBno(bno);							   //
 		tbl.setWriter(writer);                         //
 		tbl.setContents(contents);                     //
 		tbl.setSubject(subject);                       //
 		tbl.setRegDate(regDate);                       //
-		
-		if(bno > 0) { // 이미 존재하는 게시글은 번호가 1 이상 이므로 업데이트 처리한다.
-			System.out.println(tbl.toString());
-			tbl = TBLLocalServiceUtil.updateTBL(tbl);		
+		tbl = TBLLocalServiceUtil.addTblWithIncrement(tbl);         //
+		bno = tbl.getBno();
 		}
-		else {	// 번호가 0일때는 게시글이 없는 상태이므로 게시글을 등록 처리한다.
-		tbl.setBno(bno);	
-		tbl = TBLLocalServiceUtil.addTBL(tbl);         //
-		}
-	/* --------------------------------------------- 파일업로드처리 ------------------------------------------------------------*/System.out.println();			
-		File[] files = uploadRequest.getFiles("content_files"); // 설명 : ajax로 가져온 formData에 담긴 파일데이터를 가져와서 File[] 배열에 담는다 / 파일의 갯수가 복수이므로 File[] 사용
-		String [] fileNames = uploadRequest.getFileNames("content_files"); // formData에 파일이름을 가져와 String [] 배열에 담는다
+	/* --------------------------------------------- 파일업로드처리 ------------------------------------------------------------*/System.out.println(4);			
+		System.out.println("bno : "+bno);
+		File[] files = uploadRequest.getFiles("content_file"); // 설명 : ajax로 가져온 formData에 담긴 파일데이터를 가져와서 File[] 배열에 담는다 / 파일의 갯수가 복수이므로 File[] 사용
+		String [] fileNames = uploadRequest.getFileNames("content_file"); // formData에 파일이름을 가져와 String [] 배열에 담는다
 		
-		String UPLOAD_DIR = "C:\\file_repo\\";  // 설명 : 업로드할 폴더명을 선언한다. 
+		String fRoot= "C:\\file_repo\\";  // 설명 : 업로드할 폴더명을 선언한다. 
+		String fDate = serviceMethod.getFolderDate(); // 설명 : simpleDateFormat 으로 String 형태로 변환한 날짜값을 가져온다.
+		String uuid = UUID.randomUUID().toString();
+		
+		String fPath = fRoot+fDate+"\\"; // 설명 : (폴더루트 + 날짜 + "\\")를 합친 경로
 		
 		int cnt = 0; 	// 설명 : 파일의 갯수만큼 cnt를 증가시키면서 파일 이름을 각각 다르게 처리한다.
 		if(files != null) {  	// 설명 : 파일이 있다는것은 글등록/수정 할때 파일을 보냈다는것이므로 파일 업로드처리를 한다.
 			for (File file : files ) { 	// 설명 : File[] 배열에서 File타입 파일들을 하나씩 추출한다.
+				
+				
+				
+				
+				
+				
+				
+				File folderGenerator = new File(fRoot+fDate);
+				
+				if(!folderGenerator.exists()) {
+					folderGenerator.mkdir();
+				}else {
+					System.out.println("The folder is already exist!");
+				}		
+				
+				
+				
+				
+				
+				
 
-				try {
-					File copy = new File(UPLOAD_DIR + fileNames[cnt]); // 설명 : 업로드할 폴더명에 각각의 파일명을 더해 새로운 카피 파일을 생성한다(업로드)				
+				try { // 설명 : fPath = C:￦ 루트 + 날짜지정
+					File copy = new File(fPath + uuid +"_"+ fileNames[cnt]); // 설명 :날짜를 지정한 폴더명에 랜덤UUI+'_'+파일명을 더해 새로운 카피 파일을 생성한다(업로드)				
 					long fSize = file.length();  // 설명 : 각각에 원본 파일크기를 설정한다. 
 					FileInputStream fis = new FileInputStream(file); // 설명 : 추출된 각각의 파일원본을 FileInputStream으로 읽어들이기 위해 세팅한다
 					FileOutputStream fos = new FileOutputStream(copy); // 설명 : 임의로 지정한 폴더에 복제파일을 FileOuputStream으로 추출하기위해 세팅한다(업로드)
@@ -115,20 +147,17 @@ public class HhlFileUploadMVCResourceCommand implements MVCResourceCommand {
 				}
 				
 	/* ---------------------------------------------DB에 파일 컬럼 등록------------------------------------------------------------*/System.out.println();							
-
+	
 			ADDFILE addFile = ADDFILELocalServiceUtil.createADDFILE(0);
-			
-			if(bno > 0) { // 설명 : 글번호가 있을때
+
+			addFile.setBno(bno);	// 설명 : 글번호는 위에서 만든 테이블의 글번호를 가져온다	
+			addFile.setFRealName(uuid+"_"+fileNames[cnt]);
 			addFile.setFName(fileNames[cnt]);
-			addFile.setFPath(UPLOAD_DIR + fileNames[cnt]);
+			addFile.setFPath(fPath);
+			addFile.setFDate(fDate);
 			
-				
-			}else { // 설명 : 글번호가 없을때
-				addFile.setBno(bno);				
-			}
-			
-			
-			addFile = ADDFILELocalServiceUtil.addADDFILE(addFile);
+
+			addFile = ADDFILELocalServiceUtil.addADDFILEWithIncrement(addFile);
 				
 			cnt++;	
 			} // END : for문

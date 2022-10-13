@@ -48,9 +48,10 @@ public class HhlFileDownloadMVCActionCommand implements MVCActionCommand {
 			ADDFILE addFile = ADDFILELocalServiceUtil.getADDFILE(fno);
 			System.out.println("2");
 			String fPath = addFile.getFPath();
+			String fRealName = addFile.getFRealName();
 			System.out.println("3");
 			System.out.println("fPath : " + fPath);
-			File file = new File(fPath);
+			File file = new File(fPath+fRealName);
 			System.out.println("4");
 			System.out.println("file.exists() : "+file.exists());
 			if(file.exists()) {

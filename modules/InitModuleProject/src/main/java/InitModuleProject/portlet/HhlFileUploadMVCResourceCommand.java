@@ -40,7 +40,7 @@ public class HhlFileUploadMVCResourceCommand implements MVCResourceCommand {
 	@Override
 	public boolean serveResource(ResourceRequest resourceRequest, ResourceResponse resourceResponse) {
 		
-	System.out.println("-------------------------FileUpload & Data Update/Regist--------------------------------------------");
+	System.out.println("-------------------------FileUpload & Data Update/Regist ResourceArea--------------------------------------------");
 	/* --------------------------------------------- 기본 세팅 ------------------------------------------------------------*/System.out.println();	 
 		
 		ServiceMethod serviceMethod = new ServiceMethod();    //  설명 : 사용자정의 서비스 

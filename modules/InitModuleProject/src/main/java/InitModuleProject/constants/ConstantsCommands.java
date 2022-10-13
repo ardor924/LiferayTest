@@ -15,10 +15,13 @@ public class ConstantsCommands {
 	public static final String HHLBOARD_DELETE_PROJECT ="hhl/project/delete";
 	
 	// File
-	public static final String HHLBOARD_FILEUPLOAD_PROJECT ="hhl/project/fileupload";
-	public static final String HHLBOARD_FILEDOWNLOAD_PROJECT ="hhl/project/filedownload";
+	public static final String HHLBOARD_FILEUPLOAD_PROJECT ="hhl/project/file/upload";
+	public static final String HHLBOARD_FILEDOWNLOAD_PROJECT ="hhl/project/file/download";
 	
-	public static final String HHLBOARD_FILEDELETE_PROJECT ="hhl/project/filedelete";
+	public static final String HHLBOARD_FILEDELETE_PROJECT ="hhl/project/file/delete";
+	
+	// 이미지
+	public static final String HHLBOARD_IMAGESHOW_PROJECT ="hhl/project/image/show";
 	
 	
 	
@@ -27,9 +30,9 @@ public class ConstantsCommands {
 	public static final String HHLBOARD_EDIT_UPDATE_PROJECT ="hhl/project/edit/update";
 	
 	// 댓글
-	public static final String HHLBOARD_REPLY_ADDLIST_PROJECT ="hhl/project/add/reply";
-	public static final String HHLBOARD_REPLY_DELETE_PROJECT ="hhl/project/delete/reply";
-	public static final String HHLBOARD_REPLY_UPDATE_PROJECT ="hhl/project/update/reply";
+	public static final String HHLBOARD_REPLY_ADDLIST_PROJECT ="hhl/project/reply/add";
+	public static final String HHLBOARD_REPLY_DELETE_PROJECT ="hhl/project/reply/delete";
+	public static final String HHLBOARD_REPLY_UPDATE_PROJECT ="hhl/project/reply/update";
 	
 	// 업로드 테스트
 	public static final String HHLBOARD_UPLOADTEST ="hhl/project/test/upload";

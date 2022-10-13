@@ -63,7 +63,7 @@ public class HhlFileUploadMVCResourceCommand implements MVCResourceCommand {
 		String subject = ParamUtil.getString(uploadRequest, "subject", "");   //
 		String contents = ParamUtil.getString(uploadRequest, "contents", ""); //
 	/* --------------------------------------------- DB에 글 등록 처리(등록/수정) ------------------------------------------------------------*/System.out.println(3);	
-		TBL tbl = TBLLocalServiceUtil.createTBL(bno);  // 설명 : 테이블에 새로운 게시글을 생성 (bno를 먼저세팅할경우 중복된값이 들어갈수 있으므로 하단에 빼놓음)					                   
+		TBL tbl = TBLLocalServiceUtil.createTBL(0);  // 설명 : 테이블에 새로운 게시글을 생성 (bno를 먼저세팅할경우 중복된값이 들어갈수 있으므로 하단에 빼놓음)					                   
 		tbl.setWriter(writer);                         //
 		tbl.setContents(contents);                     //
 		tbl.setSubject(subject);                       //
@@ -78,8 +78,8 @@ public class HhlFileUploadMVCResourceCommand implements MVCResourceCommand {
 		tbl = TBLLocalServiceUtil.addTBL(tbl);         //
 		}
 	/* --------------------------------------------- 파일업로드처리 ------------------------------------------------------------*/System.out.println();			
-		File[] files = uploadRequest.getFiles("content_file"); // 설명 : ajax로 가져온 formData에 담긴 파일데이터를 가져와서 File[] 배열에 담는다 / 파일의 갯수가 복수이므로 File[] 사용
-		String [] fileNames = uploadRequest.getFileNames("content_file"); // formData에 파일이름을 가져와 String [] 배열에 담는다
+		File[] files = uploadRequest.getFiles("content_files"); // 설명 : ajax로 가져온 formData에 담긴 파일데이터를 가져와서 File[] 배열에 담는다 / 파일의 갯수가 복수이므로 File[] 사용
+		String [] fileNames = uploadRequest.getFileNames("content_files"); // formData에 파일이름을 가져와 String [] 배열에 담는다
 		
 		String UPLOAD_DIR = "C:\\file_repo\\";  // 설명 : 업로드할 폴더명을 선언한다. 
 		
@@ -115,7 +115,7 @@ public class HhlFileUploadMVCResourceCommand implements MVCResourceCommand {
 				}
 				
 	/* ---------------------------------------------DB에 파일 컬럼 등록------------------------------------------------------------*/System.out.println();							
-				
+
 			ADDFILE addFile = ADDFILELocalServiceUtil.createADDFILE(0);
 			
 			if(bno > 0) { // 설명 : 글번호가 있을때
@@ -130,7 +130,7 @@ public class HhlFileUploadMVCResourceCommand implements MVCResourceCommand {
 			
 			addFile = ADDFILELocalServiceUtil.addADDFILE(addFile);
 				
-				
+			cnt++;	
 			} // END : for문
 		} // END : if문
 		

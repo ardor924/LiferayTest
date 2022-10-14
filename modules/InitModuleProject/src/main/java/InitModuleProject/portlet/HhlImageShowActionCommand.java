@@ -40,7 +40,7 @@ public class HhlImageShowActionCommand implements MVCActionCommand {
 		System.out.println("---------------------------------ImageShow RenderCommand------------------------------------");
 		
 	
-		// 리스폰스 세팅
+	 // 리스폰스 세팅
 	 HttpServletResponse response = PortalUtil.getHttpServletResponse(actionResponse);
 	 
 	 // 아웃풋 인풋 초기세팅
@@ -74,11 +74,12 @@ public class HhlImageShowActionCommand implements MVCActionCommand {
 	 		int size;
 	 		
 	 		// 버퍼설정
-	 		byte[] buffer = new byte[1024];
+	 		byte[] buffer = new byte[1024]; // 버퍼크기가 크면 버퍼링 시간은 길지만 버퍼링 횟수가 적고, 버퍼크기가 작으면 버퍼링 시간을 줄일수 있지만 버퍼링 횟수가 많아짐.
+	 		response.setContentType("image/jpeg, image/jpeg, image/png, image/gif, image/bmp");
 	 		
 	 		// 반복문으로 파일을 0까지 읽고 쓰기
 	 		while(( size = in.read(buffer) ) != -1 )
-	 		out.write(buffer,0,size);
+	 			out.write(buffer,0,size);
 	 		
 	 	} 
 	 	

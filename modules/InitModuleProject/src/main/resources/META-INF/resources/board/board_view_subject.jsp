@@ -28,6 +28,11 @@
 <liferay-portlet:actionURL var="ImageShowURL" name="<%=ConstantsCommands.HHLBOARD_IMAGESHOW_PROJECT%>"/>
 
 
+<c:forEach var="li" items="${fileList}">
+      <img src="${ImageShowURL}&<portlet:namespace/>fno=${li.fno}" class="d-block w-100" alt="이미지">
+</c:forEach>
+
+
 
 <div class="container p-5">
 		<div class="d-flex justify-content-end">
@@ -43,6 +48,7 @@
 		<hr>
 <div class="shadow p-4">
 	<form action="${UpdateFormEditURL}" method="post">
+	
 		<input type="hidden" value="${userName}" name="<portlet:namespace/>userName">
 		<input type="hidden" value="${tbl.bno}" name="<portlet:namespace/>bno">
 		<input type="hidden" value="${currentPage}" name="<portlet:namespace/>currentPage">
@@ -64,34 +70,54 @@
 		<div>
 			<section>${tbl.contents}</section><!-- 큰 이미지 화면 처리방법 구상할것 -->
 		</div>
-		<hr>
 		
+		
+		<hr>
+		<!-- START : 이미지 슬라이더 -->
 
-		<!-- 이미지 다운 & 이미지 슬라이드 -->	
-		<div class="d-flex justify-content-between">	
-			<c:forEach var="li" items="${fileList}">	
-			<span>이미지 다운</span>	
-				<hr>
-				<li class="row">	
-				<button class="btn btn-primary" type="button" onclick="fileDown(${li.fno})">${li.FName}</button>
-				<img src="${ImageShowURL}&<portlet:namespace/>fno=${li.fno}">
-				</li>		
-				<hr>
-			</c:forEach>
-			</div>	
-			<!-- 작성자 본인인경우 -->
-			<c:if test="${mine}">
+<c:forEach var="li" items="${fileList}">
+<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="${ImageShowURL}&<portlet:namespace/>fno=${li.fno}" class="d-block w-100" alt="이미지">
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+</c:forEach>
+
+		<!-- END :이미지 슬라이더 -->
+			
+		<!-- 작성자 본인인경우 -->
+		<c:if test="${mine}">
 			<div class="d-flex justify-content-end">
 				<button type="submit" class="btn btn-success m-1">수정</button>
-				<a class="btn btn-danger m-1" id='btn-delete' href="${SubjectDeleteURL}&<portlet:namespace/>bno=${tbl.bno}">삭제</a>		
+				<a class="btn btn-danger m-1" id='btn-delete'
+					href="${SubjectDeleteURL}&<portlet:namespace/>bno=${tbl.bno}">삭제</a>
 			</div>
-			</c:if>			
+		</c:if>
 	</form>
-</div>		
-	<hr>
-	
-	
-	
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
 <script type="text/javascript">
 
 function fileDown(fno){
@@ -99,13 +125,14 @@ function fileDown(fno){
 }
 
 
+//Carousel Auto-Cycle
+$(document).ready(function() {
+  $('.carousel').carousel({
+    interval: 6000
+  })
+});
 
 
 </script>
-	
-	
-	
-	
-	
-	
 <%@ include file="/board/reply_form.jsp"%>
+

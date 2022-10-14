@@ -282,31 +282,4 @@ function update_reply(rno,bno,rWriter,rContents,rRegDate,page){
 </script>
 
 <!-- // END : 댓글 목록 영역  -->
-
-<style>
-.addRep:hover{
-	cursor: pointer;
-	text-decoration: underline;
-}
-
-#replyList div~div:nth-child(3) {
-display: none;
-}
-
-#replyList div~div:nth-child(3).active {
-display: block;
-}
-
-#btn_active{
-	display: none;
-}
-#btn_active.active{
-	display: block;
-}
-
-#toggle-side{
-
-}
-
-
-</style>
+<link rel="stylesheet" type="text/css" href="${ctx}/css/reply.form.css">

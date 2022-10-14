@@ -95,13 +95,17 @@ public class HhlFileUploadMVCResourceCommand implements MVCResourceCommand {
 		
 		String fPath = fRoot+fDate+"\\"; // 설명 : (폴더루트 + 날짜 + "\\")를 합친 경로
 		
+		long maxFileSize = 10 * 1024 * 1024; // 업로드 최대 파일크기 제한
+		
 		int cnt = 0; 	// 설명 : 파일의 갯수만큼 cnt를 증가시키면서 파일 이름을 각각 다르게 처리한다.
 		if(files != null) {  	// 설명 : 파일이 있다는것은 글등록/수정 할때 파일을 보냈다는것이므로 파일 업로드처리를 한다.
 			for (File file : files ) { 	// 설명 : File[] 배열에서 File타입 파일들을 하나씩 추출한다.
+
+			
 				
-				
-				
-				
+		long fileSize = file.length();
+		
+		if(fileSize < maxFileSize) { // 최대 파일 사이즈에 제한이 없는경우 로직 실행
 				
 				
 				
@@ -160,14 +164,26 @@ public class HhlFileUploadMVCResourceCommand implements MVCResourceCommand {
 			addFile = ADDFILELocalServiceUtil.addADDFILEWithIncrement(addFile);
 				
 			cnt++;	
-			} // END : for문
-		} // END : if문
+				} // END 파일사이즈제한 if 문
+		else {
+			System.out.println("File over it's max size, upload limited");
+			break;
+		}// END 파일사이즈제한 else 문
 		
-	/* ---------------------------------------------Ajax에 JSON 전송------------------------------------------------------------*/System.out.println();				
+
+			} // END : for문 각각의 파일추출
+		} // END : if문 파일배열에 파일이 존재할때
+		
 			
+			
+			
+	/* ---------------------------------------------Ajax에 JSON 전송------------------------------------------------------------*/System.out.println();			
+	
+	
 		json.put("result", "OK");
 		json.put("bno", bno);
 		json.put("writer", writer);
+
 		
 	
 		try {

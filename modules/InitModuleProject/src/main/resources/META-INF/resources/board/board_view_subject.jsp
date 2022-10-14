@@ -1,3 +1,4 @@
+<%@page import="javax.portlet.WindowState"%>
 <%@page import="InitModuleProject.constants.ConstantsCommands"%>
 <%@page import="com.liferay.portal.kernel.portlet.LiferayWindowState"%>
 <%@ include file="../init.jsp"%>
@@ -24,20 +25,22 @@
 <liferay-portlet:actionURL var="DownFileURL" name="<%=ConstantsCommands.HHLBOARD_FILEDOWNLOAD_PROJECT%>"/>	
 
 <!-- 이미지 미리보기 렌더 -->
-<liferay-portlet:renderURL var="ImageShowURL" windowState="<%=LiferayWindowState.MAXIMIZED.toString()%>">
-	<liferay-portlet:param name="mvcRenderCommand" value="<%=ConstantsCommands.HHLBOARD_IMAGESHOW_PROJECT %>"/>
-</liferay-portlet:renderURL>
+<liferay-portlet:actionURL var="ImageShowURL" name="<%=ConstantsCommands.HHLBOARD_IMAGESHOW_PROJECT%>"/>
 
 
-<div>이미지출력-> <img src="${ImageShowURL}"/></div>
+<%-- <div>이미지출력-> <img src="${ImageShowURL}"/></div>
 <div>이미지출력-> <img src="${ImageShowURL}&<portlet:namespace/>fno=1004"/></div>
 <div>이미지 전환 - ><a href="${ImageShowURL}&<portlet:namespace/>fno=1004">이미지 전환</a></div>
-${fileList}
+${fileList} --%>
 
+<div>이미지출력-> <img src="${DownFileURL}&<portlet:namespace/>fno=1104"/></div>
+<div>이미지출력-> <img src="${ImageShowURL}&<portlet:namespace/>fno=1104"/></div>
 <%-- <div>이미지출력-> <img src="${ImageShowURL}<portlet:namespace/>fno=${fileList.fno}"/></div> --%>
 
+<img width="90px" height="90px" class="card-img-bottom d-block" src="${ImageShowURL}" alt="image">
+<a href="${ImageShowURL}&<portlet:namespace/>fno=1101">이미지링크</a>
 
-<%-- 
+
 <div class="container p-5">
 		<div class="d-flex justify-content-end">
 			<a class="btn btn-outline-dark" href="${BoardListURL}
@@ -111,9 +114,7 @@ ${fileList}
 				<li class="row">	
 				<button class="btn btn-primary" type="button" onclick="fileDown(${li.fno})">${li.FName}</button>
 				<img src="${li.FPath}${li.FRealName}">
-				<img src="C:\\img\\admin.jpg"/>
-				<div>${li.FPath}${li.FRealName}</div>
-				<input value="${li.FPath}${li.FRealName}"/>
+				<div>파일경로 : ${li.FPath}${li.FRealName}</div>
 				</li>		
 				<hr>
 			</c:forEach>
@@ -155,4 +156,4 @@ function fileDown(fno){
 	
 	
 	
-<%@ include file="/board/reply_form.jsp"%> --%>
+<%@ include file="/board/reply_form.jsp"%>

@@ -64,56 +64,56 @@
 		<div>
 			<section>${tbl.contents}</section><!-- 큰 이미지 화면 처리방법 구상할것 -->
 		</div>
-		
+		<hr>		
+		<!-- 작성자 본인인경우 -->
+		<c:if test="${mine}">
+			<div class="d-flex justify-content-end">
+				<button type="submit" class="btn btn-success m-1">글수정</button>
+				<a class="btn btn-danger m-1" id='btn-delete'
+					href="${SubjectDeleteURL}&<portlet:namespace/>bno=${tbl.bno}">글삭제</a>
+			</div>
+		</c:if>		
 		
 		<hr>
 		<!-- START : 이미지 슬라이더 -->
 
- <div class="page-wrapper" style="position:relative;">
-      <!--page slider -->
-      <div class="post-slider">
-        <h1 class="silder-title">이미지 슬라이더</h1>
-        <i class="fas fa-chevron-left prev"></i>  
-        <i class="fas fa-chevron-right next"></i> 
-        <div class="post-wrapper">
-<c:forEach var="li" items="${fileList}">
-          <div class="post">
-          	<div class="post-box">
-            	<img src="${ImageShowURL}&<portlet:namespace/>fno=${li.fno}" class="slider-image">
-          	</div>
-            <div class="post-info">
-              <i class="far fa-user">${li.FName} </i>
-              <h4><button type="button" onclick="fileDown(${li.fno})">다운로드</button></h4>
+       
+
+		<h2 class="text-center mb-5">이미지 슬라이더</h2>
+         <section class="banner-section">
+            <div class="img-container">
+                <div class="vehicle-detail-banner banner-content clearfix">
+                    <div class="banner-slider">
+                        <div class="slider slider-for">
+                <c:forEach var="li" items="${fileList}">
+                            <div class="slider-banner-image">
+                                <img src="${ImageShowURL}&<portlet:namespace/>fno=${li.fno}" alt="Car-Image">
+                            	<p class="slider-banner-button">다운로드</p>
+                            </div>
+                </c:forEach>    
+                        </div>
+                        <div class="slider slider-nav thumb-image">
+                <c:forEach var="li" items="${fileList}">
+                            <div class="thumbnail-image">
+                                <div class="thumbImg">
+                                    <img src="${ImageShowURL}&<portlet:namespace/>fno=${li.fno}" alt="slider-img">
+                                </div>
+                                <span>${li.FName}</span>
+                            </div>                          
+                </c:forEach>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-</c:forEach>
-        </div>
-      </div>
-      <!--post slider-->
-    </div>
+        </section>
+        <!-- End User this HTML for Slider -->
+
 		<!-- END :이미지 슬라이더 -->
 			
-		<!-- 작성자 본인인경우 -->
-		<c:if test="${mine}">
-			<div class="d-flex justify-content-end">
-				<button type="submit" class="btn btn-success m-1">수정</button>
-				<a class="btn btn-danger m-1" id='btn-delete'
-					href="${SubjectDeleteURL}&<portlet:namespace/>bno=${tbl.bno}">삭제</a>
-			</div>
-		</c:if>
+
 	</form>
 </div>
 </div>
-
-
-
-
-
-
-
-
-
-
 
 <script type="text/javascript">
 
@@ -121,12 +121,13 @@ function fileDown(fno){
 	window.location.href = '${DownFileURL}&<portlet:namespace/>fno='+fno;	
 }
 </script>
-<%-- <%@ include file="/board/reply_form.jsp"%> --%>
+<%@ include file="/board/reply_form.jsp"%>
 
 <!-- slick-slider CSS -->
 <link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 <!-- Jquery -->
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <!-- slick-slider JS -->
 <script type="text/javascript" src="http://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>			
 <!-- css -->

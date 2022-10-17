@@ -1,0 +1,16 @@
+.file_list li{
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+  
+    max-width: 1250px;
+    width: 100%;
+    border-bottom: 1px solid #efefef;
+    font-size: 12px;
+}
+
+img.file_img{
+	
+	width: 150px;
+	height: 100px;
+}

@@ -36,8 +36,9 @@ public class HhlViewMVCRenderCommand implements MVCRenderCommand{
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 		System.out.println("--------------------ViewCommand----------------------");
 
+
 		// PK가져와서 tbl로 객체바인딩
-		long bno = ParamUtil.getInteger(renderRequest, "bno");
+		long bno = ParamUtil.getLong(renderRequest, "bno", -1);
 		String currentPage = ParamUtil.getString(renderRequest, "currentPage");
 		String cntPerPage = ParamUtil.getString(renderRequest, "cntPerPage");
 		String ORDER = ParamUtil.getString(renderRequest, "ORDER");
@@ -50,6 +51,17 @@ public class HhlViewMVCRenderCommand implements MVCRenderCommand{
 		System.out.println("currentPage : " + currentPage);
 		System.out.println("cntPerPage : " + cntPerPage);
 		System.out.println("ORDER : " + ORDER);
+		
+		// 조회수 증가
+		if(bno > 0) {
+			boolean success = TBLLocalServiceUtil.addHitTBL(bno);
+			if(success) {
+				System.out.println("hit is updated");
+			}else {
+				System.out.println("hit update failed..");
+			}
+		}
+		
 		
 		
 		try {

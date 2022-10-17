@@ -12,7 +12,6 @@ import javax.portlet.RenderResponse;
 import org.osgi.service.component.annotations.Component;
 
 import BoardService.model.TBL;
-import BoardService.service.TBLLocalServiceUtil;
 import InitModuleProject.constants.ConstantsCommands;
 import InitModuleProject.constants.MainHhlBoardPortletKeys;
 import InitModuleProject.model.BoardPagingVO;

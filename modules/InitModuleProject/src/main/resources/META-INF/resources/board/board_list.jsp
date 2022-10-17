@@ -25,7 +25,7 @@
 </liferay-portlet:renderURL>
 
 
-
+	
 <h2>${userName} 님 안녕하세요!</h2>
 <!-- 검색 -->
 <%@ include file="./board_search.jsp" %>
@@ -117,7 +117,6 @@
 		</form>
 	</div>		
 	<div class="text-center">
-		<a class="btn btn-outline-dark" href='${BoardListURL}'>목록</a>
 		<c:if test="${userName == 'guest'}">
 		<button class="btn btn-outline-dark" onclick="javascript:alert('글을 쓰기 위해서는 로그인이 필요합니다!')">글쓰기</button>
 		</c:if>

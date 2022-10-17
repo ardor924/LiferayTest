@@ -31,6 +31,8 @@
 <!-- 파일삭제 리소스 -->
 <liferay-portlet:resourceURL var="FileFormDeleteURL" id="<%=ConstantsCommands.HHLBOARD_FILEDELETE_PROJECT %>"/>
 
+<!-- 이미지 미리보기 액션 -->
+<liferay-portlet:actionURL var="ImageShowURL" name="<%=ConstantsCommands.HHLBOARD_IMAGESHOW_PROJECT%>"/>
 
 
 
@@ -94,13 +96,15 @@
 			</div> -->
 					
 			<!-- 파일테이블 --> 		
+			<ul class="file_list">
 			<c:forEach var="li" items="${fileList}">
-				<hr>
-				<div id="li-${li.fno}" class="d-flex align-items-center">
-					<button class="btn btn-primary" type="button" onclick="fileDown(${li.fno})">${li.FName}</button><i class="fa-solid fa-trash" onclick="fileDeleteDB(${li.fno})"></i>
-				</div>
-				<hr>
+				<li id="li-${li.fno}">
+					<img class="file_img" src="${ImageShowURL}&<portlet:namespace/>fno=${li.fno}"/>
+					<span onclick="fileDown(${li.fno})">${li.FName}</span>
+					<i class="fa-solid fa-trash" onclick="fileDeleteDB(${li.fno})"></i>
+				</li>
 			</c:forEach>					
+			</ul>
 		</div>
 		</c:if>
          
@@ -323,3 +327,5 @@ function fileDelete(fileNum){ // 해당 넘버링 인자로 받음
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- file_list css -->
+<link rel="stylesheet" type="text/css" href="${ctx}/css/attach.css">

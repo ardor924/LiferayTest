@@ -4,9 +4,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="liferay-portlet" uri="http://liferay.com/tld/portlet" %>
 
+
+
 <div class="d-flex justify-content-between">
 <!-- 현재 페이지 표시-->
-	<div class="m-0 my-1 justify-content-start"><b>${bp.currentPage}</b> / ${bp.totalPage} pages / total :${bp.cntPerTotal}</div>
+	<div class="m-0 my-1 justify-content-start"><b>${bp.currentPage}</b> / ${bp.totalPage} pages | total : ${bp.cntPerTotal}</div>
+
+
 	<!-- 검색기능 -->
 	<div class="d-flex justify-content-end">		
  		<form id="searchForm" method="post" action="${BoardListURL}">

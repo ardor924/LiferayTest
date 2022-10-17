@@ -10,19 +10,15 @@ import java.io.IOException;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletException;
-import javax.portlet.PortletMode;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletURL;
 
 import org.osgi.service.component.annotations.Component;
 
-import BoardService.model.ADDFILE;
 import BoardService.model.TBL;
-import BoardService.service.ADDFILELocalServiceUtil;
 import BoardService.service.TBLLocalServiceUtil;
 import InitModuleProject.constants.ConstantsCommands;
 import InitModuleProject.constants.MainHhlBoardPortletKeys;
-import InitModuleProject.model.FileVO;
 import InitModuleProject.service.ServiceMethod;
 @Component(
 		immediate = true,

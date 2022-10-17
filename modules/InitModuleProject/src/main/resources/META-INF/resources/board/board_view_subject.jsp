@@ -6,7 +6,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="liferay-portlet" uri="http://liferay.com/tld/portlet"%>
 
-
 <!-- 게시판 리스트 -->
 <liferay-portlet:renderURL var="BoardListURL" windowState="<%=LiferayWindowState.MAXIMIZED.toString()%>">
 	<liferay-portlet:param name="mvcRenderCommandName" value="<%=ConstantsCommands.HHLBOARD_LIST_PROJECT%>"/>
@@ -26,11 +25,6 @@
 
 <!-- 이미지 미리보기 액션 -->
 <liferay-portlet:actionURL var="ImageShowURL" name="<%=ConstantsCommands.HHLBOARD_IMAGESHOW_PROJECT%>"/>
-
-
-<c:forEach var="li" items="${fileList}">
-      <img src="${ImageShowURL}&<portlet:namespace/>fno=${li.fno}" class="d-block w-100" alt="이미지">
-</c:forEach>
 
 
 
@@ -75,25 +69,28 @@
 		<hr>
 		<!-- START : 이미지 슬라이더 -->
 
+ <div class="page-wrapper" style="position:relative;">
+      <!--page slider -->
+      <div class="post-slider">
+        <h1 class="silder-title">이미지 슬라이더</h1>
+        <i class="fas fa-chevron-left prev"></i>  
+        <i class="fas fa-chevron-right next"></i> 
+        <div class="post-wrapper">
 <c:forEach var="li" items="${fileList}">
-<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="${ImageShowURL}&<portlet:namespace/>fno=${li.fno}" class="d-block w-100" alt="이미지">
-    </div>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div>
-
+          <div class="post">
+          	<div class="post-box">
+            	<img src="${ImageShowURL}&<portlet:namespace/>fno=${li.fno}" class="slider-image">
+          	</div>
+            <div class="post-info">
+              <i class="far fa-user">${li.FName} </i>
+              <h4><button type="button" onclick="fileDown(${li.fno})">다운로드</button></h4>
+            </div>
+          </div>
 </c:forEach>
-
+        </div>
+      </div>
+      <!--post slider-->
+    </div>
 		<!-- END :이미지 슬라이더 -->
 			
 		<!-- 작성자 본인인경우 -->
@@ -123,16 +120,19 @@
 function fileDown(fno){
 	window.location.href = '${DownFileURL}&<portlet:namespace/>fno='+fno;	
 }
-
-
-//Carousel Auto-Cycle
-$(document).ready(function() {
-  $('.carousel').carousel({
-    interval: 6000
-  })
-});
-
-
 </script>
-<%@ include file="/board/reply_form.jsp"%>
+<%-- <%@ include file="/board/reply_form.jsp"%> --%>
+
+<!-- slick-slider CSS -->
+<link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<!-- Jquery -->
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<!-- slick-slider JS -->
+<script type="text/javascript" src="http://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>			
+<!-- css -->
+<link rel="stylesheet" type="text/css" href="${ctx}/css/slider.css"/>
+
+<!-- js -->
+<script type="text/javascript" src="${ctx}/js/slider.js"></script>			
+
 

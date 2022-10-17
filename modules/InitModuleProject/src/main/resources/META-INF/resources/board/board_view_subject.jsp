@@ -87,8 +87,7 @@
                         <div class="slider slider-for">
                 <c:forEach var="li" items="${fileList}">
                             <div class="slider-banner-image">
-                                <img src="${ImageShowURL}&<portlet:namespace/>fno=${li.fno}" alt="Car-Image">
-                            	<p class="slider-banner-button">다운로드</p>
+                                <p style="position: absolute;" onclick="fileDown(${li.fno})">다운로드<img style="position: relative;" src="${ImageShowURL}&<portlet:namespace/>fno=${li.fno}" alt="Car-Image"></p>
                             </div>
                 </c:forEach>    
                         </div>

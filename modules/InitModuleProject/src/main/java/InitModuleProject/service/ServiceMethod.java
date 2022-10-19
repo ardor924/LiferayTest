@@ -20,7 +20,9 @@ import javax.portlet.RenderResponse;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 
+import BoardService.model.REP;
 import BoardService.model.TBL;
+import BoardService.service.REPLocalServiceUtil;
 import BoardService.service.TBLLocalServiceUtil;
 import InitModuleProject.model.BoardPagingVO;
 
@@ -360,6 +362,29 @@ public class ServiceMethod {
 				
 				return board_list;
 			}
+			
+			
+			
+			
+			// -----------------------------댓글 리스트------------------------------
+			
+			public List<REP> getReplyList(int bno){
+				DynamicQuery userQuery = DynamicQueryFactoryUtil.forClass(REP.class, "rep",PortalClassLoaderUtil.getClassLoader());
+				userQuery.addOrder(OrderFactoryUtil.desc("rep.rno"));
+				List<REP> reply_list = REPLocalServiceUtil.dynamicQuery(userQuery, 0, REPLocalServiceUtil.getREPsCount());
+				
+				
+				return reply_list;
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			
 			
 

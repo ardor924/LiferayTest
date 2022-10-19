@@ -56,6 +56,7 @@ var rContents = $('textarea[name=rContents]').val();
 
 /* ------- START : document ready ---------------- */
 $(function(){
+
 	getList()
 })	
 /* ------- END : document ready ---------------- */
@@ -76,7 +77,9 @@ $(function(){
 		}),
 		dataType : "json",
 		success : function(data){
-	
+			console.log("data : "+data)
+			
+			
 			var html = "<li>";
 			
 			for(var i=0;i<data.length;i++){
@@ -99,7 +102,7 @@ $(function(){
 				     html +=              	'<a id="toggle'+num+'" onclick="btn_toggle()" type="button"><i class="fa-solid fa-ellipsis-vertical"></i></a>';
 				     html +=              '</h3>';
 				     html +=              '<div id="toggle_side'+num+' class="toggle_side" class="m-0 d-flex row">';
-				     html +=              	'<div class="update_reply btn btn-success text-white mb-2" onclick="update_reply_frm('+num+')">수정</div>';
+				     html +=              	'<div class="update_reply btn btn-success text-white mb-2" onclick="update_reply('+num+')">수정</div>';
 				     html +=              	'<div class="delete_reply btn btn-danger text-white mb-2" onclick="delete_reply('+reply.rno+')">삭제</div>';
 				     html +=              '</div>';
 				     html +=      '</div>';
@@ -133,7 +136,7 @@ $(function(){
 		
 		var rContents = $('textarea[name=rContents]').val();
 		
-		console.log("-----------#btn_reply_regist------------")
+		console.log("-----------btn_reply_regist------------")
 		console.log("rContents : "+rContents)
 		console.log("rWriter : "+rWriter)
 		console.log("bno : "+bno)
@@ -163,30 +166,6 @@ $(function(){
 /*---------//END : 클릭 이벤트(댓글등록) ---------*/
 
 
-/*---------//START : 클릭 이벤트(댓글삭제) ---------*/
-function delete_reply(rno){
-	var pass = confirm('댓글을 삭제하시겠습니까?');
-	if(pass){
-		$.ajax({
-			type :"post",
-			url : "${DeleteReplyURL}",
-			data : Liferay.Util.ns('<portlet:namespace/>',{		
-				rno : rno,
-			}),
-			dataType : "text",
-			success : function(data){
-				getList()
-			},
-			error : function(err){
-				alert("댓글 삭제 실패했습니다")
-			}
-			
-		})
-	}	
-
-	
-}
-/*---------//END : 클릭 이벤트(댓글삭제) ---------*/
 
 
 
@@ -194,61 +173,8 @@ function delete_reply(rno){
 
 
 
-/*----------- // START :  댓글 수정 폼생성--------------  */
-function update_reply_frm(num){
-	
-	let showHide = document.querySelector('#addRepFrm'+num)
-	showHide.classList.toggle("active");
-	
-	   var rAddWriter  = '${userName}';
-	   /* var addRepFrmVal = $('#addRepFrm'+num).val() */
-	  var addrep = '<div class="panel panel-default p-3 w-70 justify-content-center">'
-	              +'	<div>                                                                                                                             '	
-	              +'	<form name="frm_reply">                                                                                                           '
-	              +'		<div class="d-flex justify-content-between p-3">                                                                              '
-	              +'			<div class="col-13 w-100 d-flex justify-content-start">                                                                   '
-	              +'				<span id="frm_rWriter" class="col-1"> '+rWriter+' </span>																			  '                                                                                
-	              +'				<textarea id="frm_rContents" name="rContents" class="col-11" rows="5" placeholder="댓글을 입력하세요"></textarea>    '
-	              +'			</div>                                                                                                                    '
-	              +'		</div>                                                                                                                        '
-	              +'			<div class="d-flex justify-content-end mt-2">                                                                             '
-	              +'				<p id="btn_active'+num+'" class="btn btn-sm btn-danger m-2" onclick="addrep_cancel('+num+')">취소</p>                                                      '
-	              +'				<p id="btn_reply_update" class="btn btn-sm btn-success m-2" onclick="update_reply('+num+')">수정</p>                                                      '
-	              +'			</div>                                                                                                                    '
-	              +'	</form>                                                                                                                           '
-	              +'	</div>                                                                                                                            '
-	              +'</div>                                                                                                                                '
-	              +'                                                                                                                                      '	          
-	  		$('#addRepFrm'+num).html(addrep);	
-	              
-	         var rWiter = $("#frm_rWriter").text();
-	         var rContents = $("textarea#frm_rContents").text();
-	console.log("rWiter : "+rWiter);
-	console.log("rContents : "+rContents);
-	         
-	
-	
-}
-/*----------- // END :  댓글 수정 폼생성--------------  */
 
 
-
-
-/*---------//START : 클릭 이벤트(댓글수정) ---------*/
-function update_reply(num,rAddWriter){
-	var rWriter = "${userName}";
-	
-	console.log("----------update_reply--------------")
-	console.log("num : "+num);
-	console.log("rWriter : "+rWriter);
-	
-	
-	
-	
-}
-
-
-/*---------//END : 클릭 이벤트(댓글수정) ---------*/
 
 </script>
 

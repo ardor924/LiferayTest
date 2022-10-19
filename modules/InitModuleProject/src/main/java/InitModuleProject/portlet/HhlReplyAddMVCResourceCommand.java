@@ -37,14 +37,8 @@ public class HhlReplyAddMVCResourceCommand implements MVCResourceCommand {
 /*------------------------------------기본설정-------------------------------------------------------------*/	
 		ServiceMethod serviceMethod = new ServiceMethod();
 		
-		String ajaxType = ParamUtil.get(resourceRequest, "ajaxType","get");
-	
-		
-		
 /*------------------------------------댓글작성시(POST)-------------------------------------------------------------*/			
 /*------------------------------------파라미터세팅-------------------------------------------------------------*/			
-		
-		if(ajaxType.equals("post")) {
 		
 		long rno = ParamUtil.getInteger(resourceRequest, "rno");	
 		int bno = ParamUtil.getInteger(resourceRequest, "bno");
@@ -82,46 +76,10 @@ public class HhlReplyAddMVCResourceCommand implements MVCResourceCommand {
 			
 			e.printStackTrace();
 		}
-		};
-/*-----------------------------------------------------------------------------------------------------------------------*/		
-/*-----------------------------------JSON형식으로 보내기(GET)------------------------------------------------------------*/				
-/*-----------------------------------------------------------------------------------------------------------------------*/		
-		int page = ParamUtil.getInteger(resourceRequest, "page");
-		int limit = 10;
-		int offset = limit * (page - 1);
 		
-		int bno = ParamUtil.getInteger(resourceRequest, "bno");
-		List<REP> reply_list = REPLocalServiceUtil.getREPListBybno(bno, offset, limit);
 
-
-		  
-	 	JSONArray jArray = JSONFactoryUtil.createJSONArray();//배열이 필요할때  
-		for (int i = 0; i < reply_list.size(); i++)//배열                    
-			{                        
-			JSONObject sObject = JSONFactoryUtil.createJSONObject(); //오브젝트 파싱 
-			
-			//배열 내에 들어갈 json                        
-			sObject.put("bno", reply_list.get(i).getBno());                        
-			sObject.put("rno", reply_list.get(i).getRno());                      
-			sObject.put("rWriter", reply_list.get(i).getRWriter());                        
-			sObject.put("rContents", reply_list.get(i).getRContents());                        
-			sObject.put("rRegDate", reply_list.get(i).getRRegDate());                     
-			sObject.put("parent", reply_list.get(i).getParent());                        
-			sObject.put("seqOrder", reply_list.get(i).getParent());                        
-			jArray.put(sObject);
-			}  		 
-		  
-			System.out.println("jArray : "+jArray.toString());
-			System.out.println("page :"+page);
 		
-		try {
-			resourceResponse.getWriter().write(jArray.toString());
-		} catch (IOException e) {
-
-
-			e.printStackTrace();
-		}
-
+		
 		
 		return false;
 	}

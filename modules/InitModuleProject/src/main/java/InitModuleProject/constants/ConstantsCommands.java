@@ -31,6 +31,7 @@ public class ConstantsCommands {
 	
 	// 댓글
 	public static final String HHLBOARD_REPLY_ADDLIST_PROJECT ="hhl/project/reply/add";
+	public static final String HHLBOARD_REPLY_SHOWLIST_PROJECT ="hhl/project/reply/show";
 	public static final String HHLBOARD_REPLY_DELETE_PROJECT ="hhl/project/reply/delete";
 	public static final String HHLBOARD_REPLY_UPDATE_PROJECT ="hhl/project/reply/update";
 	

@@ -34,9 +34,8 @@ public class HhlReplyAddMVCResourceCommand implements MVCResourceCommand {
 	@Override
 	public boolean serveResource(ResourceRequest resourceRequest, ResourceResponse resourceResponse)
 			throws PortletException {
-/*------------------------------------기본설정-------------------------------------------------------------*/	
+/*------------------------------------기본설정 커스텀서비스 인스턴스-------------------------------------------------------------*/	
 		ServiceMethod serviceMethod = new ServiceMethod();
-		
 /*------------------------------------댓글작성시(POST)-------------------------------------------------------------*/			
 /*------------------------------------파라미터세팅-------------------------------------------------------------*/			
 		

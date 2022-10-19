@@ -99,7 +99,7 @@ $(function(){
 				     html +=              	'<a id="toggle'+num+'" onclick="btn_toggle()" type="button"><i class="fa-solid fa-ellipsis-vertical"></i></a>';
 				     html +=              '</h3>';
 				     html +=              '<div id="toggle_side'+num+' class="toggle_side" class="m-0 d-flex row">';
-				     html +=              	'<div class="update_reply btn btn-success text-white mb-2" onclick="update_reply_frm('+num+')">수정</div>';
+				     html +=              	'<div class="update_reply btn btn-success text-white mb-2" onclick="update_reply_frm('+reply.rno+','+num+')">수정</div>';
 				     html +=              	'<div class="delete_reply btn btn-danger text-white mb-2" onclick="delete_reply('+reply.rno+')">삭제</div>';
 				     html +=              '</div>';
 				     html +=      '</div>';
@@ -195,38 +195,31 @@ function delete_reply(rno){
 
 
 /*----------- // START :  댓글 수정 폼생성--------------  */
-function update_reply_frm(num){
+function update_reply_frm(rno,num){
 	
 	let showHide = document.querySelector('#addRepFrm'+num)
 	showHide.classList.toggle("active");
 	
-	   var rAddWriter  = '${userName}';
-	   /* var addRepFrmVal = $('#addRepFrm'+num).val() */
+	  var rAddWriter  = '${userName}';
 	  var addrep = '<div class="panel panel-default p-3 w-70 justify-content-center">'
 	              +'	<div>                                                                                                                             '	
 	              +'	<form name="frm_reply">                                                                                                           '
 	              +'		<div class="d-flex justify-content-between p-3">                                                                              '
 	              +'			<div class="col-13 w-100 d-flex justify-content-start">                                                                   '
-	              +'				<span id="frm_rWriter" class="col-1"> '+rWriter+' </span>																			  '                                                                                
-	              +'				<textarea id="frm_rContents" name="rContents" class="col-11" rows="5" placeholder="댓글을 입력하세요"></textarea>    '
+	              +'				<span id="frm_rWriter" class="col-1"> '+rWriter+' </span>															  '                                                                                
+	              +'				<input name="frm_rWriter" type="hidden" value="'+rWriter+'"/>														  '                                                                                
+	              +'				<textarea id="frm_rContents" name="frm_rContents" class="col-11" rows="5" placeholder="댓글을 입력하세요"></textarea> '
 	              +'			</div>                                                                                                                    '
 	              +'		</div>                                                                                                                        '
 	              +'			<div class="d-flex justify-content-end mt-2">                                                                             '
-	              +'				<p id="btn_active'+num+'" class="btn btn-sm btn-danger m-2" onclick="addrep_cancel('+num+')">취소</p>                                                      '
-	              +'				<p id="btn_reply_update" class="btn btn-sm btn-success m-2" onclick="update_reply('+num+')">수정</p>                                                      '
+	              +'				<p id="btn_active'+num+'" class="btn btn-sm btn-danger m-2" onclick="addrep_cancel('+num+')">취소</p>                 '
+	              +'				<p id="btn_reply_update" class="btn btn-sm btn-success m-2" onclick="update_reply('+rno+','+num+')">수정</p>          '
 	              +'			</div>                                                                                                                    '
 	              +'	</form>                                                                                                                           '
 	              +'	</div>                                                                                                                            '
 	              +'</div>                                                                                                                                '
 	              +'                                                                                                                                      '	          
 	  		$('#addRepFrm'+num).html(addrep);	
-	              
-	         var rWiter = $("#frm_rWriter").text();
-	         var rContents = $("textarea#frm_rContents").text();
-	console.log("rWiter : "+rWiter);
-	console.log("rContents : "+rContents);
-	         
-	
 	
 }
 /*----------- // END :  댓글 수정 폼생성--------------  */
@@ -235,12 +228,37 @@ function update_reply_frm(num){
 
 
 /*---------//START : 클릭 이벤트(댓글수정) ---------*/
-function update_reply(num,rAddWriter){
-	var rWriter = "${userName}";
-	
-	console.log("----------update_reply--------------")
+function update_reply(rno,num){
+	var rWriter = $('input[name=frm_rWriter]').val(); 
+	var rContents = $('textarea[name=frm_rContents]').val(); 
+	var bno  = ${tbl.bno}
+ 	console.log("----------update_reply--------------")
 	console.log("num : "+num);
 	console.log("rWriter : "+rWriter);
+	console.log("rContents : "+rContents);
+	
+	
+	
+	$.ajax({
+	type: "post",
+	url : "${UpdateReplyURL}",
+	data : Liferay.Util.ns('<portlet:namespace/>',{
+		rno : rno,
+		bno : bno,
+		rWriter : rWriter,
+		rContents : rContents,
+
+	}),
+	dataType : "text",
+	success : function(data){
+		alert(data)
+		getList()
+		
+	}
+		
+		
+	})
+	
 	
 	
 	
@@ -250,7 +268,27 @@ function update_reply(num,rAddWriter){
 
 /*---------//END : 클릭 이벤트(댓글수정) ---------*/
 
+
+
+//답글 폼 제거
+function addrep_cancel(num){
+	console.log("------답글폼제거-------")
+	
+	let showHide = document.querySelector('#addRepFrm'+num)
+	showHide.classList.toggle("active");
+}
+
+// 토글 이벤트(수정/삭제)
+function btn_toggle(){
+	alert("토글!")
+	let showHide = document.querySelector('#toggle'+num)
+	showHide.classList.toggle("active");
+}
+
+
 </script>
 
+
+
 <!-- // END : 댓글 목록 영역  -->
-<link rel="stylesheet" type="text/css" href="${ctx}/css/reply.form.css">
+<link rel="stylesheet" type="text/css" href="${ctx}/css/reply_	form.css">

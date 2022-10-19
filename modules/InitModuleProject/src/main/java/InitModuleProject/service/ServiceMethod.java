@@ -372,8 +372,7 @@ public class ServiceMethod {
 				DynamicQuery userQuery = DynamicQueryFactoryUtil.forClass(REP.class, "rep",PortalClassLoaderUtil.getClassLoader());
 				userQuery.addOrder(OrderFactoryUtil.desc("rep.rno"));
 				List<REP> reply_list = REPLocalServiceUtil.dynamicQuery(userQuery, 0, REPLocalServiceUtil.getREPsCount());
-				
-				
+		
 				return reply_list;
 			}
 			

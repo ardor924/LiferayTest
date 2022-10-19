@@ -5,11 +5,11 @@
 	text-decoration: underline;
 }
 
-#replyList div~div:nth-child(3) {
+#reply_list div~div:nth-child(3) {
 display: none;
 }
 
-#replyList div~div:nth-child(3).active {
+#reply_list div~div:nth-child(3).active {
 display: block;
 }
 

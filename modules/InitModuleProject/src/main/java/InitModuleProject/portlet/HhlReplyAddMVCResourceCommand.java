@@ -72,6 +72,16 @@ public class HhlReplyAddMVCResourceCommand implements MVCResourceCommand {
 
 		rep = REPLocalServiceUtil.addREP(rep);
 		
+		int totalInt = REPLocalServiceUtil.getREPsCount();		
+		String totalCnt = Integer.toString(totalInt);
+
+		
+		try {
+			resourceResponse.getWriter().write("Great!");
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
 		};
 /*-----------------------------------------------------------------------------------------------------------------------*/		
 /*-----------------------------------JSON형식으로 보내기(GET)------------------------------------------------------------*/				
@@ -102,7 +112,7 @@ public class HhlReplyAddMVCResourceCommand implements MVCResourceCommand {
 			}  		 
 		  
 			System.out.println("jArray : "+jArray.toString());
-		
+			System.out.println("page :"+page);
 		
 		try {
 			resourceResponse.getWriter().write(jArray.toString());

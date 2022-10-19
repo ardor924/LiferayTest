@@ -16,12 +16,13 @@ import BoardService.model.REP;
 import BoardService.service.REPLocalServiceUtil;
 import InitModuleProject.constants.ConstantsCommands;
 import InitModuleProject.constants.MainHhlBoardPortletKeys;
+import InitModuleProject.service.ServiceMethod;
 @Component(
 		immediate = true,
 		property = {
 
 			"javax.portlet.name=" + MainHhlBoardPortletKeys.MAINHHLBOARD,
-			"mvc.command.name=" +ConstantsCommands.HHLBOARD_REPLY_DELETE_PROJECT
+			"mvc.command.name=" +ConstantsCommands.HHLBOARD_REPLY_UPDATE_PROJECT
 		},
 		service = MVCResourceCommand.class
 	)
@@ -30,15 +31,25 @@ public class HhlReplyUpdateMVCResourceCommand implements MVCResourceCommand {
 	@Override
 	public boolean serveResource(ResourceRequest resourceRequest, ResourceResponse resourceResponse)
 			throws PortletException {
+		System.out.println("--------------------------------Upadate Reply Resource----------------------------------");
+		
+		
+		ServiceMethod serviceMethod = new ServiceMethod();
+		
+		
 	long rno = ParamUtil.getInteger(resourceRequest, "rno");
 	long bno = ParamUtil.getInteger(resourceRequest, "bno");
 	String rWriter = ParamUtil.getString(resourceRequest, "rWriter");
 	String rContents = ParamUtil.getString(resourceRequest, "rContents");
-	String rRegDate = ParamUtil.getString(resourceRequest, "rRegDate");
-	int parent = ParamUtil.getInteger(resourceRequest, "parent");
-	int seqOrder = ParamUtil.getInteger(resourceRequest, "seqOrder");
+	String rRegDate = serviceMethod.getStrNowDate();
+	int parent = 0;
+	int seqOrder = 0;
 		
 		System.out.println("rno:"+rno);
+		System.out.println("bno:"+rno);
+		System.out.println("rWriter:"+rWriter);
+		System.out.println("rContents:"+rContents);
+		System.out.println("rRegDate:"+rRegDate);
 
 			
 

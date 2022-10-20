@@ -5,10 +5,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="liferay-portlet" uri="http://liferay.com/tld/portlet"%>
 
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<% pageContext.setAttribute("br", "<br/>"); %>
-<% pageContext.setAttribute("cn", "\n"); %>
-<% pageContext.setAttribute("replaceChar", "\n"); %>
 
 
 
@@ -107,11 +103,13 @@ $(function(){
 	
 			var html = "<li>";
 			
-			  for ( // 각각 페이지별로 데이터 10개 뽑은뒤
+/*			  for ( // 각각 페이지별로 데이터 10개 뽑은뒤
 					    let i = (currentPage - 1) * dataPerPage + 1;
 					    i <= currentPage * dataPerPage;
 					    i++
 					  ) {
+*/				
+				for (var i =0; i<data.length; i++){
 				var length = data.length;
 				console.log("데이터갯수 : "+length)
 				var reply = JSON.parse(JSON.stringify(data[i]));

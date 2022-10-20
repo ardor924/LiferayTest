@@ -47,7 +47,7 @@ public class HhlReplyShowListMVCResourceCommand implements MVCResourceCommand {
 		int bno = ParamUtil.getInteger(resourceRequest, "bno");
 		// List<REP> reply_list = REPLocalServiceUtil.getREPListBybno(bno, 0, REPLocalServiceUtil.getREPsCount());
 		List<REP> reply_list  = serviceMethod.getReplyList(bno);
-
+		
 		  
 	 	JSONArray jArray = JSONFactoryUtil.createJSONArray();//배열이 필요할때  
 		for (int i = 0; i < reply_list.size(); i++)//배열                    
@@ -58,7 +58,7 @@ public class HhlReplyShowListMVCResourceCommand implements MVCResourceCommand {
 			sObject.put("bno", reply_list.get(i).getBno());                        
 			sObject.put("rno", reply_list.get(i).getRno());                      
 			sObject.put("rWriter", reply_list.get(i).getRWriter());                        
-			sObject.put("rContents", reply_list.get(i).getRContents());                        
+			sObject.put("rContents", reply_list.get(i).getRContents().replace("\n","<br/>")); // 댓글 개행처리                   
 			sObject.put("rRegDate", reply_list.get(i).getRRegDate());                     
 			sObject.put("parent", reply_list.get(i).getParent());                        
 			sObject.put("seqOrder", reply_list.get(i).getParent());                        

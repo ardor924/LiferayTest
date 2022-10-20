@@ -5,6 +5,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="liferay-portlet" uri="http://liferay.com/tld/portlet"%>
 
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<% pageContext.setAttribute("br", "<br/>"); %>
+<% pageContext.setAttribute("cn", "\n"); %>
+<% pageContext.setAttribute("replaceChar", "\n"); %>
+
+
 
 <!-- 댓글 등록 -->
 <liferay-portlet:resourceURL var="AddReplyURL" id="<%=ConstantsCommands.HHLBOARD_REPLY_ADDLIST_PROJECT %>"/>
@@ -50,6 +56,25 @@
 var rWriter = "${userName}";
 var bno = ${tbl.bno};
 var rContents = $('textarea[name=rContents]').val();
+var currentPage = 1;
+var dataPerPage =10;
+var lastPage;
+$.ajax({ // lastPage :전역변수로
+	type : "post",
+	url : "${ShowListReplyURL}",
+	async : "false", // 비동기 false
+	data : Liferay.Util.ns("<portlet:namespace/>",{
+		bno : bno
+	}),
+	dataType : "json",
+	success : function(data){
+		var length = data.length;
+		lastPage = Math.ceil(length/10);
+
+	}
+})
+	
+
 
 /* --------------- END : 파라미터---------------- */
 
@@ -57,6 +82,9 @@ var rContents = $('textarea[name=rContents]').val();
 /* ------- START : document ready ---------------- */
 $(function(){
 	getList()
+	console.log("currentPage : "+currentPage)
+	console.log("dataPerPage : "+dataPerPage)
+	console.log("lastPage : "+lastPage)
 })	
 /* ------- END : document ready ---------------- */
 
@@ -79,7 +107,11 @@ $(function(){
 	
 			var html = "<li>";
 			
-			for(var i=0;i<data.length;i++){
+			  for ( // 각각 페이지별로 데이터 10개 뽑은뒤
+					    let i = (currentPage - 1) * dataPerPage + 1;
+					    i <= currentPage * dataPerPage;
+					    i++
+					  ) {
 				var length = data.length;
 				console.log("데이터갯수 : "+length)
 				var reply = JSON.parse(JSON.stringify(data[i]));
@@ -89,7 +121,7 @@ $(function(){
 				     html +=     '<div class="d-flex justify-content-between p-3">';
 				     html +=         '<div class="d-flex-row justify-content-start">';
 				     html +=             '<h5>'+ reply.rWriter +'</h5>';
-				     html +=         '<p>'+ reply.rContents +'</p>';
+				     html +=         '<p>'+reply.rContents+'</p>';
 				     html +=         '<div>';
 				     html +=             '<span>'+ reply.rRegDate +'</span>';
 				     html +=         '</div>';

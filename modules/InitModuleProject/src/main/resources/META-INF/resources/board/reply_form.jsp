@@ -70,18 +70,49 @@ $.ajax({ // lastPage :전역변수로
 	}
 })
 	
-
+var isEnd = false
 
 /* --------------- END : 파라미터---------------- */
 
 
 /* ------- START : document ready ---------------- */
+
 $(function(){
-	getList()
+	getList(currentPage)
 	console.log("currentPage : "+currentPage)
 	console.log("dataPerPage : "+dataPerPage)
 	console.log("lastPage : "+lastPage)
 })	
+
+/* $(function(){
+    $(window).scroll(function(){
+        let $window = $(this);
+        let scrollTop = $window.scrollTop();
+        let windowHeight = $window.height();
+        let documentHeight = $(document).height();
+        
+        console.log("documentHeight:" + documentHeight + " | scrollTop:" + scrollTop + " | windowHeight: " + windowHeight );
+        
+        // scrollbar의 thumb가 바닥 전 30px까지 도달 하면 리스트를 가져온다.
+        if( scrollTop + windowHeight + 30 > documentHeight ){
+        	console.log("------------------scrollEvt-page------------------")
+        	console.log("currentPage : "+currentPage)
+        	console.log("dataPerPage : "+dataPerPage)
+        	console.log("lastPage : "+lastPage)
+            getList(currentPage);
+            if(isEnd == false){
+            	currentPage++;
+        }
+        }
+    })
+    console.log("document-page:"+currentPage)
+    getList(currentPage); //  최초에 리스트 가져온다.
+
+    
+})
+ */
+
+
 /* ------- END : document ready ---------------- */
 
 
@@ -100,7 +131,6 @@ $(function(){
 		}),
 		dataType : "json",
 		success : function(data){
-	
 			var html = "<li>";
 			
 /*			  for ( // 각각 페이지별로 데이터 10개 뽑은뒤
@@ -144,6 +174,11 @@ $(function(){
 			
 			$("#reply_list").html(html);
 			$("#rContents").val("") //텍스트박스 댓글 초기화(댓글 작성 완료후)
+			
+/* 			if(length <1){
+				isEnd == true;
+			}	 */
+			
 				
 				
 			},  // END : success

@@ -1,4 +1,6 @@
-
+ul{
+	list-style: none;
+}
 
 .addRep:hover{
 	cursor: pointer;

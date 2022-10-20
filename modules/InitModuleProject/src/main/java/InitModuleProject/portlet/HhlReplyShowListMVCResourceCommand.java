@@ -43,10 +43,12 @@ public class HhlReplyShowListMVCResourceCommand implements MVCResourceCommand {
 		int page = ParamUtil.getInteger(resourceRequest, "page");
 		int limit = 10;
 		int offset = limit * (page - 1);
+		int total = REPLocalServiceUtil.getREPsCount();
 		
 		int bno = ParamUtil.getInteger(resourceRequest, "bno");
 		// List<REP> reply_list = REPLocalServiceUtil.getREPListBybno(bno, 0, REPLocalServiceUtil.getREPsCount());
 		List<REP> reply_list  = serviceMethod.getReplyList(bno);
+		//List<REP> reply_list  = serviceMethod.getReplyList(bno,offset,limit);
 		
 		  
 	 	JSONArray jArray = JSONFactoryUtil.createJSONArray();//배열이 필요할때  

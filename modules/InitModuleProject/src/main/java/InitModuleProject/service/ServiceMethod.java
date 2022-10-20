@@ -367,16 +367,24 @@ public class ServiceMethod {
 			
 			
 			// -----------------------------댓글 리스트------------------------------
-			
+/*			
+			public List<REP> getReplyList(int bno, int offset, int limit){
+				DynamicQuery userQuery = DynamicQueryFactoryUtil.forClass(REP.class, "rep",PortalClassLoaderUtil.getClassLoader());
+				userQuery.addOrder(OrderFactoryUtil.desc("rep.rno"));
+				//List<REP> reply_list = REPLocalServiceUtil.dynamicQuery(userQuery, 0, REPLocalServiceUtil.getREPsCount());
+				List<REP> reply_list = REPLocalServiceUtil.dynamicQuery(userQuery, offset, offset+limit);
+		
+				return reply_list;
+			}
+*/			
 			public List<REP> getReplyList(int bno){
 				DynamicQuery userQuery = DynamicQueryFactoryUtil.forClass(REP.class, "rep",PortalClassLoaderUtil.getClassLoader());
 				userQuery.addOrder(OrderFactoryUtil.desc("rep.rno"));
 				List<REP> reply_list = REPLocalServiceUtil.dynamicQuery(userQuery, 0, REPLocalServiceUtil.getREPsCount());
+				//List<REP> reply_list = REPLocalServiceUtil.dynamicQuery(userQuery, offset, offset+limit);
 		
 				return reply_list;
 			}
-			
-			
 			
 			
 			

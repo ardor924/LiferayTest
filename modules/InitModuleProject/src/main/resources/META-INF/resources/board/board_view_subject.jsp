@@ -97,7 +97,7 @@
 		
 			
 		<!-- 작성자 본인인경우 -->
-		<c:if test="${mine}">
+		<c:if test="${tbl_mine}">
 			<div class="d-flex justify-content-end">
 				<button type="submit" class="btn btn-success m-1">글수정</button>
 				<a class="btn btn-danger m-1" id='btn-delete'

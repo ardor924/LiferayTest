@@ -124,9 +124,6 @@ public class TBLLocalServiceImpl extends TBLLocalServiceBaseImpl {
 		
 		
 		
-		
-		
-		
 		// 검색결과 [갯수] 
 		public List<TBL> getTBLListTotalCnt(String searchKeyword,String option){
 			List<TBL> listTotal  = null;

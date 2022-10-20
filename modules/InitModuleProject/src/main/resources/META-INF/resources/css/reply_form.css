@@ -22,6 +22,11 @@ display: block;
 	display: block;
 }
 
-#toggle-side{
+.toggle_side{
+	position : absolute;
+	display: flex;
+	flex-direction:column;
+	right : -45px; 
 
+	
 }

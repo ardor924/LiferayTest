@@ -20,6 +20,10 @@
 <!-- 댓글수정 -->
 <liferay-portlet:resourceURL var="UpdateReplyURL" id="<%=ConstantsCommands.HHLBOARD_REPLY_UPDATE_PROJECT %>"/>
 
+<!-- 댓글 권한설정 -->
+<liferay-portlet:resourceURL var="AuthorizationReplyURL" id="<%=ConstantsCommands.HHLBOARD_REPLY_AUTHORIZATION_PROJECT %>"/>
+
+
 <!-- // START : 댓글 등록  -->
 <div class="shadow p-3">
 	<div class="d-flex justify-content-between p-3">
@@ -69,6 +73,8 @@ $.ajax({ // lastPage :전역변수로
 
 	}
 })
+
+
 	
 var isEnd = false
 
@@ -78,7 +84,7 @@ var isEnd = false
 /* ------- START : document ready ---------------- */
 
 $(function(){
-	getList(currentPage)
+	getList()
 	console.log("currentPage : "+currentPage)
 	console.log("dataPerPage : "+dataPerPage)
 	console.log("lastPage : "+lastPage)
@@ -156,12 +162,13 @@ $(function(){
 				     html +=      '</div>';
 				     html +=      '<div id="toggle_end" class="d-flex justify-content-end m-2">';
 				     html +=              '<h3 class="col-2 m-0 p-0" >';
-				     html +=              	'<a id="toggle'+num+'" onclick="btn_toggle()" type="button"><i class="fa-solid fa-ellipsis-vertical"></i></a>';
+				     html +=              	'<a id="toggle'+num+'" onclick="btn_toggle('+num+')" type="button"><i class="fa-solid fa-ellipsis-vertical"></i></a>';
 				     html +=              '</h3>';
-				     html +=              '<div id="toggle_side'+num+' class="toggle_side" class="m-0 d-flex row">';
-				     html +=              	'<div class="update_reply btn btn-success text-white mb-2" onclick="update_reply_frm('+reply.rno+','+num+')">수정</div>';
-				     html +=              	'<div class="delete_reply btn btn-danger text-white mb-2" onclick="delete_reply('+reply.rno+')">삭제</div>';
+				     html +=              '<div id="toggle_side'+num+'" class="toggle_side" class="m-0 d-flex row">';
+												/* 이곳에 수정삭제 넣기 */
 				     html +=              '</div>';
+				     html +=              '<input id="rno'+num+'" type="hidden" name="rno" value="'+reply.rno+'">'; // PK값 히든으로 표시안되게 처리
+				     html +=              '<input id="rWriter'+num+'" type="hidden" name="rWriter" value="'+reply.rWriter+'">'; // PK값 히든으로 표시안되게 처리
 				     html +=      '</div>';
 				     html += '</div><hr>';
 				     html += '<div id="addRepFrm'+num+'"></div>';
@@ -194,10 +201,11 @@ $(function(){
 	
 
 /*---------//START : 클릭 이벤트(댓글등록) ----------*/
-	$("#btn_reply_regist").click(function(){
+	$("#btn_reply_regist").click(function(){	
 		
+	
 		var rContents = $('textarea[name=rContents]').val();
-		
+
 		console.log("-----------#btn_reply_regist------------")
 		console.log("rContents : "+rContents)
 		console.log("rWriter : "+rWriter)
@@ -229,7 +237,8 @@ $(function(){
 
 
 /*---------//START : 클릭 이벤트(댓글삭제) ---------*/
-function delete_reply(rno){
+function delete_reply(){
+	var rno = $('input[name=rno]').val(); // hidden으로 받은 답글 PK값	
 	var pass = confirm('댓글을 삭제하시겠습니까?');
 	if(pass){
 		$.ajax({
@@ -260,48 +269,65 @@ function delete_reply(rno){
 
 
 /*----------- // START :  댓글 수정 폼생성--------------  */
-function update_reply_frm(rno,num){
+function update_reply_frm(num){	
+	console.log("------------------update_reply_frm------------------------")
+	var rAddWriter  = '${userName}';
+	var rno = $("#rno"+num).val();	
+
+	btn_toggle(num)
 	
+
+/* !!DEL :  잘찍히나확인	
+	console.log("rno : "+rno)
+	console.log("num : "+num)
+*/
 	let showHide = document.querySelector('#addRepFrm'+num)
 	showHide.classList.toggle("active");
 	
-	  var rAddWriter  = '${userName}';
-	  var addrep = '<div class="panel panel-default p-3 w-70 justify-content-center">'
-	              +'	<div>                                                                                                                             '	
-	              +'	<form name="frm_reply">                                                                                                           '
+	  
+	  var addrep = '<div class="panel panel-default p-3 w-70 justify-content-center">                                                                     '
 	              +'		<div class="d-flex justify-content-between p-3">                                                                              '
 	              +'			<div class="col-13 w-100 d-flex justify-content-start">                                                                   '
 	              +'				<span id="frm_rWriter" class="col-1"> '+rWriter+' </span>															  '                                                                                
-	              +'				<input name="frm_rWriter" type="hidden" value="'+rWriter+'"/>														  '                                                                                
 	              +'				<textarea id="frm_rContents" name="frm_rContents" class="col-11" rows="5" placeholder="댓글을 입력하세요"></textarea> '
 	              +'			</div>                                                                                                                    '
 	              +'		</div>                                                                                                                        '
-	              +'			<div class="d-flex justify-content-end mt-2">                                                                             '
-	              +'				<p id="btn_active'+num+'" class="btn btn-sm btn-danger m-2" onclick="addrep_cancel('+num+')">취소</p>                 '
-	              +'				<p id="btn_reply_update" class="btn btn-sm btn-success m-2" onclick="update_reply('+rno+','+num+')">수정</p>          '
-	              +'			</div>                                                                                                                    '
-	              +'	</form>                                                                                                                           '
-	              +'	</div>                                                                                                                            '
+	              +'		<div class="d-flex justify-content-end mt-2">                                                                             	  '
+	              +'			<p id="btn_active'+num+'" class="btn btn-sm btn-danger m-2" onclick="addrep_cancel('+num+')">취소</p>                     '
+	              +'			<p id="btn_reply_update" class="btn btn-sm btn-success m-2" onclick="update_reply('+num+')">수정</p>              '
+	              +'		</div>                                                                                                                        '                                                                                                                       
+	              +'		<input name="frm_rWriter" type="hidden" value="'+rWriter+'"/>														          '                                                                                
+	              +'		<input name="rno" type="hidden" value="'+rno+'"/>														          '                                                                                
 	              +'</div>                                                                                                                                '
 	              +'                                                                                                                                      '	          
 	  		$('#addRepFrm'+num).html(addrep);	
 	
-}
+};
 /*----------- // END :  댓글 수정 폼생성--------------  */
 
 
 
 
 /*---------//START : 클릭 이벤트(댓글수정) ---------*/
-function update_reply(rno,num){
+function update_reply(num){
+ 	console.log("----------update_reply--------------")
+ 	/* --------------파라미터받기-------------------*/
 	var rWriter = $('input[name=frm_rWriter]').val(); 
+ 	var rno = $("#rno"+num).val(); 
 	var rContents = $('textarea[name=frm_rContents]').val(); 
 	var bno  = ${tbl.bno}
- 	console.log("----------update_reply--------------")
+	
 	console.log("num : "+num);
+	console.log("rno : "+rno);
 	console.log("rWriter : "+rWriter);
 	console.log("rContents : "+rContents);
-	
+
+/* !!DEL :  잘찍히나확인	 	
+	console.log("num : "+num);
+	console.log("rno : "+rno);
+	console.log("rWriter : "+rWriter);
+	console.log("rContents : "+rContents);
+*/	
 	
 	
 	$.ajax({
@@ -325,13 +351,10 @@ function update_reply(rno,num){
 	})
 	
 	
-	
-	
-	
 }
-
-
 /*---------//END : 클릭 이벤트(댓글수정) ---------*/
+
+
 
 
 
@@ -344,16 +367,110 @@ function addrep_cancel(num){
 }
 
 // 토글 이벤트(수정/삭제)
-function btn_toggle(){
-	alert("토글!")
-	let showHide = document.querySelector('#toggle'+num)
-	showHide.classList.toggle("active");
+function btn_toggle(num){
+	
+	
+	var rAddWriter  = '${userName}';
+	var rno = $("#rno"+num).val();
+	
+	console.log("rAddWriter:"+rAddWriter)
+	console.log("rWriter:"+rWriter)
+	
+
+	
+	$.ajax({
+		type : "post",
+		url : "${AuthorizationReplyURL}",
+		data :Liferay.Util.ns("<portlet:namespace/>",{
+			rno : rno,
+		}),
+		dataType : "json",
+		success : function(data){
+			if(data['result'] == "OK"){
+				
+				let toggle_show_hide = document.querySelector('#toggle'+num)
+				toggle_show_hide.classList.toggle("active");
+				
+				let toggle_side_show_hide = document.querySelector('#toggle_side'+num)
+				toggle_side_show_hide.classList.toggle("active");
+
+					
+						if($('#toggle_side'+num).hasClass("active") === true) {
+					
+								var mod = '<div class="btn btn-success text-white mb-2" onclick="update_reply_frm('+num+')">수정</div>'
+							     		+ '<div class="btn btn-danger text-white mb-2" onclick="delete_reply()">삭제</div>'
+					
+								$('#toggle_side'+num).html(mod);	
+							
+						}else if($('#toggle_side'+num).hasClass("active") === false) {
+								$('#toggle_side'+num).html("");
+					
+						}
+				
+				
+			}else{
+				alert("수정삭제는 작성자 본인만 가능합니다.")
+				return;
+			}
+			
+			
+		}
+			
+			
+		})	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+/* 	
+	if(rAddWriter != rWriter || rAddWriter != 'admin'){
+		alert("수정삭제 기능은 작성자 본인만 가능합니다")
+		return;
+	} */
+	
+/*	
+	if(rAddWriter == rWriter || rAddWriter == 'admin'){
+	
+	let toggle_show_hide = document.querySelector('#toggle'+num)
+	toggle_show_hide.classList.toggle("active");
+	
+	let toggle_side_show_hide = document.querySelector('#toggle_side'+num)
+	toggle_side_show_hide.classList.toggle("active");
+
+		
+			if($('#toggle_side'+num).hasClass("active") === true) {
+		
+					var mod = '<div class="btn btn-success text-white mb-2" onclick="update_reply_frm('+num+')">수정</div>'
+				     		+ '<div class="btn btn-danger text-white mb-2" onclick="delete_reply()">삭제</div>'
+		
+					$('#toggle_side'+num).html(mod);	
+				
+			}else if($('#toggle_side'+num).hasClass("active") === false) {
+					$('#toggle_side'+num).html("");
+		
+			}
+
+	}else if(rAddWriter != rWriter){
+		alert("수정삭제 기능은 작성자 본인만 가능합니다")
+		return;
+	}
+
+*/
 }
-
-
 </script>
 
 
 
 <!-- // END : 댓글 목록 영역  -->
-<link rel="stylesheet" type="text/css" href="${ctx}/css/reply_	form.css">
+<link rel="stylesheet" type="text/css" href="${ctx}/css/reply_form.css">

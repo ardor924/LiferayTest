@@ -1,8 +1,10 @@
 package InitModuleProject.service;
 
+import com.liferay.portal.kernel.dao.orm.Conjunction;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.OrderFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
@@ -379,10 +381,13 @@ public class ServiceMethod {
 */			
 			public List<REP> getReplyList(int bno){
 				DynamicQuery userQuery = DynamicQueryFactoryUtil.forClass(REP.class, "rep",PortalClassLoaderUtil.getClassLoader());
-				userQuery.addOrder(OrderFactoryUtil.desc("rep.rno"));
+
+				
+				
+				System.out.println("--------------> bno :"+bno);
+				userQuery.addOrder(OrderFactoryUtil.desc("rep.rno"));							
 				List<REP> reply_list = REPLocalServiceUtil.dynamicQuery(userQuery, 0, REPLocalServiceUtil.getREPsCount());
 				//List<REP> reply_list = REPLocalServiceUtil.dynamicQuery(userQuery, offset, offset+limit);
-		
 				return reply_list;
 			}
 			

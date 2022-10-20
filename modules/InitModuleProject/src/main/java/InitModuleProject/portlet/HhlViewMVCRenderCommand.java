@@ -4,6 +4,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.List;
@@ -15,8 +16,10 @@ import javax.portlet.RenderResponse;
 import org.osgi.service.component.annotations.Component;
 
 import BoardService.model.ADDFILE;
+import BoardService.model.REP;
 import BoardService.model.TBL;
 import BoardService.service.ADDFILELocalServiceUtil;
+import BoardService.service.REPLocalServiceUtil;
 import BoardService.service.TBLLocalServiceUtil;
 import InitModuleProject.constants.ConstantsCommands;
 import InitModuleProject.constants.MainHhlBoardPortletKeys;
@@ -35,6 +38,8 @@ public class HhlViewMVCRenderCommand implements MVCRenderCommand{
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 		System.out.println("--------------------ViewCommand----------------------");
+		
+
 
 
 		// PK가져와서 tbl로 객체바인딩
@@ -68,7 +73,7 @@ public class HhlViewMVCRenderCommand implements MVCRenderCommand{
 			TBL tbl = TBLLocalServiceUtil.getTBL(bno);
 			ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY); 
 			  
-			renderRequest.setAttribute("mine", themeDisplay.getUser().getScreenName().equals(tbl.getWriter()) || themeDisplay.getUser().getScreenName().equals("admin"));
+			renderRequest.setAttribute("tbl_mine", themeDisplay.getUser().getScreenName().equals(tbl.getWriter()) || themeDisplay.getUser().getScreenName().equals("admin"));
 			
 			renderRequest.setAttribute("tbl", tbl);
 			renderRequest.setAttribute("currentPage", currentPage);
@@ -92,6 +97,9 @@ public class HhlViewMVCRenderCommand implements MVCRenderCommand{
 			 * renderRequest.setAttribute("fName", fName);
 			 * renderRequest.setAttribute("fPath", fPath);
 			 */
+			
+
+
 			
 			
 			

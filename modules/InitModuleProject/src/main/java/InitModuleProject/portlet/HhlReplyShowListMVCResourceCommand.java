@@ -45,9 +45,10 @@ public class HhlReplyShowListMVCResourceCommand implements MVCResourceCommand {
 		int offset = limit * (page - 1);
 		int total = REPLocalServiceUtil.getREPsCount();
 		
+			
 		int bno = ParamUtil.getInteger(resourceRequest, "bno");
-		// List<REP> reply_list = REPLocalServiceUtil.getREPListBybno(bno, 0, REPLocalServiceUtil.getREPsCount());
-		List<REP> reply_list  = serviceMethod.getReplyList(bno);
+		 List<REP> reply_list = REPLocalServiceUtil.getREPListBybno(bno, 0, REPLocalServiceUtil.getREPsCount());
+		//List<REP> reply_list  = serviceMethod.getReplyList(bno);
 		//List<REP> reply_list  = serviceMethod.getReplyList(bno,offset,limit);
 		
 		  
@@ -72,6 +73,8 @@ public class HhlReplyShowListMVCResourceCommand implements MVCResourceCommand {
 		
 		try {
 			resourceResponse.getWriter().write(jArray.toString());
+			
+		
 		} catch (IOException e) {
 
 

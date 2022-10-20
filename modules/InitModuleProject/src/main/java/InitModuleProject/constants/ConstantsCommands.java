@@ -34,6 +34,7 @@ public class ConstantsCommands {
 	public static final String HHLBOARD_REPLY_SHOWLIST_PROJECT ="hhl/project/reply/show";
 	public static final String HHLBOARD_REPLY_DELETE_PROJECT ="hhl/project/reply/delete";
 	public static final String HHLBOARD_REPLY_UPDATE_PROJECT ="hhl/project/reply/update";
+	public static final String HHLBOARD_REPLY_AUTHORIZATION_PROJECT ="hhl/project/reply/authorization";
 	
 	// 업로드 테스트
 	public static final String HHLBOARD_UPLOADTEST ="hhl/project/test/upload";

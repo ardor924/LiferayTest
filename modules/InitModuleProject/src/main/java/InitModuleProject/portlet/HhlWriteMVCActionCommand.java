@@ -51,8 +51,11 @@ public class HhlWriteMVCActionCommand implements MVCActionCommand {
 		  String strDate = serviceMethod.getStrNowDate(); 
 		  int hit = 0;
 		  
+		  int subject_id = 10;
+				  
+		  // int subject_id = subjectCnt + TBLLocalServiceUtil.getTBLsCount();
 		  
-		  System.out.println("contents : "+contents );
+		  // System.out.println("====================================>subject_id : "+subject_id );
 		  
 		  
 		  TBL tbl = TBLLocalServiceUtil.createTBL(0);
@@ -63,8 +66,8 @@ public class HhlWriteMVCActionCommand implements MVCActionCommand {
 		  tbl.setContents(contents);
 		  tbl.setRegDate(strDate); 
 		  tbl.setHit(hit);
-		  
-		  tbl = TBLLocalServiceUtil.addTBL(tbl);
+		  tbl.setSubject_id(subject_id);
+		  tbl = TBLLocalServiceUtil.addTblWithIncrement(tbl);
 		  
 		
 		

@@ -15,12 +15,19 @@
 package BoardService.service.impl;
 
 import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.OrderFactoryUtil;
+import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.util.OrderByComparatorFactoryUtil;
+import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
 
 import java.util.List;
 
 import org.osgi.service.component.annotations.Component;
 
 import BoardService.model.REP;
+import BoardService.service.REPLocalServiceUtil;
 import BoardService.service.base.REPLocalServiceBaseImpl;
 
 /**
@@ -42,18 +49,46 @@ import BoardService.service.base.REPLocalServiceBaseImpl;
 )
 public class REPLocalServiceImpl extends REPLocalServiceBaseImpl {
 
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never reference this class directly. Use <code>BoardService.service.REPLocalService</code> via injection or a <code>org.osgi.util.tracker.ServiceTracker</code> or use <code>BoardService.service.REPLocalServiceUtil</code>.
 	 */
 	
-	// 해당 게시글의 댓글만 가져오기
-	public List<REP> getREPListBybno(long bno ,int offset,int limit){
-		List<REP> list = this.repPersistence.findBybno(bno, offset, offset+limit);
-		return list;
-	}
-
 	
+	OrderByComparator<REP> getOrderComperator(long bno){
+		
+
+		OrderByComparator<REP> reply_order_list = OrderByComparatorFactoryUtil.create("REP", "bno".equals("desc"));
+		//reply_order_list.getOrderByConditionValues(bno);
+		//reply_order_list.getOrderBy();
+	
+		return reply_order_list;
+	}
+	
+	public List<REP> getREPListBybno(long bno){
+		List<REP> reply_list = this.repPersistence.findBybno(bno, 0, REPLocalServiceUtil.getREPsCount());		
+		
+		return reply_list;
+	}
+	
+	
+	
+	
+//	// 해당 게시글의 댓글만 가져오기
+//	public List<REP> getREPListBybno(long bno ,int offset,int limit){
+//		
+//		// DynamicQuery userQuery = DynamicQueryFactoryUtil.forClass(REP.class, "rep",PortalClassLoaderUtil.getClassLoader());
+//		// userQuery.addOrder(OrderFactoryUtil.desc("rep.rno"));
+//		
+//		// List<REP> reply_list = REPLocalServiceUtil.dynamicQuery(userQuery);
+//		//List<REP> reply_list = this.repPersistence.findBybno(bno, offset, offset+limit, getOrderComperator(bno));
+//		List<REP> reply_list = this.repPersistence.findBybno(bno, 0, REPLocalServiceUtil.getREPsCount());
+//		
+//		return reply_list;
+//	}
+
+
 	
 }

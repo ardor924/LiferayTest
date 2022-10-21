@@ -1,12 +1,15 @@
 package InitModuleProject.service;
 
 import com.liferay.portal.kernel.dao.orm.Conjunction;
+import com.liferay.portal.kernel.dao.orm.Criterion;
+import com.liferay.portal.kernel.dao.orm.Disjunction;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.OrderFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.portlet.PortletClassLoaderUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -269,17 +272,19 @@ public class ServiceMethod {
 				{
 				if(ORDER.equals("") || ORDER == null) {	 // 기본(디폴트) 내림차순
 					DynamicQuery userQuery = DynamicQueryFactoryUtil.forClass(TBL.class, "tbl",PortalClassLoaderUtil.getClassLoader());
-					userQuery.addOrder(OrderFactoryUtil.desc("tbl.bno"));
-					board_list = TBLLocalServiceUtil.dynamicQuery(userQuery,initRowNumber, initRowNumber+cntPerPage);
+					userQuery.addOrder(OrderFactoryUtil.desc("tbl.subject_id"));
+					// board_list = TBLLocalServiceUtil.dynamicQuery(userQuery,0,10);
+					board_list = TBLLocalServiceUtil.dynamicQuery(userQuery,initRowNumber,initRowNumber+cntPerPage);
+					
 					
 				}if(ORDER.equals("bnoDown")) { // 번호 내림차순
 					DynamicQuery userQuery = DynamicQueryFactoryUtil.forClass(TBL.class, "tbl",PortalClassLoaderUtil.getClassLoader());
-					userQuery.addOrder(OrderFactoryUtil.desc("tbl.bno"));
+					userQuery.addOrder(OrderFactoryUtil.desc("tbl.subject_id"));
 					board_list = TBLLocalServiceUtil.dynamicQuery(userQuery,initRowNumber, initRowNumber+cntPerPage);
 					
 				}if(ORDER.equals("bnoUp")) { // 번호 오름차순
 					DynamicQuery userQuery = DynamicQueryFactoryUtil.forClass(TBL.class, "tbl",PortalClassLoaderUtil.getClassLoader());
-					userQuery.addOrder(OrderFactoryUtil.asc("tbl.bno"));
+					userQuery.addOrder(OrderFactoryUtil.asc("tbl.subject_id"));
 					board_list = TBLLocalServiceUtil.dynamicQuery(userQuery,initRowNumber, initRowNumber+cntPerPage);
 					
 				}if(ORDER.equals("regDown")) { // 등록일짜 내림차순
@@ -380,14 +385,13 @@ public class ServiceMethod {
 			}
 */			
 			public List<REP> getReplyList(int bno){
+				System.out.println("=====================================getReplyList============================================");
 				DynamicQuery userQuery = DynamicQueryFactoryUtil.forClass(REP.class, "rep",PortalClassLoaderUtil.getClassLoader());
+				// userQuery.add(RestrictionsFactoryUtil.eq("rep.rWriter", "edmand"));
+				userQuery.addOrder(OrderFactoryUtil.desc("rep.rno"));
+				//List<REP> reply_list = REPLocalServiceUtil.dynamicQuery(userQuery, 0, REPLocalServiceUtil.getREPsCount());
+				List<REP> reply_list = REPLocalServiceUtil.dynamicQuery(userQuery);
 
-				
-				
-				System.out.println("--------------> bno :"+bno);
-				userQuery.addOrder(OrderFactoryUtil.desc("rep.rno"));							
-				List<REP> reply_list = REPLocalServiceUtil.dynamicQuery(userQuery, 0, REPLocalServiceUtil.getREPsCount());
-				//List<REP> reply_list = REPLocalServiceUtil.dynamicQuery(userQuery, offset, offset+limit);
 				return reply_list;
 			}
 			

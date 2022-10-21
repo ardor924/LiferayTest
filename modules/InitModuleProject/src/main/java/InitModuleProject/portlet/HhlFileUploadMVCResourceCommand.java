@@ -56,6 +56,8 @@ public class HhlFileUploadMVCResourceCommand implements MVCResourceCommand {
 		long bno = ParamUtil.getLong(uploadRequest, "bno"); 	              // 설명 : 각각의 파라미터를 가져온다
 		String subject = ParamUtil.getString(uploadRequest, "subject", "");   //
 		String contents = ParamUtil.getString(uploadRequest, "contents", ""); //
+		
+		int subject_id = TBLLocalServiceUtil.getTBLsCount()+1;
 	/* --------------------------------------------- DB에 글 등록 처리(등록/수정) ------------------------------------------------------------*/System.out.println(3);	
 		
 		
@@ -68,6 +70,7 @@ public class HhlFileUploadMVCResourceCommand implements MVCResourceCommand {
 				tbl.setContents(contents);                     
 				tbl.setSubject(subject);                       
 				tbl.setRegDate(regDate);
+				tbl.setSubject_id(subject_id);
 				tbl = TBLLocalServiceUtil.updateTBL(tbl);		
 				
 			} catch (PortalException e) {
@@ -81,6 +84,7 @@ public class HhlFileUploadMVCResourceCommand implements MVCResourceCommand {
 		tbl.setContents(contents);                     //
 		tbl.setSubject(subject);                       //
 		tbl.setRegDate(regDate);                       //
+		tbl.setSubject_id(subject_id);                 //
 		tbl = TBLLocalServiceUtil.addTblWithIncrement(tbl);         //
 		bno = tbl.getBno();
 		}

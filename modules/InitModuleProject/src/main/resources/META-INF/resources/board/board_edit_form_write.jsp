@@ -33,7 +33,7 @@
 		<hr>	
    <div class="w-100 shadow p-5">
       <h3 class="mb-5">글쓰기</h3>
-      <form id="editForm" name="editForm" method="post" action="${WriteSubjectURL}" onsubmit="return false; " enctype="multipart/form-data">       
+      <form id="editForm" name="editForm" method="post" action="${SubjectViewURL}" onsubmit="return false; " enctype="multipart/form-data">       
         
          <div class="d-flex form-group">
             <label for="writer" class="col-md-1 mt-2">작성자</label>

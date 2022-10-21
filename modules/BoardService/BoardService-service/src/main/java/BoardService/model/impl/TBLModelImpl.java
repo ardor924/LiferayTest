@@ -70,7 +70,8 @@ public class TBLModelImpl extends BaseModelImpl<TBL> implements TBLModel {
 	public static final Object[][] TABLE_COLUMNS = {
 		{"bno", Types.BIGINT}, {"subject", Types.VARCHAR},
 		{"writer", Types.VARCHAR}, {"contents", Types.VARCHAR},
-		{"regDate", Types.VARCHAR}, {"hit", Types.INTEGER}
+		{"regDate", Types.VARCHAR}, {"hit", Types.INTEGER},
+		{"subject_id", Types.INTEGER}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -83,10 +84,11 @@ public class TBLModelImpl extends BaseModelImpl<TBL> implements TBLModel {
 		TABLE_COLUMNS_MAP.put("contents", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("regDate", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("hit", Types.INTEGER);
+		TABLE_COLUMNS_MAP.put("subject_id", Types.INTEGER);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table HHL_PROJECT_TBL (bno LONG not null primary key,subject VARCHAR(75) null,writer VARCHAR(75) null,contents TEXT null,regDate VARCHAR(75) null,hit INTEGER)";
+		"create table HHL_PROJECT_TBL (bno LONG not null primary key,subject VARCHAR(75) null,writer VARCHAR(75) null,contents TEXT null,regDate VARCHAR(75) null,hit INTEGER,subject_id INTEGER)";
 
 	public static final String TABLE_SQL_DROP = "drop table HHL_PROJECT_TBL";
 
@@ -136,6 +138,7 @@ public class TBLModelImpl extends BaseModelImpl<TBL> implements TBLModel {
 		model.setContents(soapModel.getContents());
 		model.setRegDate(soapModel.getRegDate());
 		model.setHit(soapModel.getHit());
+		model.setSubject_id(soapModel.getSubject_id());
 
 		return model;
 	}
@@ -299,6 +302,9 @@ public class TBLModelImpl extends BaseModelImpl<TBL> implements TBLModel {
 		attributeGetterFunctions.put("hit", TBL::getHit);
 		attributeSetterBiConsumers.put(
 			"hit", (BiConsumer<TBL, Integer>)TBL::setHit);
+		attributeGetterFunctions.put("subject_id", TBL::getSubject_id);
+		attributeSetterBiConsumers.put(
+			"subject_id", (BiConsumer<TBL, Integer>)TBL::setSubject_id);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -422,6 +428,17 @@ public class TBLModelImpl extends BaseModelImpl<TBL> implements TBLModel {
 		_hit = hit;
 	}
 
+	@JSON
+	@Override
+	public int getSubject_id() {
+		return _subject_id;
+	}
+
+	@Override
+	public void setSubject_id(int subject_id) {
+		_subject_id = subject_id;
+	}
+
 	public long getColumnBitmask() {
 		return _columnBitmask;
 	}
@@ -463,6 +480,7 @@ public class TBLModelImpl extends BaseModelImpl<TBL> implements TBLModel {
 		tblImpl.setContents(getContents());
 		tblImpl.setRegDate(getRegDate());
 		tblImpl.setHit(getHit());
+		tblImpl.setSubject_id(getSubject_id());
 
 		tblImpl.resetOriginalValues();
 
@@ -572,6 +590,8 @@ public class TBLModelImpl extends BaseModelImpl<TBL> implements TBLModel {
 
 		tblCacheModel.hit = getHit();
 
+		tblCacheModel.subject_id = getSubject_id();
+
 		return tblCacheModel;
 	}
 
@@ -655,6 +675,7 @@ public class TBLModelImpl extends BaseModelImpl<TBL> implements TBLModel {
 	private String _originalContents;
 	private String _regDate;
 	private int _hit;
+	private int _subject_id;
 	private long _columnBitmask;
 	private TBL _escapedModel;
 

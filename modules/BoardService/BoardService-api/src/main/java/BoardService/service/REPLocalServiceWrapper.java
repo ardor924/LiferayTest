@@ -244,10 +244,8 @@ public class REPLocalServiceWrapper
 	}
 
 	@Override
-	public java.util.List<BoardService.model.REP> getREPListBybno(
-		long bno, int offset, int limit) {
-
-		return _repLocalService.getREPListBybno(bno, offset, limit);
+	public java.util.List<BoardService.model.REP> getREPListBybno(long bno) {
+		return _repLocalService.getREPListBybno(bno);
 	}
 
 	/**

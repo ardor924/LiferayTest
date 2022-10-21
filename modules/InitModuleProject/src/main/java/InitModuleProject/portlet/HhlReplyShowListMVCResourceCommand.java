@@ -47,11 +47,12 @@ public class HhlReplyShowListMVCResourceCommand implements MVCResourceCommand {
 		
 			
 		int bno = ParamUtil.getInteger(resourceRequest, "bno");
-		 List<REP> reply_list = REPLocalServiceUtil.getREPListBybno(bno, 0, REPLocalServiceUtil.getREPsCount());
+		//List<REP> reply_list = REPLocalServiceUtil.getREPListBybno(bno, 0, REPLocalServiceUtil.getREPsCount());
+		//List<REP> reply_list = REPLocalServiceUtil.getREPListBybno(bno,offset,limit);
+		List<REP> reply_list = REPLocalServiceUtil.getREPListBybno(bno);
 		//List<REP> reply_list  = serviceMethod.getReplyList(bno);
 		//List<REP> reply_list  = serviceMethod.getReplyList(bno,offset,limit);
-		
-		  
+				
 	 	JSONArray jArray = JSONFactoryUtil.createJSONArray();//배열이 필요할때  
 		for (int i = 0; i < reply_list.size(); i++)//배열                    
 			{                        

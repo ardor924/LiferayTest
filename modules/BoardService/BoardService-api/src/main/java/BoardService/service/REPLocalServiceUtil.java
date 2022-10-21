@@ -239,9 +239,9 @@ public class REPLocalServiceUtil {
 	}
 
 	public static java.util.List<BoardService.model.REP> getREPListBybno(
-		long bno, int offset, int limit) {
+		long bno) {
 
-		return getService().getREPListBybno(bno, offset, limit);
+		return getService().getREPListBybno(bno);
 	}
 
 	/**

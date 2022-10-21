@@ -9,7 +9,7 @@ public class BoardPagingVO {
 	private String contents;
 	private String regDate;
 	private int hit;
-
+	
 
 	
 	// 페이지
@@ -33,6 +33,10 @@ public class BoardPagingVO {
 	// 페이지별 시작번호
 	private int initRowNumber; 			// 페이지별 시작번호
 	
+	
+	// 게시판가짜번호
+	private int number; 
+
 
 	// 기본생성자
 	public BoardPagingVO(){};
@@ -61,6 +65,10 @@ public class BoardPagingVO {
 		this.nextPage = blockEnd + 1;
 		
 		if(nextPage > totalPage) nextPage = totalPage;
+		
+		//this.number = cntPerTotal - (currentPage -1) * cntPerPage;
+		this.number = cntPerTotal - (currentPage -1) * cntPerPage;
+		
 		/* if(prevPage < blockStart) prevPage = 1; */ //문제없을시 삭제예정 
 		// 행번호 출력하기
 		// totalCnt 107 (11page)
@@ -74,16 +82,17 @@ public class BoardPagingVO {
 //		3페이지의 startRowNum = totalCnt - 20
 		
 		// 페이지별 행시작번호 구하기
-		initRowNumber = (currentPage-1)*cntPerPage; // 오름차순
+		 initRowNumber = (currentPage-1)*cntPerPage; // 오름차순
 		 // initRowNumber = cntPerTotal - (currentPage-1)*cntPerPage;
 		// initEndRowNumber = cntPerTotal-(currentPage-1)*cntPerPage; // 내림차순
+		// initRowNumber = cntPerTotal-(currentPage-1)*cntPerPage; // 내림차순
 	}
 
 	
 	// 전체생성자
 	public BoardPagingVO(long bno, String subject, String writer, String contents, String regDate, int hit,
 			int initPage, int currentPage, int totalPage, int prevPage, int nextPage, int blockStart, int blockEnd,
-			int blockCurrentLocation, int blockSize, int cntPerPage, int cntPerTotal, int initRowNumber) {
+			int blockCurrentLocation, int blockSize, int cntPerPage, int cntPerTotal, int initRowNumber , int number) {
 		super();
 		this.bno = bno;
 		this.subject = subject;
@@ -103,6 +112,7 @@ public class BoardPagingVO {
 		this.cntPerPage = cntPerPage;
 		this.cntPerTotal = cntPerTotal;
 		this.initRowNumber = initRowNumber;
+		this.number = number;
 	}
 	
 	
@@ -250,6 +260,24 @@ public class BoardPagingVO {
 
 	public void setInitRowNumber(int initRowNumber) {
 		this.initRowNumber = initRowNumber;
+	}
+
+	public int getNumber() {
+		return number;
+	}
+
+	public void setNumber(int number) {
+		this.number = number;
+	}
+
+	@Override
+	public String toString() {
+		return "BoardPagingVO [bno=" + bno + ", subject=" + subject + ", writer=" + writer + ", contents=" + contents
+				+ ", regDate=" + regDate + ", hit=" + hit + ", initPage=" + initPage + ", currentPage=" + currentPage
+				+ ", totalPage=" + totalPage + ", prevPage=" + prevPage + ", nextPage=" + nextPage + ", blockStart="
+				+ blockStart + ", blockEnd=" + blockEnd + ", blockCurrentLocation=" + blockCurrentLocation
+				+ ", blockSize=" + blockSize + ", cntPerPage=" + cntPerPage + ", cntPerTotal=" + cntPerTotal
+				+ ", initRowNumber=" + initRowNumber + ", number=" + number + "]";
 	}
 	
 	

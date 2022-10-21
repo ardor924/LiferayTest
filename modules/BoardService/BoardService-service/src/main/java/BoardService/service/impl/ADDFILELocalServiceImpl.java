@@ -52,7 +52,7 @@ public class ADDFILELocalServiceImpl extends ADDFILELocalServiceBaseImpl {
 	}
 	
 	
-	// 해당 게시글의 댓글만 가져오기
+	// 해당 게시글의 파일만 가져오기
 	public List<ADDFILE> getfileListBybno(long bno){
 		List<ADDFILE> list = this.addfilePersistence.findBybno(bno);
 		return list;

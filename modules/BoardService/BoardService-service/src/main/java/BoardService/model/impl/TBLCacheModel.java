@@ -59,7 +59,7 @@ public class TBLCacheModel implements CacheModel<TBL>, Externalizable {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(13);
+		StringBundler sb = new StringBundler(15);
 
 		sb.append("{bno=");
 		sb.append(bno);
@@ -73,6 +73,8 @@ public class TBLCacheModel implements CacheModel<TBL>, Externalizable {
 		sb.append(regDate);
 		sb.append(", hit=");
 		sb.append(hit);
+		sb.append(", subject_id=");
+		sb.append(subject_id);
 		sb.append("}");
 
 		return sb.toString();
@@ -113,6 +115,7 @@ public class TBLCacheModel implements CacheModel<TBL>, Externalizable {
 		}
 
 		tblImpl.setHit(hit);
+		tblImpl.setSubject_id(subject_id);
 
 		tblImpl.resetOriginalValues();
 
@@ -128,6 +131,8 @@ public class TBLCacheModel implements CacheModel<TBL>, Externalizable {
 		regDate = objectInput.readUTF();
 
 		hit = objectInput.readInt();
+
+		subject_id = objectInput.readInt();
 	}
 
 	@Override
@@ -163,6 +168,8 @@ public class TBLCacheModel implements CacheModel<TBL>, Externalizable {
 		}
 
 		objectOutput.writeInt(hit);
+
+		objectOutput.writeInt(subject_id);
 	}
 
 	public long bno;
@@ -171,5 +178,6 @@ public class TBLCacheModel implements CacheModel<TBL>, Externalizable {
 	public String contents;
 	public String regDate;
 	public int hit;
+	public int subject_id;
 
 }

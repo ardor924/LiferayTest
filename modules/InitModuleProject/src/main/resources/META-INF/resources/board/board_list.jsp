@@ -34,7 +34,7 @@
 <div>
 	<table class="table table-hover mt-3">
 		<thead>
-			<tr>				
+			<tr>		
 				<th>
 				<c:if test="${ORDER eq 'bnoUp'}">
 					<a href='${BoardListURL}&<portlet:namespace/>cntPerPage=${bp.cntPerPage}&<portlet:namespace/>keyword=${keyword}&<portlet:namespace/>option=${option}&<portlet:namespace/>ORDER=bnoDown'>번호  <i class="fa-solid fa-sort-down"></i></a>
@@ -72,7 +72,8 @@
 			<c:if test="${board_list != null}">
 			<c:forEach var="li" items="${board_list}">
 			<tr>
-				<td>${li.bno}</td>
+			
+				<td>${li.subject_id}</td>
 				<td>
 					<a href="${SubjectViewURL}&
 						<portlet:namespace/>bno=${li.bno}&
@@ -90,6 +91,7 @@
 				<td>${li.regDate}</td>
 				<td>${li.hit}</td>
 			</tr>		
+			<c:set var="start" value="${start-1}"/>
 			</c:forEach>
 			</c:if>								
 		</tbody>
@@ -121,7 +123,9 @@
 		<button class="btn btn-outline-dark" onclick="javascript:alert('글을 쓰기 위해서는 로그인이 필요합니다!')">글쓰기</button>
 		</c:if>
 		<c:if test="${userName != 'guest'}">
-		<a class="btn btn-outline-dark" href='${WriteFormEditURL}&<portlet:namespace/>bno=${li.bno}&<portlet:namespace/>userName=${userName}'>글쓰기</a>
+		<a class="btn btn-outline-dark" href='${WriteFormEditURL}
+										&<portlet:namespace/>bno=${li.bno}
+										&<portlet:namespace/>userName=${userName}'>글쓰기</a>
 		</c:if>
 	</div>
 </div>

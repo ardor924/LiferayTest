@@ -46,6 +46,7 @@ public class TBLWrapper
 		attributes.put("contents", getContents());
 		attributes.put("regDate", getRegDate());
 		attributes.put("hit", getHit());
+		attributes.put("subject_id", getSubject_id());
 
 		return attributes;
 	}
@@ -86,6 +87,12 @@ public class TBLWrapper
 
 		if (hit != null) {
 			setHit(hit);
+		}
+
+		Integer subject_id = (Integer)attributes.get("subject_id");
+
+		if (subject_id != null) {
+			setSubject_id(subject_id);
 		}
 	}
 
@@ -147,6 +154,16 @@ public class TBLWrapper
 	@Override
 	public String getSubject() {
 		return model.getSubject();
+	}
+
+	/**
+	 * Returns the subject_id of this tbl.
+	 *
+	 * @return the subject_id of this tbl
+	 */
+	@Override
+	public int getSubject_id() {
+		return model.getSubject_id();
 	}
 
 	/**
@@ -222,6 +239,16 @@ public class TBLWrapper
 	@Override
 	public void setSubject(String subject) {
 		model.setSubject(subject);
+	}
+
+	/**
+	 * Sets the subject_id of this tbl.
+	 *
+	 * @param subject_id the subject_id of this tbl
+	 */
+	@Override
+	public void setSubject_id(int subject_id) {
+		model.setSubject_id(subject_id);
 	}
 
 	/**

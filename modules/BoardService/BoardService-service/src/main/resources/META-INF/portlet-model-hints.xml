@@ -31,5 +31,6 @@
 		</field>
 		<field name="regDate" type="String" />
 		<field name="hit" type="int" />
+		<field name="subject_id" type="int" />
 	</model>
 </model-hints>

@@ -84,7 +84,7 @@ public class MainHhlBoardPortlet extends MVCPortlet {
 		initRowNumber = bp.getInitRowNumber();
 /*---------------------------------------------페이징----------------------------------------------------------*/
 
-		List<TBL> board_list = serviceMethod.getOrderListResult(ORDER, cntPerPage, initRowNumber, searchKeyword, columnName);
+		List<TBL> board_list = serviceMethod.getOrderListResult(ORDER, cntPerPage,initRowNumber, searchKeyword, columnName);
 		
 /*-------------------------------------------객체 바인딩----------------------------------------------------------*/	
 	

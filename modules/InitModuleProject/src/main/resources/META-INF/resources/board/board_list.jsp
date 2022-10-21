@@ -34,13 +34,20 @@
 <div>
 	<table class="table table-hover mt-3">
 		<thead>
+			<form name="orderForm">
+				<input id="cntPerPage" name="<portlet:namespace/>cntPerPage" type="hidden" value="${bp.cntPerPage}"/>
+				<input id="keyword" name="<portlet:namespace/>keyword" type="hidden" value="${keyword}"/>
+				<input id="option" name="<portlet:namespace/>option" type="hidden" value="${option}"/>
+				<input id="ORDER" name="<portlet:namespace/>ORDER" type="hidden" value="bnoDown"/>
+			</form>
 			<tr>		
 				<th>
+					<span id="btn_subject_id">11번호</span><label id="icon_subject_id"></label>
 				<c:if test="${ORDER eq 'bnoUp'}">
-					<a href='${BoardListURL}&<portlet:namespace/>cntPerPage=${bp.cntPerPage}&<portlet:namespace/>keyword=${keyword}&<portlet:namespace/>option=${option}&<portlet:namespace/>ORDER=bnoDown'>번호  <i class="fa-solid fa-sort-down"></i></a>
+					<a id="btn_subject_id" href='${BoardListURL}&<portlet:namespace/>cntPerPage=${bp.cntPerPage}&<portlet:namespace/>keyword=${keyword}&<portlet:namespace/>option=${option}&<portlet:namespace/>ORDER=bnoDown'>번호  <label id="icon_subject_id"></label></a>
 				</c:if>
 				<c:if test="${ORDER eq 'bnoDown'  or ORDER == null  or ORDER != 'bnoUp'}">		
-					<a href='${BoardListURL}&<portlet:namespace/>cntPerPage=${bp.cntPerPage}&<portlet:namespace/>keyword=${keyword}&<portlet:namespace/>option=${option}&<portlet:namespace/>ORDER=bnoUp'>번호  <i class="fa-solid fa-sort-down"></i></a>
+					<a href='${BoardListURL}&<portlet:namespace/>cntPerPage=${bp.cntPerPage}&<portlet:namespace/>keyword=${keyword}&<portlet:namespace/>option=${option}&<portlet:namespace/>ORDER=bnoUp'>번호  <i class="fa-solid fa-sort-up"></i></a>
 				</c:if>		
 				</th> 	
 				<th>제목</th>     
@@ -187,5 +194,49 @@ $('#btn-search').on('click', function(e){
 	}
 	
 	
+<!-- 컬럼정렬 -->
+
+
+/* 번호로 정렬시 */
+$("#btn_subject_id").click(function(){
+	var cntPerPage = "${bp.cntPerPage}";
+	var keyword = "${keyword}";
+	var option = "${option}";
 	
+	console.log("cntPerPage : "+cntPerPage)
+	console.log("keyword : "+keyword)
+	console.log("option : "+option)
+
+	
+	
+	
+	
+	var active_subject_id = document.querySelector("#btn_subject_id")
+	active_subject_id.classList.toggle("active")
+	
+	if($("#btn_subject_id").hasClass("active") === true){
+		var ORDER = "bnoUp";
+		console.log("ORDER : "+ORDER)
+	
+		var icon_out = "<i class='fa-solid fa-sort-up'></i>"
+		$("#icon_subject_id").html("");
+		$("#icon_subject_id").html(icon_out);
+		
+		
+	}else if($("#btn_subject_id").hasClass("active") === false){
+		var ORDER = "bnoDown";
+		console.log("ORDER : "+ORDER)
+		
+		
+		
+		var icon_out = "<i class='fa-solid fa-sort-down'></i>"
+		$("#icon_subject_id").html("");
+		$("#icon_subject_id").html(icon_out);
+	}
+	
+	
+	});
+
 </script>
+
+<link rel="stylesheet" type="text/css" href="${ctx}/css/board_list.css">

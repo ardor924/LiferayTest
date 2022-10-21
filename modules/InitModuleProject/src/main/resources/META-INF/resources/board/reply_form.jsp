@@ -366,7 +366,7 @@ function addrep_cancel(num){
 	showHide.classList.toggle("active");
 }
 
-// 토글 이벤트(수정/삭제)
+// 토글 클릭 이벤트(수정/삭제)
 function btn_toggle(num){
 	
 	

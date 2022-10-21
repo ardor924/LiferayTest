@@ -14,3 +14,23 @@
 .pagination li:active {
 	text-decoration: none;
 }
+
+
+
+
+
+
+#btn_subject_id{
+	
+	cursor: pointer;
+}
+#btn_subject_id.active{
+	cursor : pointer;
+	color: green;
+}
+#btn_subject_id:hover{
+	text-decoration: underline;
+}
+
+
+

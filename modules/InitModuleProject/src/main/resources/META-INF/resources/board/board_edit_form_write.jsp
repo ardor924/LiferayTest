@@ -228,8 +228,10 @@ $("#editForm").on("submit",function(e){
 	
 	 //내용 필수입력 
 	var contents = CKEDITOR.instances.editor4.getData()
+	contents = contents.split("\n").join("");
 	if(contents.length < 1){
 		alert("내용을 입력해주세요!");		
+		editForm.contents.focus();
 		return false;
 	}
 	formData.append('<portlet:namespace/>contents', contents); // 폼데이터 사용하므로 일반 파라미터는 key ,value 값으로 append 해준다.
@@ -283,7 +285,8 @@ $("#editForm").on("submit",function(e){
 
 
 <!-- ckEditor4 풀버전 -->
-<script src="http://cdn.ckeditor.com/4.19.1/full/ckeditor.js"></script>
+<!-- <script src="http://cdn.ckeditor.com/4.19.1/full/ckeditor.js"></script> -->
+<script src="${ctx}/js/ckeditor/ckeditor.js"></script>
 <!-- 텍스트ui설정 -->
 <script type="text/javascript" src="${ctx}/js/editor4_setting.js"></script>
 <!-- 제목/내용 필수입력(유효성검사).js -->

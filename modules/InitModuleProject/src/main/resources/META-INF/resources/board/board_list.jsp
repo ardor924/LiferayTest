@@ -105,13 +105,13 @@
 				<td>${li.subject_id}</td>
 				<td>
 				<form id="viewFrm" action="${SubjectViewURL}" method="post">
-					<input id="cntPerPage" name="<portlet:namespace/>bno" type="hidden" value="${li.bno}"/>
-					<input id="cntPerPage" name="<portlet:namespace/>currentPage" type="hidden" value="${bp.currentPage}"/>
-					<input id="cntPerPage" name="<portlet:namespace/>cntPerPage" type="hidden" value="${bp.cntPerPage}"/>
-					<input id="cntPerPage" name="<portlet:namespace/>ORDER" type="hidden" value="${ORDER}"/>
-					<input id="cntPerPage" name="<portlet:namespace/>option" type="hidden" value="${option}"/>
-					<input id="cntPerPage" name="<portlet:namespace/>keyword" type="hidden" value="${keyword}"/>
-					<input id="cntPerPage" name="<portlet:namespace/>userName" type="hidden" value="${userName}"/>
+					<input name="<portlet:namespace/>bno" type="hidden" value="${li.bno}"/>
+					<input name="<portlet:namespace/>currentPage" type="hidden" value="${bp.currentPage}"/>
+					<input name="<portlet:namespace/>cntPerPage" type="hidden" value="${bp.cntPerPage}"/>
+					<input name="<portlet:namespace/>ORDER" type="hidden" value="${ORDER}"/>
+					<input name="<portlet:namespace/>option" type="hidden" value="${option}"/>
+					<input name="<portlet:namespace/>keyword" type="hidden" value="${keyword}"/>
+					<input name="<portlet:namespace/>userName" type="hidden" value="${userName}"/>
 					<a href="#" onclick="document.getElementById('viewFrm').submit()">${li.subject}</a>
 				</form>
 				</td>

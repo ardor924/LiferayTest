@@ -39,14 +39,14 @@
 
 <div class="container mt-5 justify-content-center">
 		<div class="d-flex justify-content-end">
-			<a class="btn btn-outline-dark" href="${BoardListURL}
-				&<portlet:namespace/>i=${currentPage}
-				&<portlet:namespace/>cntPerPage=${cntPerPage}
-				&<portlet:namespace/>option=${option}
-				&<portlet:namespace/>keyword=${keyword}
-				&<portlet:namespace/>ORDER=${ORDER}">
-				목록
-			</a>
+				<form id="goBoardListFrm" action="${BoardListURL}" method="post">
+					<input name="<portlet:namespace/>i" type="hidden" value="${currentPage}"/>
+					<input name="<portlet:namespace/>cntPerPage" type="hidden" value="${cntPerPage}"/>
+					<input name="<portlet:namespace/>ORDER" type="hidden" value="${ORDER}"/>
+					<input name="<portlet:namespace/>option" type="hidden" value="${option}"/>
+					<input name="<portlet:namespace/>keyword" type="hidden" value="${keyword}"/>
+					<button class="btn btn-outline-dark" type="submit" onclick="document.getElementById('goBoardListFrm').submit()">목록</button>
+				</form>	
 		</div>
 		<hr>	
    <div class="w-100 shadow p-5">
@@ -317,7 +317,8 @@ function fileDelete(fileNum){ // 해당 넘버링 인자로 받음
 
 
 <!-- ckEditor4 풀버전 -->
-<script src="http://cdn.ckeditor.com/4.19.1/full/ckeditor.js"></script>
+<!-- <script src="http://cdn.ckeditor.com/4.19.1/full/ckeditor.js"></script> -->
+<script src="${ctx}/js/ckeditor/ckeditor.js"></script>
 <!-- 텍스트ui설정 -->
 <script type="text/javascript" src="${ctx}/js/editor4_setting.js"></script>
 <!-- 제목/내용 필수입력(유효성검사).js -->

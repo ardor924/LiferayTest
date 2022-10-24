@@ -30,14 +30,17 @@
 
 <div class="container p-5">
 		<div class="d-flex justify-content-end">
-			<a class="btn btn-outline-dark" href="${BoardListURL}
-				&<portlet:namespace/>i=${currentPage}
-				&<portlet:namespace/>cntPerPage=${cntPerPage}
-				&<portlet:namespace/>option=${option}
-				&<portlet:namespace/>keyword=${keyword}
-				&<portlet:namespace/>ORDER=${ORDER}">
-				목록
-			</a>
+				<form id="goBoardListFrm" action="${BoardListURL}" method="post">
+					<input name="<portlet:namespace/>i" type="hidden" value="${currentPage}"/>
+					<input name="<portlet:namespace/>cntPerPage" type="hidden" value="${cntPerPage}"/>
+					<input name="<portlet:namespace/>ORDER" type="hidden" value="${ORDER}"/>
+					<input name="<portlet:namespace/>option" type="hidden" value="${option}"/>
+					<input name="<portlet:namespace/>keyword" type="hidden" value="${keyword}"/>
+					<button class="btn btn-outline-dark" type="submit" onclick="document.getElementById('goBoardListFrm').submit()">목록</button>
+				</form>	
+			
+			
+			
 		</div>
 		<hr>
 <div class="shadow p-4">
@@ -100,16 +103,15 @@
 		<c:if test="${tbl_mine}">
 			<div class="d-flex justify-content-end">
 				<button type="submit" class="btn btn-success m-1">글수정</button>
-				<a class="btn btn-danger m-1" id='btn-delete'
-					href="${SubjectDeleteURL}&<portlet:namespace/>bno=${tbl.bno}">글삭제</a>
+				<button type="button" class="btn btn-danger m-1" onclick="delSubject()">글삭제</button>
 			</div>
+
 		</c:if>		
-
-
-
-
-	</form>
-
+		</form>
+		<!-- 글삭제폼 -->
+		<form id="delFrm" action="${SubjectDeleteURL}" method="post">
+			<input type="hidden" name="<portlet:namespace/>bno" value="${tbl.bno}">
+		</form>
 </div>
 </div>
 
@@ -126,6 +128,10 @@
 
 function fileDown(fno){
 	window.location.href = '${DownFileURL}&<portlet:namespace/>fno='+fno;	
+}
+
+function delSubject(){
+	document.getElementById('delFrm').submit();
 }
 </script>
 

@@ -7,6 +7,7 @@ $(function() {
         font_defaultLabel : "맑은 고딕/Malgun Gothic",
         fontSize_defaultLabel : "20",
         height: 400,
+        width : 1280,
         language : "ko",
         uiColor: '#FFFFFF',
     });

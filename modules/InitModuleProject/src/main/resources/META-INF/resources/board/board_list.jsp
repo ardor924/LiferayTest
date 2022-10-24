@@ -34,43 +34,65 @@
 <div>
 	<table class="table table-hover mt-3">
 		<thead>
-			<form name="orderForm">
-				<input id="cntPerPage" name="<portlet:namespace/>cntPerPage" type="hidden" value="${bp.cntPerPage}"/>
-				<input id="keyword" name="<portlet:namespace/>keyword" type="hidden" value="${keyword}"/>
-				<input id="option" name="<portlet:namespace/>option" type="hidden" value="${option}"/>
-				<input id="ORDER" name="<portlet:namespace/>ORDER" type="hidden" value="bnoDown"/>
-			</form>
-			<tr>		
-				<th>
-					<span id="btn_subject_id">11번호</span><label id="icon_subject_id"></label>
-				<c:if test="${ORDER eq 'bnoUp'}">
-					<a id="btn_subject_id" href='${BoardListURL}&<portlet:namespace/>cntPerPage=${bp.cntPerPage}&<portlet:namespace/>keyword=${keyword}&<portlet:namespace/>option=${option}&<portlet:namespace/>ORDER=bnoDown'>번호  <label id="icon_subject_id"></label></a>
-				</c:if>
-				<c:if test="${ORDER eq 'bnoDown'  or ORDER == null  or ORDER != 'bnoUp'}">		
-					<a href='${BoardListURL}&<portlet:namespace/>cntPerPage=${bp.cntPerPage}&<portlet:namespace/>keyword=${keyword}&<portlet:namespace/>option=${option}&<portlet:namespace/>ORDER=bnoUp'>번호  <i class="fa-solid fa-sort-up"></i></a>
-				</c:if>		
-				</th> 	
-				<th>제목</th>     
-				<th>작성자</th>  
-				<th>
-				<c:if test="${ORDER eq 'regUp'}">
-					<a href='${BoardListURL}&<portlet:namespace/>cntPerPage=${bp.cntPerPage}&<portlet:namespace/>keyword=${keyword}&<portlet:namespace/>option=${option}&<portlet:namespace/>ORDER=regDown'>작성일  <i class="fa-solid fa-sort-down"></i></a>
-				</c:if>
-				<c:if test="${ORDER eq 'regDown'  or ORDER == null or ORDER != 'regUp'}">		
-					<a href='${BoardListURL}&<portlet:namespace/>cntPerPage=${bp.cntPerPage}&<portlet:namespace/>keyword=${keyword}&<portlet:namespace/>option=${option}&<portlet:namespace/>ORDER=regUp'>작성일  <i class="fa-solid fa-sort-down"></i></a>
-				</c:if>		
-				</th>
-				<th>
-				<c:if test="${ORDER eq 'hitUp'}">
-					<a href='${BoardListURL}&<portlet:namespace/>cntPerPage=${bp.cntPerPage}&<portlet:namespace/>keyword=${keyword}&<portlet:namespace/>option=${option}&<portlet:namespace/>ORDER=hitDown'>조회수  <i class="fa-solid fa-sort-down"></i></a>
-				</c:if>
-				<c:if test="${ORDER eq 'hitDown'  or ORDER == null or ORDER != 'hitUp'}">		
-					<a href='${BoardListURL}&<portlet:namespace/>cntPerPage=${bp.cntPerPage}&<portlet:namespace/>keyword=${keyword}&<portlet:namespace/>option=${option}&<portlet:namespace/>ORDER=hitUp'>조회수  <i class="fa-solid fa-sort-down"></i></a>
-				</c:if>			
-				</th>
-			</tr>
-		</thead>
-		<tbody >
+		  <th>
+			<form id="numOrderFrm" action="${BoardListURL}" method="post">
+			    <input id="cntPerPage" name="<portlet:namespace/>cntPerPage" type="hidden" value="${bp.cntPerPage}"/>
+			    <input id="keyword" name="<portlet:namespace/>keyword" type="hidden" value="${keyword}"/>
+			    <input id="option" name="<portlet:namespace/>option" type="hidden" value="${option}"/>
+			    
+			<c:if test="${ORDER eq 'bnoUp'}">
+			    <input id="option" name="<portlet:namespace/>ORDER" type="hidden" value="bnoDown"/>
+			    <a href="#" onclick="numOrderFrm()">번호</a>
+			    <i class='fa-solid fa-sort-up'></i>
+			    </c:if>
+			<c:if test="${ORDER eq 'bnoDown'  or ORDER == null  or ORDER != 'bnoUp'}">
+			    <input id="option" name="<portlet:namespace/>ORDER" type="hidden" value="bnoUp"/>
+			    <a href="#" onclick="numOrderFrm()">번호</a>
+			    <i class='fa-solid fa-sort-down'></i>
+		    </c:if>
+		    </form>
+		   </th>
+		   <th>제목</th>
+		   <th>작성자</th>
+		   <th>
+			<form id="regOrderFrm" action="${BoardListURL}" method="post">
+			    <input id="cntPerPage" name="<portlet:namespace/>cntPerPage" type="hidden" value="${bp.cntPerPage}"/>
+			    <input id="keyword" name="<portlet:namespace/>keyword" type="hidden" value="${keyword}"/>
+			    <input id="option" name="<portlet:namespace/>option" type="hidden" value="${option}"/>
+			    		   
+	        <c:if test="${ORDER eq 'regUp'}">
+	            <input id="ORDER" name="<portlet:namespace/>ORDER" type="hidden" value="regDown"/>
+	            <a href="#" onclick="regOrderFrm()">작성일</a>
+	            <i class='fa-solid fa-sort-up'></i>
+	        </c:if>
+	        <c:if test="${ORDER eq 'regDown'  or ORDER == null or ORDER != 'regUp'}">
+	            <input id="ORDER" name="<portlet:namespace/>ORDER" type="hidden" value="regUp"/>
+	            <a href="#" onclick="regOrderFrm()">작성일</a>
+	            <i class='fa-solid fa-sort-down'></i>
+	        </c:if>
+	        </form>
+		   </th>
+		   <th>
+			<form id="hitOrderFrm" action="${BoardListURL}" method="post">
+			    <input id="cntPerPage" name="<portlet:namespace/>cntPerPage" type="hidden" value="${bp.cntPerPage}"/>
+			    <input id="keyword" name="<portlet:namespace/>keyword" type="hidden" value="${keyword}"/>
+			    <input id="option" name="<portlet:namespace/>option" type="hidden" value="${option}"/>
+			    		   
+	        <c:if test="${ORDER eq 'hitUp'}">
+	            <input id="ORDER" name="<portlet:namespace/>ORDER" type="hidden" value="hitDown"/>
+	            <a href="#" onclick="hitOrderFrm()">조회수</a>
+	            <i class='fa-solid fa-sort-up'></i>
+	        </c:if>
+	        <c:if test="${ORDER eq 'hitDown'  or ORDER == null or ORDER != 'hitUp'}">
+	            <input id="ORDER" name="<portlet:namespace/>ORDER" type="hidden" value="hitUp"/>
+	            <a href="#" onclick="hitOrderFrm()">조회수</a>
+	            <i class='fa-solid fa-sort-down'></i>
+	        </c:if>
+	        </form>
+		   </th>
+		
+		</thead>		
+		<tbody>
 			<c:if test="${board_list == null}">
 			<tr>
 				<td class="text-center" colspan="5"><h2>게시판에 게시글이 없습니다.</h2><td>
@@ -82,18 +104,17 @@
 			
 				<td>${li.subject_id}</td>
 				<td>
-					<a href="${SubjectViewURL}&
-						<portlet:namespace/>bno=${li.bno}&
-						<portlet:namespace/>currentPage=${bp.currentPage}&
-						<portlet:namespace/>cntPerPage=${bp.cntPerPage}&
-						<portlet:namespace/>ORDER=${ORDER}&
-						<portlet:namespace/>option=${option}&
-						<portlet:namespace/>keyword=${keyword}&
-						<portlet:namespace/>userName=${userName}&"
-						>
-						${li.subject}
-					</a>
-				</td> 
+				<form id="viewFrm" action="${SubjectViewURL}" method="post">
+					<input id="cntPerPage" name="<portlet:namespace/>bno" type="hidden" value="${li.bno}"/>
+					<input id="cntPerPage" name="<portlet:namespace/>currentPage" type="hidden" value="${bp.currentPage}"/>
+					<input id="cntPerPage" name="<portlet:namespace/>cntPerPage" type="hidden" value="${bp.cntPerPage}"/>
+					<input id="cntPerPage" name="<portlet:namespace/>ORDER" type="hidden" value="${ORDER}"/>
+					<input id="cntPerPage" name="<portlet:namespace/>option" type="hidden" value="${option}"/>
+					<input id="cntPerPage" name="<portlet:namespace/>keyword" type="hidden" value="${keyword}"/>
+					<input id="cntPerPage" name="<portlet:namespace/>userName" type="hidden" value="${userName}"/>
+					<a href="#" onclick="document.getElementById('viewFrm').submit()">${li.subject}</a>
+				</form>
+				</td>
 				<td>${li.writer}</td>				
 				<td>${li.regDate}</td>
 				<td>${li.hit}</td>
@@ -155,16 +176,18 @@
 	  </li>
 	</ul>	
 
-<%-- 
+
 	<!-- 필터링확인 -->
 	<span>order : ${ORDER} // </span><span>search : ${option} //</span>
 	<span>currentPage : ${bp.currentPage }</span>
- --%>
+
 
 </div>
 
 
 <script type="text/javascript">
+
+
 /************* 검색 ****************/
 var sf = $('#searchForm');
 
@@ -195,47 +218,17 @@ $('#btn-search').on('click', function(e){
 	
 	
 <!-- 컬럼정렬 -->
-
-
-/* 번호로 정렬시 */
-$("#btn_subject_id").click(function(){
-	var cntPerPage = "${bp.cntPerPage}";
-	var keyword = "${keyword}";
-	var option = "${option}";
-	
-	console.log("cntPerPage : "+cntPerPage)
-	console.log("keyword : "+keyword)
-	console.log("option : "+option)
-
-	
-	
-	
-	
-	var active_subject_id = document.querySelector("#btn_subject_id")
-	active_subject_id.classList.toggle("active")
-	
-	if($("#btn_subject_id").hasClass("active") === true){
-		var ORDER = "bnoUp";
-		console.log("ORDER : "+ORDER)
-	
-		var icon_out = "<i class='fa-solid fa-sort-up'></i>"
-		$("#icon_subject_id").html("");
-		$("#icon_subject_id").html(icon_out);
-		
-		
-	}else if($("#btn_subject_id").hasClass("active") === false){
-		var ORDER = "bnoDown";
-		console.log("ORDER : "+ORDER)
-		
-		
-		
-		var icon_out = "<i class='fa-solid fa-sort-down'></i>"
-		$("#icon_subject_id").html("");
-		$("#icon_subject_id").html(icon_out);
-	}
-	
-	
-	});
+/* -----------------오더 정렬 폼 제출-------------------- */
+function hitOrderFrm(){
+	document.getElementById("hitOrderFrm").submit()
+}
+function numOrderFrm(){
+	document.getElementById("numOrderFrm").submit()
+}
+function regOrderFrm(){
+	document.getElementById("regOrderFrm").submit()
+}
+/* -----------------오더 정렬-------------------- */
 
 </script>
 

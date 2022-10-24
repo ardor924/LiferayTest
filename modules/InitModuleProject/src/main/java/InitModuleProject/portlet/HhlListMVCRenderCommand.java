@@ -51,16 +51,12 @@ public class HhlListMVCRenderCommand implements MVCRenderCommand {
 		int currentPage = i; // 현재 머물고 있는 페이지	i(파라미터로 가져온)	
 		int cntPerPage = ParamUtil.getInteger(renderRequest, "cntPerPage",10); // 페이지에 표시할 게시글수
 		int cntPerTotal = 0;  // (디폴트)
-		
-		int number = ParamUtil.getInteger(renderRequest, "number");
-	
+
 /*-------------------------------------------페이지 계산 && 파라미터 세팅----------------------------------------------------------*/
 		cntPerTotal = serviceMethod.getcntPerTotalBySearchkeyword(searchKeyword, option, cntPerPage, initRowNumber);
 		BoardPagingVO bp = serviceMethod.getBoardPagingResult(cntPerTotal, currentPage, cntPerPage);
 		initRowNumber = bp.getInitRowNumber();	
-		
-		number = bp.getNumber();
-		
+				
 /*---------------------------------------------페이징----------------------------------------------------------*/
 
 		List<TBL> board_list = null;
@@ -79,7 +75,6 @@ public class HhlListMVCRenderCommand implements MVCRenderCommand {
 			 * initRowNumber);
 			 */
 		
-
 
 
 /*-------------------------------------------객체 바인딩----------------------------------------------------------*/	

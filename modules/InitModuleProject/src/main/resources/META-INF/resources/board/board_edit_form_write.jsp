@@ -82,6 +82,10 @@
    </div>
 </div>
 
+<!-- ajax를 통해가져온 PK 값과 userName post방식으로 전송 -->
+<form id="goViewFrm" action="${SubjectViewURL}" method="post">
+
+</form>
 
 
 <!-- 파일 업로드 스크립트 -->
@@ -267,7 +271,15 @@ $("#editForm").on("submit",function(e){
    	    	  console.log("data : ", data)
    	    	if(data['result'] == "OK"){
    	    		alert("게시글이 등록되었습니다.");
-   	    		window.location.href = '${SubjectViewURL}&<portlet:namespace/>bno='+data['bno'];
+   	    		var bno = data['bno']
+   	    		var writer = data['writer']
+   	    		var userName = data['writer']
+   	    		out = "<input type='hidden' value='"+bno+"' name='<portlet:namespace/>bno'>";
+   	    		$('#goViewFrm').html(out);
+   	    		
+   	    		document.getElementById('goViewFrm').submit();
+   	    		
+   	    		
 			} else
 				alert("서버오류입니다! 잠시 후 다시 시도해주세요");
    	      },

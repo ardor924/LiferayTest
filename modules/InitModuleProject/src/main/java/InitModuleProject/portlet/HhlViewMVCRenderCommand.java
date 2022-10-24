@@ -38,7 +38,8 @@ public class HhlViewMVCRenderCommand implements MVCRenderCommand{
 	@Override
 	public String render(RenderRequest renderRequest, RenderResponse renderResponse) throws PortletException {
 		System.out.println("--------------------ViewCommand----------------------");
-		
+		ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY); 
+
 
 
 
@@ -47,7 +48,7 @@ public class HhlViewMVCRenderCommand implements MVCRenderCommand{
 		String currentPage = ParamUtil.getString(renderRequest, "currentPage");
 		String cntPerPage = ParamUtil.getString(renderRequest, "cntPerPage");
 		String ORDER = ParamUtil.getString(renderRequest, "ORDER");
-		String userName = ParamUtil.getString(renderRequest, "userName"); 
+		String userName =	themeDisplay.getUser().getScreenName();
 		String keyword = ParamUtil.getString(renderRequest, "keyword"); 
 		String option = ParamUtil.getString(renderRequest, "option"); 
 		
@@ -71,7 +72,6 @@ public class HhlViewMVCRenderCommand implements MVCRenderCommand{
 		
 		try {
 			TBL tbl = TBLLocalServiceUtil.getTBL(bno);
-			ThemeDisplay themeDisplay = (ThemeDisplay) renderRequest.getAttribute(WebKeys.THEME_DISPLAY); 
 			  
 			renderRequest.setAttribute("tbl_mine", themeDisplay.getUser().getScreenName().equals(tbl.getWriter()) || themeDisplay.getUser().getScreenName().equals("admin"));
 			
@@ -83,6 +83,8 @@ public class HhlViewMVCRenderCommand implements MVCRenderCommand{
 			renderRequest.setAttribute("option", option);
 			renderRequest.setAttribute("userName", userName);
 			
+			
+			System.out.println("------------------------------------------------------------> userName : "+userName);
 			
 			
 			List<ADDFILE> fileList = ADDFILELocalServiceUtil.getfileListBybno(bno);

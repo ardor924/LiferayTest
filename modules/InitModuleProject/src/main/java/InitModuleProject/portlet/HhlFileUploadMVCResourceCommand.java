@@ -3,6 +3,7 @@ package InitModuleProject.portlet;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.portlet.PortletURLFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCResourceCommand;
 import com.liferay.portal.kernel.upload.UploadPortletRequest;
 import com.liferay.portal.kernel.util.ParamUtil;
@@ -14,6 +15,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.UUID;
 
+import javax.portlet.PortletRequest;
+import javax.portlet.PortletURL;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 
@@ -187,6 +190,7 @@ public class HhlFileUploadMVCResourceCommand implements MVCResourceCommand {
 		json.put("result", "OK");
 		json.put("bno", bno);
 		json.put("writer", writer);
+		json.put("userName", writer);
 
 		
 	

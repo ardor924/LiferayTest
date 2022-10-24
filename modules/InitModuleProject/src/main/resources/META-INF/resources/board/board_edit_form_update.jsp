@@ -117,6 +117,9 @@
 </div>
 
 
+<form id="goViewFrm" action="${SubjectViewURL}" method="post">
+
+</form>
 
 <!-- 파일 업로드 스크립트 -->
 <script>
@@ -237,7 +240,17 @@ $("#editForm").on("submit",function(e){
    	    	  console.log("data : ", data)
    	    	if(data['result'] == "OK"){
    	    		alert("게시글이 수정되었습니다.");
-   	    		window.location.href = '${SubjectViewURL}&<portlet:namespace/>bno='+data['bno']+"&<portlet:namespace/>writer="+data['writer'];
+   	    		var bno = data['bno']
+   	    		var writer = data['writer']
+   	    		var userName = data['writer']
+   	    		
+   	    		out = "<input type='hidden' value='"+bno+"' name='<portlet:namespace/>bno'>";
+   	    			+ "<input type='hidden' value='"+writer+"' name='<portlet:namespace/>writer'>";
+   	    			+ "<input type='hidden' value='"+userName+"' name='<portlet:namespace/>rWriter'>";
+   	    				
+   	    		$('#goViewFrm').html(out);
+   	    		
+   	    		document.getElementById('goViewFrm').submit();
 			} else
 				alert("서버오류입니다! 잠시 후 다시 시도해주세요");
    	      },

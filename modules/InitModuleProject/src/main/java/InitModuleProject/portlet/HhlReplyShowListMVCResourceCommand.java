@@ -41,15 +41,20 @@ public class HhlReplyShowListMVCResourceCommand implements MVCResourceCommand {
 /*-----------------------------------JSON형식으로 보내기(GET)------------------------------------------------------------*/				
 /*-----------------------------------------------------------------------------------------------------------------------*/		
 		int page = ParamUtil.getInteger(resourceRequest, "page");
-		int limit = 10;
-		int offset = limit * (page - 1);
+
 		int total = REPLocalServiceUtil.getREPsCount();
+		
+
 		
 			
 		int bno = ParamUtil.getInteger(resourceRequest, "bno");
+		//int rno = ParamUtil.getInteger(resourceRequest, "rno");		
+		
+		
+		
 		//List<REP> reply_list = REPLocalServiceUtil.getREPListBybno(bno, 0, REPLocalServiceUtil.getREPsCount());
 		//List<REP> reply_list = REPLocalServiceUtil.getREPListBybno(bno,offset,limit);
-		List<REP> reply_list = REPLocalServiceUtil.getREPListBybno(bno);
+		List<REP> reply_list = REPLocalServiceUtil.getREPListBybno(bno,page);
 		//List<REP> reply_list  = serviceMethod.getReplyList(bno);
 		//List<REP> reply_list  = serviceMethod.getReplyList(bno,offset,limit);
 				

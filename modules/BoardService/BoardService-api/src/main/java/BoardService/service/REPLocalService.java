@@ -219,7 +219,7 @@ public interface REPLocalService
 	public REP getREP(long rno) throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<REP> getREPListBybno(long bno);
+	public List<REP> getREPListBybno(long bno, int page);
 
 	/**
 	 * Returns a range of all the reps.

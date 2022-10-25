@@ -67,8 +67,15 @@ public class REPLocalServiceImpl extends REPLocalServiceBaseImpl {
 		return reply_order_list;
 	}
 	
-	public List<REP> getREPListBybno(long bno){
-		List<REP> reply_list = this.repPersistence.findBybno(bno, 0, REPLocalServiceUtil.getREPsCount());		
+	public List<REP> getREPListBybno(long bno,int page){
+		
+		int limit = 10;
+		int offset = limit * (page - 1);
+		
+		
+		List<REP> reply_list = this.repPersistence.findBybno(bno, offset, offset+limit);
+
+		
 		
 		return reply_list;
 	}

@@ -104,7 +104,7 @@
 			
 				<td>${li.subject_id}</td>
 				<td>
-				<form id="viewFrm" action="${SubjectViewURL}" method="post">
+				<form id="viewFrm+${li.subject}" action="${SubjectViewURL}" method="post">
 					<input name="<portlet:namespace/>bno" type="hidden" value="${li.bno}"/>
 					<input name="<portlet:namespace/>currentPage" type="hidden" value="${bp.currentPage}"/>
 					<input name="<portlet:namespace/>cntPerPage" type="hidden" value="${bp.cntPerPage}"/>
@@ -112,7 +112,7 @@
 					<input name="<portlet:namespace/>option" type="hidden" value="${option}"/>
 					<input name="<portlet:namespace/>keyword" type="hidden" value="${keyword}"/>
 					<input name="<portlet:namespace/>userName" type="hidden" value="${userName}"/>
-					<a href="#" onclick="document.getElementById('viewFrm').submit()">${li.subject}</a>
+					<a href="#" onclick="document.getElementById('viewFrm+${li.subject}').submit()">${li.subject}</a>
 				</form>
 				</td>
 				<td>${li.writer}</td>				

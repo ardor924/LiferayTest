@@ -72,6 +72,7 @@ public class REPLocalServiceImpl extends REPLocalServiceBaseImpl {
 		int limit = 10;
 		int offset = limit * (page - 1);
 		
+		System.out.println("bno"+bno);
 		
 		List<REP> reply_list = this.repPersistence.findBybno(bno, offset, offset+limit);
 

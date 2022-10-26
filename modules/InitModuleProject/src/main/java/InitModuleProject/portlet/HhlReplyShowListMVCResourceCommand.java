@@ -76,7 +76,7 @@ public class HhlReplyShowListMVCResourceCommand implements MVCResourceCommand {
 		  
 			System.out.println("jArray : "+jArray.toString());
 			System.out.println("page :"+page);
-		
+					
 		try {
 			resourceResponse.getWriter().write(jArray.toString());
 			

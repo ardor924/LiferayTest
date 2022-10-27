@@ -121,11 +121,13 @@ function getList(page){
 }; /* END : getList() 함수 */
 
 
-//START : success 콜백 
+//START : success함수 drawHtml(data,page)
 function drawHtml(data,page){
+
+
 	
-	var html = '<li>'
-	
+	var html = '<li id="li_page_'+page+'" class"li_page">'
+
 		
 		for(var i =0;i<data.length;i++){
 			
@@ -142,7 +144,7 @@ function drawHtml(data,page){
 		var pageCode = page+""+i // pageCode = 페이지+식별번호
 		
 			/*--------------------START : DB 댓글 정보 출력-----------------------*/	
-		     html += "<div>";
+		     html += "<div id='check_page'>";
 		     html +=     '<div class="d-flex justify-content-between p-3">';
 		     html +=         '<div class="d-flex-row justify-content-start">';
 		     html +=             '<h5>'+rWriter +'</h5>';
@@ -160,16 +162,32 @@ function drawHtml(data,page){
 		     html +=              '</div>';
 		     html +=              '<input id="rno'+pageCode+'" type="hidden" name="rno" value="'+rno+'">'; // PK값 히든으로 표시안되게 처리
 		     html +=              '<input id="rWriter'+pageCode+'" type="hidden" name="rWriter" value="'+rWriter+'">'; // PK값 히든으로 표시안되게 처리
+		     html +=              '<input id="currentPage'+pageCode+'" type="hidden" name="rWriter" value="'+page+'">'; 
 		     html +=      '</div>';
 		     html += '</div><hr>';
-		     html += '<div id="writeRepFrm'+pageCode+'"></div>';
+		     html += '<div id="updateFrm'+pageCode+'"></div>';
 			console.log("pageCode : "+pageCode)
 			/*--------------------END : DB 댓글 정보 출력-----------------------*/
 	} // END : for문
 			console.log("-----------------------END : "+page+"page----------------------------------------")
 	html += '</li>'
-	$("#reply_list").append(html);
+	console.log("마지막rno : "+rno)
+
+	
+	
+	
+	$("#li_page_"+page).remove(); // 페이지 중복방지를 위해 삭제할 댓글이 있는 해당 페이지를 제거
+	
+	$("#reply_list").append(html); // 중복 제거한뒤 append 해준다		
+	
 	$("#rContents").val("") //텍스트박스 댓글 초기화(댓글 작성 완료후)
+	
+	
+	
+		
+	
+
+	
 	
 } // END : drawHtml(data)
 
@@ -230,19 +248,16 @@ console.log("-----------btn_toggle(pageCode)------------")
 				var toggle_side_active = document.querySelector("#toggle_side"+pageCode)
 					toggle_side_active.classList.toggle("active")
 					
-				if($("#toggle_side"+pageCode).hasClass("acticve") === true){
-					
-/* 					var outFrm  = ` <div class="btn btn-success text-white mb-2" onclick="update_reply_frm("+page+","+num+")">수정</div>
-								    <div class="btn btn-danger text-white mb-2" onclick="delete_reply("+page+","+num+")">삭제</div>
-								  ` */
-					var outFrm = '<div class="btn btn-success text-white mb-2" onclick="update_reply_frm('+pageCode+')">수정</div>'
+				if($("#toggle_side"+pageCode).hasClass("active") === true){
+
+					var outFrm = '<div class="btn btn-success text-white mb-2" onclick="update_reply_frm('+pageCode+','+page+')">수정</div>'
 					     	   + '<div class="btn btn-danger text-white mb-2" onclick="delete_reply('+pageCode+')">삭제</div>'	
 					
-					$("#toggle_silde"+pageCode).html(outFrm)
+					$("#toggle_side"+pageCode).html(outFrm)
 					
 				}else if($("#toggle_side"+pageCode).hasClass("active") === false){
 					
-					$("#toggle_silde"+pageCode).html("")
+					$("#toggle_side"+pageCode).html("")
 					
 				}
 	
@@ -265,8 +280,135 @@ console.log("-----------btn_toggle(pageCode)------------")
 
 
 
-
 /*--------/3/END : 클릭 이벤트(토글)----------*/
+
+//x
+
+/*---------/4/START : 온클릭 이벤트(수정폼 생성)----------*/
+function update_reply_frm(pageCode,page){
+console.log("------------------update_reply_frm------------------------")
+console.log("pageCode : "+pageCode)
+
+var showUpdateFrm = document.querySelector('#updateFrm'+pageCode); //CSS기본값 display=none 토글 클릭시 수정폼 보이기
+	showUpdateFrm.classList.toggle("active");
+
+var rno = $("#rno"+pageCode).val();
+
+var outUpdateFrm 	= '<div class="panel panel-default p-3 w-70 justify-content-center">                                                                  '
+				    + '		<div class="d-flex justify-content-between p-3">                                                                              '
+				    + '			<div class="col-13 w-100 d-flex justify-content-start">                                                                   '
+				    + '				<span id="update_frm_rWriter" class="col-1"> '+userName+' </span>'  // 현재 댓글 수정하는 유저                                                                              
+				    + '				<textarea id="update_frm_rContents" name="update_frm_rContents" class="col-11" rows="5" placeholder="댓글을 입력하세요"></textarea> '
+				    + '			</div>                                                                                                                    '
+				    + '		</div>                                                                                                                        '
+				    + '		<div class="d-flex justify-content-end mt-2">                                                                             	  '
+				    + '			<p id="btn_active'+pageCode+'" class="btn btn-sm btn-danger m-2" onclick="frm_cancel('+pageCode+')">취소</p>           '
+				    + '			<p id="btn_reply_update" class="btn btn-sm btn-success m-2" onclick="update_reply('+pageCode+','+page+')">수정</p>                 '
+				    + '		</div>                                                                                                                        '                                                                                                                       
+				    + '		<input name="update_frm_rWriter" type="hidden" value="'+userName+'"/>														          '                                                                                
+				    + '</div>       																													'
+				
+				    $('#updateFrm'+pageCode).html(outUpdateFrm);		 
+
+
+}
+
+
+
+/*--------/4/END : 온클릭 이벤트(수정폼 생성)----------*/
+
+
+
+/*--------/5/START : 클릭 이벤트(수정)----------*/
+function update_reply(pageCode,page){
+console.log("----------------update_reply(pageCode)-----------------------")	
+	var rno = $("#rno"+pageCode).val();
+	var rWriter = $("input[name=update_frm_rWriter]").val();
+	var rContents = $("textarea[name=update_frm_rContents]").val();
+	
+	console.log(rno)
+	console.log(rWriter)
+	console.log(rContents)
+	console.log("page : "+page)
+	var pass = confirm('댓글을 수정하시겠습니까?');
+	
+	if(pass){
+		$.ajax({
+			type : "post",
+			url : "${UpdateReplyURL}",
+			data : Liferay.Util.ns("<portlet:namespace/>",{
+				bno : bno,
+				rno : rno,
+				rWriter : rWriter,
+				rContents : rContents
+			}),
+			dataType : "text",
+			success : function(data){
+				console.log(data)
+				getList(page)
+			},
+			error : function(err){
+				alert("Update Fail")
+			}
+		})
+	}
+	
+	
+}
+
+/*--------/5/END : 클릭 이벤트(수정)----------*/
+
+/*--------/6/START : 클릭 이벤트(삭제)----------*/
+function delete_reply(pageCode){
+console.log("----------------delete_reply(pageCode)-----------------------")		
+	var rno = $("#rno"+pageCode).val();
+	var page = $("#currentPage"+pageCode).val();
+	console.log("page : "+page)
+	var pass = confirm("댓글을 삭제하시겠습니까?")	
+	
+	if(pass){
+		$.ajax({
+			type: "post",
+			url : "${DeleteReplyURL}",
+			data : Liferay.Util.ns("<portlet:namespace/>",{
+				rno : rno
+			}),
+			dataType : "text",
+			success : function(data){
+				
+				
+				getList(page) // 마지막 페이지리턴
+			},
+			error : function(err){
+				alert("서버와 통신에 실패했습니다.")
+			}
+			
+		})
+	}	
+}
+/*--------/6/END : 클릭 이벤트(삭제)----------*/
+
+
+
+/*--------/7/START : 답글 폼 제거(취소버튼)----------*/
+function frm_cancel(pageCode){
+	
+	//수정폼 비활성화
+	var showUpdateFrm = document.querySelector('#updateFrm'+pageCode); 
+	showUpdateFrm.classList.toggle("active");
+	
+	// 토글(수정삭제 버튼) 비활성화
+	var toggle_active = document.querySelector("#toggle"+pageCode)
+		toggle_active.classList.toggle("active")
+	var toggle_side_active = document.querySelector("#toggle_side"+pageCode)
+		toggle_side_active.classList.toggle("active")
+	$("#toggle_side"+pageCode).html("")
+	
+	
+}
+/*--------/7/END : 답글 폼 제거----------*/
+
+
 
 
 

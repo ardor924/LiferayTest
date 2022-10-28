@@ -44,9 +44,7 @@ public class HhlReplyAddMVCResourceCommand implements MVCResourceCommand {
 		String rContents = ParamUtil.getString(resourceRequest, "rContents","error");
 		String rWriter = ParamUtil.getString(resourceRequest, "rWriter","error");
 		String rRegDate = serviceMethod.getStrNowDate();
-		int parent = 0;
-		int seqOrder = 0;
-		
+
 	
 /*-----------------------------------DB에 REP 저장-----------------------------------------------------------------*/		
 		
@@ -58,19 +56,15 @@ public class HhlReplyAddMVCResourceCommand implements MVCResourceCommand {
 		rep.setRContents(rContents);
 		rep.setRWriter(rWriter);
 		rep.setRRegDate(rRegDate);
-		rep.setParent(parent);
-		rep.setSeqOrder(seqOrder);
+
 		
 
 
-		rep = REPLocalServiceUtil.addREP(rep);
+		rep = REPLocalServiceUtil.addRepWithIncrement(rep);
 		
-		int totalInt = REPLocalServiceUtil.getREPsCount();		
-		String totalCnt = Integer.toString(totalInt);
-
 		
 		try {
-			resourceResponse.getWriter().write("Great!");
+			resourceResponse.getWriter().write("Reply is successfully registed");
 		} catch (IOException e) {
 			
 			e.printStackTrace();

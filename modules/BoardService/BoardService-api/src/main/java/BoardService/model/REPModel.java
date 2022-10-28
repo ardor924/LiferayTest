@@ -126,32 +126,4 @@ public interface REPModel extends BaseModel<REP> {
 	 */
 	public void setRRegDate(String rRegDate);
 
-	/**
-	 * Returns the parent of this rep.
-	 *
-	 * @return the parent of this rep
-	 */
-	public int getParent();
-
-	/**
-	 * Sets the parent of this rep.
-	 *
-	 * @param parent the parent of this rep
-	 */
-	public void setParent(int parent);
-
-	/**
-	 * Returns the seq order of this rep.
-	 *
-	 * @return the seq order of this rep
-	 */
-	public int getSeqOrder();
-
-	/**
-	 * Sets the seq order of this rep.
-	 *
-	 * @param seqOrder the seq order of this rep
-	 */
-	public void setSeqOrder(int seqOrder);
-
 }

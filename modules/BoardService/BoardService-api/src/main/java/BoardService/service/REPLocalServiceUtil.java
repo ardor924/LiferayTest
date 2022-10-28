@@ -52,6 +52,12 @@ public class REPLocalServiceUtil {
 		return getService().addREP(rep);
 	}
 
+	public static BoardService.model.REP addRepWithIncrement(
+		BoardService.model.REP rep) {
+
+		return getService().addRepWithIncrement(rep);
+	}
+
 	/**
 	 * Creates a new rep with the primary key. Does not add the rep to the database.
 	 *

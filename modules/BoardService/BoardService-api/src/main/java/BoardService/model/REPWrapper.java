@@ -45,8 +45,6 @@ public class REPWrapper
 		attributes.put("rWriter", getRWriter());
 		attributes.put("rContents", getRContents());
 		attributes.put("rRegDate", getRRegDate());
-		attributes.put("parent", getParent());
-		attributes.put("seqOrder", getSeqOrder());
 
 		return attributes;
 	}
@@ -82,18 +80,6 @@ public class REPWrapper
 		if (rRegDate != null) {
 			setRRegDate(rRegDate);
 		}
-
-		Integer parent = (Integer)attributes.get("parent");
-
-		if (parent != null) {
-			setParent(parent);
-		}
-
-		Integer seqOrder = (Integer)attributes.get("seqOrder");
-
-		if (seqOrder != null) {
-			setSeqOrder(seqOrder);
-		}
 	}
 
 	/**
@@ -104,16 +90,6 @@ public class REPWrapper
 	@Override
 	public long getBno() {
 		return model.getBno();
-	}
-
-	/**
-	 * Returns the parent of this rep.
-	 *
-	 * @return the parent of this rep
-	 */
-	@Override
-	public int getParent() {
-		return model.getParent();
 	}
 
 	/**
@@ -166,16 +142,6 @@ public class REPWrapper
 		return model.getRWriter();
 	}
 
-	/**
-	 * Returns the seq order of this rep.
-	 *
-	 * @return the seq order of this rep
-	 */
-	@Override
-	public int getSeqOrder() {
-		return model.getSeqOrder();
-	}
-
 	@Override
 	public void persist() {
 		model.persist();
@@ -189,16 +155,6 @@ public class REPWrapper
 	@Override
 	public void setBno(long bno) {
 		model.setBno(bno);
-	}
-
-	/**
-	 * Sets the parent of this rep.
-	 *
-	 * @param parent the parent of this rep
-	 */
-	@Override
-	public void setParent(int parent) {
-		model.setParent(parent);
 	}
 
 	/**
@@ -249,16 +205,6 @@ public class REPWrapper
 	@Override
 	public void setRWriter(String rWriter) {
 		model.setRWriter(rWriter);
-	}
-
-	/**
-	 * Sets the seq order of this rep.
-	 *
-	 * @param seqOrder the seq order of this rep
-	 */
-	@Override
-	public void setSeqOrder(int seqOrder) {
-		model.setSeqOrder(seqOrder);
 	}
 
 	@Override

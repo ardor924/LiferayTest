@@ -57,16 +57,16 @@ public class REPLocalServiceImpl extends REPLocalServiceBaseImpl {
 	 */
 	
 	
-	OrderByComparator<REP> getOrderComperator(long bno){
-		
-
-		OrderByComparator<REP> reply_order_list = OrderByComparatorFactoryUtil.create("REP", "bno".equals("desc"));
-		//reply_order_list.getOrderByConditionValues(bno);
-		//reply_order_list.getOrderBy();
-	
-		return reply_order_list;
+	// 댓글 PK 자동증가
+	public REP addRepWithIncrement (REP rep) {
+		long rno = this.counterLocalService.increment(REP.class.toString());
+		rep.setRno(rno);
+		return this.addREP(rep);
 	}
 	
+	
+	
+	// 댓글 리스트 가져오기
 	public List<REP> getREPListBybno(long bno,int page){
 		
 		int limit = 10;
@@ -76,26 +76,9 @@ public class REPLocalServiceImpl extends REPLocalServiceBaseImpl {
 		
 		List<REP> reply_list = this.repPersistence.findBybno(bno, offset, offset+limit);
 
-		
-		
 		return reply_list;
 	}
 	
-	
-	
-	
-//	// 해당 게시글의 댓글만 가져오기
-//	public List<REP> getREPListBybno(long bno ,int offset,int limit){
-//		
-//		// DynamicQuery userQuery = DynamicQueryFactoryUtil.forClass(REP.class, "rep",PortalClassLoaderUtil.getClassLoader());
-//		// userQuery.addOrder(OrderFactoryUtil.desc("rep.rno"));
-//		
-//		// List<REP> reply_list = REPLocalServiceUtil.dynamicQuery(userQuery);
-//		//List<REP> reply_list = this.repPersistence.findBybno(bno, offset, offset+limit, getOrderComperator(bno));
-//		List<REP> reply_list = this.repPersistence.findBybno(bno, 0, REPLocalServiceUtil.getREPsCount());
-//		
-//		return reply_list;
-//	}
 
 
 	

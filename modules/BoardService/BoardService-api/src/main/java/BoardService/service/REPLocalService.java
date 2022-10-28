@@ -75,6 +75,8 @@ public interface REPLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public REP addREP(REP rep);
 
+	public REP addRepWithIncrement(REP rep);
+
 	/**
 	 * Creates a new rep with the primary key. Does not add the rep to the database.
 	 *

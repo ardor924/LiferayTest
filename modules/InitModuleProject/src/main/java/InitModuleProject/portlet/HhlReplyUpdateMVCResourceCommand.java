@@ -61,8 +61,7 @@ public class HhlReplyUpdateMVCResourceCommand implements MVCResourceCommand {
 				rep.setRWriter(rWriter);
 				rep.setRContents(rContents);
 				rep.setRRegDate(rRegDate);
-				rep.setParent(parent);
-				rep.setSeqOrder(seqOrder);
+
 				
 				
 				rep = REPLocalServiceUtil.updateREP(rep);

@@ -59,7 +59,7 @@ public class REPCacheModel implements CacheModel<REP>, Externalizable {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(15);
+		StringBundler sb = new StringBundler(11);
 
 		sb.append("{rno=");
 		sb.append(rno);
@@ -71,10 +71,6 @@ public class REPCacheModel implements CacheModel<REP>, Externalizable {
 		sb.append(rContents);
 		sb.append(", rRegDate=");
 		sb.append(rRegDate);
-		sb.append(", parent=");
-		sb.append(parent);
-		sb.append(", seqOrder=");
-		sb.append(seqOrder);
 		sb.append("}");
 
 		return sb.toString();
@@ -108,9 +104,6 @@ public class REPCacheModel implements CacheModel<REP>, Externalizable {
 			repImpl.setRRegDate(rRegDate);
 		}
 
-		repImpl.setParent(parent);
-		repImpl.setSeqOrder(seqOrder);
-
 		repImpl.resetOriginalValues();
 
 		return repImpl;
@@ -124,10 +117,6 @@ public class REPCacheModel implements CacheModel<REP>, Externalizable {
 		rWriter = objectInput.readUTF();
 		rContents = objectInput.readUTF();
 		rRegDate = objectInput.readUTF();
-
-		parent = objectInput.readInt();
-
-		seqOrder = objectInput.readInt();
 	}
 
 	@Override
@@ -156,10 +145,6 @@ public class REPCacheModel implements CacheModel<REP>, Externalizable {
 		else {
 			objectOutput.writeUTF(rRegDate);
 		}
-
-		objectOutput.writeInt(parent);
-
-		objectOutput.writeInt(seqOrder);
 	}
 
 	public long rno;
@@ -167,7 +152,5 @@ public class REPCacheModel implements CacheModel<REP>, Externalizable {
 	public String rWriter;
 	public String rContents;
 	public String rRegDate;
-	public int parent;
-	public int seqOrder;
 
 }

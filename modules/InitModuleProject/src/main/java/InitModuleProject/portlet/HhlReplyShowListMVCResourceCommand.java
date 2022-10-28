@@ -69,8 +69,7 @@ public class HhlReplyShowListMVCResourceCommand implements MVCResourceCommand {
 			sObject.put("rWriter", reply_list.get(i).getRWriter());                        
 			sObject.put("rContents", reply_list.get(i).getRContents().replace("\n","<br/>")); // 댓글 개행처리                   
 			sObject.put("rRegDate", reply_list.get(i).getRRegDate());                     
-			sObject.put("parent", reply_list.get(i).getParent());                        
-			sObject.put("seqOrder", reply_list.get(i).getParent());                        
+                 
 			jArray.put(sObject);
 			}  		 
 		  

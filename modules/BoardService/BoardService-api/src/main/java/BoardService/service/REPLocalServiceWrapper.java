@@ -45,6 +45,13 @@ public class REPLocalServiceWrapper
 		return _repLocalService.addREP(rep);
 	}
 
+	@Override
+	public BoardService.model.REP addRepWithIncrement(
+		BoardService.model.REP rep) {
+
+		return _repLocalService.addRepWithIncrement(rep);
+	}
+
 	/**
 	 * Creates a new rep with the primary key. Does not add the rep to the database.
 	 *

@@ -12,9 +12,7 @@ create table HHL_PROJECT_REP (
 	bno LONG,
 	rWriter VARCHAR(75) null,
 	rContents TEXT null,
-	rRegDate VARCHAR(75) null,
-	parent INTEGER,
-	seqOrder INTEGER
+	rRegDate VARCHAR(75) null
 );
 
 create table HHL_PROJECT_TBL (

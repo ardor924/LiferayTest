@@ -45,8 +45,6 @@
 		<column type="String" name="rWriter"/>
 		<column type="String" name="rContents"/>
 		<column type="String" name="rRegDate"/>
-		<column type="int" name="parent" />
-		<column type="int" name="seqOrder"/>
 <!-- 
 		// 게시판순서정렬
 		<order by="desc">

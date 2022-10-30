@@ -18,14 +18,10 @@
 </liferay-portlet:renderURL>
 
 
-<!-- 글수정 -->
-<liferay-portlet:actionURL var="UpdateSubjectURL" name="<%=ConstantsCommands.HHLBOARD_UPDATE_PROJECT%>">
-<liferay-portlet:param name="bno" value="${tbl.bno}"/>
-</liferay-portlet:actionURL>
 
-<!-- 파일업로드 -->
-<liferay-portlet:resourceURL var="FileUploadURL" id="<%=ConstantsCommands.HHLBOARD_FILEUPLOAD_PROJECT%>">
-<liferay-portlet:param name="bno" value="${tbl.bno}"/>
+<!-- 파일및 게시글 업로드 -->
+<liferay-portlet:resourceURL var="FileAndSubjectUploadURL" id="<%=ConstantsCommands.HHLBOARD_FILEUPLOAD_PROJECT%>">
+	<liferay-portlet:param name="bno" value="${tbl.bno}"/>
 </liferay-portlet:resourceURL>
 
 <!-- 파일삭제 리소스 -->
@@ -51,7 +47,7 @@
 		<hr>	
    <div class="w-100 shadow p-5">
       <h3 class="mb-5">글수정</h3>
-      <form id="editForm" name="editForm" onsubmit="return false;" method="post" action="${UpdateSubjectURL}" enctype="multipart/form-data">          
+      <form id="editForm" name="editForm" onsubmit="return false;" method="post" enctype="multipart/form-data">          
          <div class="d-flex form-group">
             <label for="writer" class="col-md-1 mt-2">작성자</label>
             <span>${userName}</span>
@@ -238,6 +234,8 @@ function fileDelete(fileNum){ // 해당 넘버링 인자로 받음
 /*-----END : 파일 일부 삭제 이벤트 --------- */
 
 
+
+
 /*---------------START : 파일 등록버튼 제출시 (#editForm) submit 실행--------- */
 $("#editForm").on("submit",function(e){
 	
@@ -245,7 +243,7 @@ $("#editForm").on("submit",function(e){
 	var formData = new FormData(); // form 태그 내부의 key와 value 전부를 가져오기 위해 빈값으로 초기화
 
 	
-	/*-------START : 유효성체크 및 formData에 담을 TBL 파라미터 전송------------*/
+	/*-------START : 필수입력값 유효성체크 및 formData에 담을 TBL 파라미터 전송------------*/
 	//제목 필수입력 
 	var subject = $("#subject").val();
 	if(subject.length == 0 ){ // || subject.val().trim() == " "
@@ -272,7 +270,7 @@ $("#editForm").on("submit",function(e){
 		return false;
 	}
 	formData.append('<portlet:namespace/>contents', contents); // 폼데이터 사용하므로 일반 파라미터는 key ,value 값으로 append 해준다.
-	/*-------END : 유효성체크 및 formData에 담을 TBL 파라미터 전송------------*/
+	/*-------END : 필수입력값 유효성체크 및 formData에 담을 TBL 파라미터 전송------------*/
 	
 	
 	
@@ -295,7 +293,7 @@ $("#editForm").on("submit",function(e){
 	$.ajax({
    	      type: "POST",
    	   	  enctype: "multipart/form-data",
-   	      url: "${FileUploadURL}",
+   	      url: "${FileAndSubjectUploadURL}",
        	  data : formData, // form형태를 배열로받아와 데이터 전송
        	  dataType :"json",
        	  processData: false, //파일 전송시  query string의 형태는 처리하지 못하므로 false처리
@@ -317,7 +315,7 @@ $("#editForm").on("submit",function(e){
 				alert("서버오류입니다! 잠시 후 다시 시도해주세요");
    	      },
    	      error: function (xhr, status, error) {
-   	    	window.location.href = '${SubjectViewURL}&<portlet:namespace/>bno='+data['bno'];
+   	    		console.log(error)
    	    	
    	     return false;
    	      }

@@ -18,11 +18,8 @@
 	<liferay-portlet:param name="mvcRenderCommandName" value="<%=ConstantsCommands.HHLBOARD_VIEW_PROJECT%>"/>
 </liferay-portlet:renderURL>
 
-<!-- 글쓰기 -->
-<liferay-portlet:actionURL var="WriteSubjectURL" name="<%=ConstantsCommands.HHLBOARD_WRITE_PROJECT%>"/>
-
-<!-- 파일업로드 -->
-<liferay-portlet:resourceURL var="FileUploadURL" id="<%=ConstantsCommands.HHLBOARD_FILEUPLOAD_PROJECT%>"/>
+<!-- 글등록 및 파일업로드 -->
+<liferay-portlet:resourceURL var="FileAndSubjectUploadURL" id="<%=ConstantsCommands.HHLBOARD_FILEUPLOAD_PROJECT%>"/>
 
 
 
@@ -262,7 +259,7 @@ $("#editForm").on("submit",function(e){
 	$.ajax({
    	      type: "POST",
    	   	  enctype: "multipart/form-data",
-   	      url: "${FileUploadURL}",
+   	      url: "${FileAndSubjectUploadURL}",
        	  data : formData, // form형태를 배열로받아와 데이터 전송
        	  dataType :"json",
        	  processData: false, //파일 전송시  query string의 형태는 처리하지 못하므로 false처리

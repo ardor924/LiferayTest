@@ -39,7 +39,7 @@ import InitModuleProject.service.ServiceMethod;
 		service = MVCResourceCommand.class
 		)
 
-public class HhlFileUploadMVCResourceCommand implements MVCResourceCommand {
+public class HhlFileAndSubjectUploadMVCResourceCommand implements MVCResourceCommand {
 
 	@Override
 	public boolean serveResource(ResourceRequest resourceRequest, ResourceResponse resourceResponse) {

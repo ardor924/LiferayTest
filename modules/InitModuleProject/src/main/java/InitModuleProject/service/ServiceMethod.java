@@ -17,6 +17,7 @@ import com.liferay.portal.kernel.util.WebKeys;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -66,6 +67,15 @@ public class ServiceMethod {
 		Date nowDate = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm");
 		String strDate = sdf.format(nowDate);
+		
+		// 타임존 자바세팅
+		/* 
+		 * TimeZone tz;
+		 * 
+		 * tz = TimeZone.getTimeZone("Asia/Seoul"); sdf.setTimeZone(tz);
+		 * 
+		 * System.out.println(tz.getDisplayName()+":"+sdf.format(strDate));
+		 */
 		
 		return strDate;
 	}

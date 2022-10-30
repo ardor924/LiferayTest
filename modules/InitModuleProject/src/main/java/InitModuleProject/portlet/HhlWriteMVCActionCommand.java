@@ -66,7 +66,6 @@ public class HhlWriteMVCActionCommand implements MVCActionCommand {
 		  tbl.setContents(contents);
 		  tbl.setRegDate(strDate); 
 		  tbl.setHit(hit);
-		  tbl.setSubject_id(subject_id);
 		  tbl = TBLLocalServiceUtil.addTblWithIncrement(tbl);
 		  
 		

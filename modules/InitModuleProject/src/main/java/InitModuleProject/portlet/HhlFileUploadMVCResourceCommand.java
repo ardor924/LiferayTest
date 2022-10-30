@@ -28,6 +28,7 @@ import BoardService.service.ADDFILELocalServiceUtil;
 import BoardService.service.TBLLocalServiceUtil;
 import InitModuleProject.constants.ConstantsCommands;
 import InitModuleProject.constants.MainHhlBoardPortletKeys;
+import InitModuleProject.model.BoardPagingVO;
 import InitModuleProject.service.ServiceMethod;
 
 @Component(immediate = true, property = {
@@ -49,7 +50,6 @@ public class HhlFileUploadMVCResourceCommand implements MVCResourceCommand {
 		ServiceMethod serviceMethod = new ServiceMethod();    //  설명 : 사용자정의 서비스 
 		JSONObject json = JSONFactoryUtil.createJSONObject(); // 설명 : ajax에서 받아온 데이터를 json 형태로 보내기 위한 객체를 생성
 		UploadPortletRequest uploadRequest = PortalUtil.getUploadPortletRequest(resourceRequest); // 설명 : 업로드로직을 위한 uploadRequest 생성
-		
 	/* --------------------------------------------- 파라미터 세팅 ------------------------------------------------------------*/System.out.println();		 
 		
 		String writer = serviceMethod.getScreenNameResource(resourceRequest, resourceResponse); // 설명 : themeDisplay로 user의 screenName을 가져온다.
@@ -60,7 +60,6 @@ public class HhlFileUploadMVCResourceCommand implements MVCResourceCommand {
 		String subject = ParamUtil.getString(uploadRequest, "subject", "");   //
 		String contents = ParamUtil.getString(uploadRequest, "contents", ""); //
 		
-		int subject_id = TBLLocalServiceUtil.getTBLsCount()+1;
 	/* --------------------------------------------- DB에 글 등록 처리(등록/수정) ------------------------------------------------------------*/System.out.println(3);	
 		
 		
@@ -73,7 +72,6 @@ public class HhlFileUploadMVCResourceCommand implements MVCResourceCommand {
 				tbl.setContents(contents);                     
 				tbl.setSubject(subject);                       
 				tbl.setRegDate(regDate);
-				tbl.setSubject_id(subject_id);
 				tbl = TBLLocalServiceUtil.updateTBL(tbl);		
 				
 			} catch (PortalException e) {
@@ -87,7 +85,6 @@ public class HhlFileUploadMVCResourceCommand implements MVCResourceCommand {
 		tbl.setContents(contents);                     //
 		tbl.setSubject(subject);                       //
 		tbl.setRegDate(regDate);                       //
-		tbl.setSubject_id(subject_id);                 //
 		tbl = TBLLocalServiceUtil.addTblWithIncrement(tbl);         //
 		bno = tbl.getBno();
 		}

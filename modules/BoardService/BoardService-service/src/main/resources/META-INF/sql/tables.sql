@@ -21,6 +21,5 @@ create table HHL_PROJECT_TBL (
 	writer VARCHAR(75) null,
 	contents TEXT null,
 	regDate VARCHAR(75) null,
-	hit INTEGER,
-	subject_id INTEGER
+	hit INTEGER
 );

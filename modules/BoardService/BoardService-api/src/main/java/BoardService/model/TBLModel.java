@@ -141,18 +141,4 @@ public interface TBLModel extends BaseModel<TBL> {
 	 */
 	public void setHit(int hit);
 
-	/**
-	 * Returns the subject_id of this tbl.
-	 *
-	 * @return the subject_id of this tbl
-	 */
-	public int getSubject_id();
-
-	/**
-	 * Sets the subject_id of this tbl.
-	 *
-	 * @param subject_id the subject_id of this tbl
-	 */
-	public void setSubject_id(int subject_id);
-
 }

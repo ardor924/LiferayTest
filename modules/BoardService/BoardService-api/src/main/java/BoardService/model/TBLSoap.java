@@ -36,7 +36,6 @@ public class TBLSoap implements Serializable {
 		soapModel.setContents(model.getContents());
 		soapModel.setRegDate(model.getRegDate());
 		soapModel.setHit(model.getHit());
-		soapModel.setSubject_id(model.getSubject_id());
 
 		return soapModel;
 	}
@@ -137,20 +136,11 @@ public class TBLSoap implements Serializable {
 		_hit = hit;
 	}
 
-	public int getSubject_id() {
-		return _subject_id;
-	}
-
-	public void setSubject_id(int subject_id) {
-		_subject_id = subject_id;
-	}
-
 	private long _bno;
 	private String _subject;
 	private String _writer;
 	private String _contents;
 	private String _regDate;
 	private int _hit;
-	private int _subject_id;
 
 }

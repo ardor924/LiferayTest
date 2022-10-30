@@ -16,9 +16,7 @@
 		<column type="String" name="contents"/>
 		<column type="String" name="regDate"/>
 		<column type="int" name="hit"/>
-		
-		<column type="int" name="subject_id"/>
-		
+				
  		
  		<!-- 검색 -->
 		<finder return-type="Collection" name="subject">

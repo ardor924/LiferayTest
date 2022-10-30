@@ -44,7 +44,7 @@
 		</div>
 		<hr>
 <div class="shadow p-4">
-	<form action="${UpdateFormEditURL}" method="post">
+	<form id="updateFrm" action="${UpdateFormEditURL}" method="post">
 	
 		<input type="hidden" value="${userName}" name="<portlet:namespace/>userName">
 		<input type="hidden" value="${tbl.bno}" name="<portlet:namespace/>bno">
@@ -102,7 +102,7 @@
 		<!-- 작성자 본인인경우 -->
 		<c:if test="${tbl_mine}">
 			<div class="d-flex justify-content-end">
-				<button type="submit" class="btn btn-success m-1">글수정</button>
+				<button type="button" class="btn btn-success m-1" onclick="updateSubject()">글수정</button>
 				<button type="button" class="btn btn-danger m-1" onclick="delSubject()">글삭제</button>
 			</div>
 
@@ -130,8 +130,18 @@ function fileDown(fno){
 	window.location.href = '${DownFileURL}&<portlet:namespace/>fno='+fno;	
 }
 
+function updateSubject(){
+	var pass = confirm('글을 수정하시겠습니까?');
+	if(pass){
+	document.getElementById('updateFrm').submit();		
+	}
+}
+
 function delSubject(){
-	document.getElementById('delFrm').submit();
+	var pass = confirm('글을 삭제하시겠습니까?');
+	if(pass){
+	document.getElementById('delFrm').submit();		
+	}
 }
 </script>
 

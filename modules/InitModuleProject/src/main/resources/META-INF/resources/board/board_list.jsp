@@ -35,19 +35,19 @@
 	<table class="table table-hover mt-3">
 		<thead>
 		  <th>
-			<form id="numOrderFrm" action="${BoardListURL}" method="post">
+			<form id="bnoOrderFrm" action="${BoardListURL}" method="post">
 			    <input id="cntPerPage" name="<portlet:namespace/>cntPerPage" type="hidden" value="${bp.cntPerPage}"/>
 			    <input id="keyword" name="<portlet:namespace/>keyword" type="hidden" value="${keyword}"/>
 			    <input id="option" name="<portlet:namespace/>option" type="hidden" value="${option}"/>
 			    
 			<c:if test="${ORDER eq 'bnoUp'}">
 			    <input id="option" name="<portlet:namespace/>ORDER" type="hidden" value="bnoDown"/>
-			    <a href="#" onclick="numOrderFrm()">번호</a>
+			    <a href="#" onclick="bnoOrderFrm()">번호</a>
 			    <i class='fa-solid fa-sort-up'></i>
 			    </c:if>
 			<c:if test="${ORDER eq 'bnoDown'  or ORDER == null  or ORDER != 'bnoUp'}">
 			    <input id="option" name="<portlet:namespace/>ORDER" type="hidden" value="bnoUp"/>
-			    <a href="#" onclick="numOrderFrm()">번호</a>
+			    <a href="#" onclick="bnoOrderFrm()">번호</a>
 			    <i class='fa-solid fa-sort-down'></i>
 		    </c:if>
 		    </form>
@@ -102,9 +102,10 @@
 			<c:forEach var="li" items="${board_list}">
 			<tr>
 			
-				<td>${li.subject_id}</td>
+				<td>${li.bno}</td>
+				<!-- 게시글 상세 보기 폼-->
 				<td>
-				<form id="viewFrm+${li.subject}" action="${SubjectViewURL}" method="post">
+				<form id="viewFrm+${li.bno}" action="${SubjectViewURL}" method="post">
 					<input name="<portlet:namespace/>bno" type="hidden" value="${li.bno}"/>
 					<input name="<portlet:namespace/>currentPage" type="hidden" value="${bp.currentPage}"/>
 					<input name="<portlet:namespace/>cntPerPage" type="hidden" value="${bp.cntPerPage}"/>
@@ -112,14 +113,13 @@
 					<input name="<portlet:namespace/>option" type="hidden" value="${option}"/>
 					<input name="<portlet:namespace/>keyword" type="hidden" value="${keyword}"/>
 					<input name="<portlet:namespace/>userName" type="hidden" value="${userName}"/>
-					<a href="#" onclick="document.getElementById('viewFrm+${li.subject}').submit()">${li.subject}</a>
+					<a href="#" onclick="document.getElementById('viewFrm+${li.bno}').submit()">${li.subject}</a>
 				</form>
 				</td>
 				<td>${li.writer}</td>				
 				<td>${li.regDate}</td>
 				<td>${li.hit}</td>
 			</tr>		
-			<c:set var="start" value="${start-1}"/>
 			</c:forEach>
 			</c:if>								
 		</tbody>
@@ -151,9 +151,11 @@
 		<button class="btn btn-outline-dark" onclick="javascript:alert('글을 쓰기 위해서는 로그인이 필요합니다!')">글쓰기</button>
 		</c:if>
 		<c:if test="${userName != 'guest'}">
-		<a class="btn btn-outline-dark" href='${WriteFormEditURL}
-										&<portlet:namespace/>bno=${li.bno}
-										&<portlet:namespace/>userName=${userName}'>글쓰기</a>
+			<form id="writeFrm" action="${WriteFormEditURL}" method="post">
+				<input name="<portlet:namespace/>bno" type="hidden" value="${li.bno}"/>
+				<input name="<portlet:namespace/>userName" type="hidden" value="${userName}"/>
+				<a href="#" class="btn btn-outline-dark" onclick="document.getElementById('writeFrm').submit()">글쓰기</a>
+			</form>
 		</c:if>
 	</div>
 </div>
@@ -222,8 +224,8 @@ $('#btn-search').on('click', function(e){
 function hitOrderFrm(){
 	document.getElementById("hitOrderFrm").submit()
 }
-function numOrderFrm(){
-	document.getElementById("numOrderFrm").submit()
+function bnoOrderFrm(){
+	document.getElementById("bnoOrderFrm").submit()
 }
 function regOrderFrm(){
 	document.getElementById("regOrderFrm").submit()

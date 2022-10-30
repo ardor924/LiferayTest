@@ -272,19 +272,19 @@ public class ServiceMethod {
 				{
 				if(ORDER.equals("") || ORDER == null) {	 // 기본(디폴트) 내림차순
 					DynamicQuery userQuery = DynamicQueryFactoryUtil.forClass(TBL.class, "tbl",PortalClassLoaderUtil.getClassLoader());
-					userQuery.addOrder(OrderFactoryUtil.desc("tbl.subject_id"));
+					userQuery.addOrder(OrderFactoryUtil.desc("tbl.bno"));
 					// board_list = TBLLocalServiceUtil.dynamicQuery(userQuery,0,10);
 					board_list = TBLLocalServiceUtil.dynamicQuery(userQuery,initRowNumber,initRowNumber+cntPerPage);
 					
 					
 				}if(ORDER.equals("bnoDown")) { // 번호 내림차순
 					DynamicQuery userQuery = DynamicQueryFactoryUtil.forClass(TBL.class, "tbl",PortalClassLoaderUtil.getClassLoader());
-					userQuery.addOrder(OrderFactoryUtil.desc("tbl.subject_id"));
+					userQuery.addOrder(OrderFactoryUtil.desc("tbl.bno"));
 					board_list = TBLLocalServiceUtil.dynamicQuery(userQuery,initRowNumber, initRowNumber+cntPerPage);
 					
 				}if(ORDER.equals("bnoUp")) { // 번호 오름차순
 					DynamicQuery userQuery = DynamicQueryFactoryUtil.forClass(TBL.class, "tbl",PortalClassLoaderUtil.getClassLoader());
-					userQuery.addOrder(OrderFactoryUtil.asc("tbl.subject_id"));
+					userQuery.addOrder(OrderFactoryUtil.asc("tbl.bno"));
 					board_list = TBLLocalServiceUtil.dynamicQuery(userQuery,initRowNumber, initRowNumber+cntPerPage);
 					
 				}if(ORDER.equals("regDown")) { // 등록일짜 내림차순

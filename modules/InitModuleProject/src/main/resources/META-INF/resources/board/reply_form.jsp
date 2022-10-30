@@ -45,7 +45,7 @@
 
 <!-- 추가요소 -->
 <ul id="reply_list">
-
+	
 </ul>
 
 
@@ -67,7 +67,6 @@ var page = 1
 var bno = ${tbl.bno}
 var userName = '${userName}'
 
-var bool_sw = true;
 var isEnd = false;
 
 let timer;
@@ -79,15 +78,16 @@ const $observer = document.getElementById("observer");
 
 /*----------/0/START : Intersection Observer API-------------------*/
 
-if(bool_sw){
-	getList(page)
-}
+
+getList(page)
+
 
 const io = new IntersectionObserver((entries) => {
 	  clearTimeout(timer);
 	  if (isEnd ==false && entries[0].isIntersecting) {
 	    timer = setTimeout(() => getList(++page), 1000);			
-	};
+	 };
+
 });
 
 io.observe($observer); // 타겟 감시 활성화
@@ -123,18 +123,23 @@ function getList(page){
 
 //START : success함수 drawHtml(data,page)
 function drawHtml(data,page){
-
+	
 
 	
 	var html = '<li id="li_page_'+page+'" class"li_page">'
-
-		
+	
+	
+	
 		for(var i =0;i<data.length;i++){
+
 			
 		var reply = JSON.parse(JSON.stringify(data[i]))
-		if(data.length<10){ // 다음페이지 댓글수가 10개 미만 일때 마지막 페이지 체크
+		if(data.length < 10){ // 다음페이지 댓글수가 10개 미만 일때 마지막 페이지 체크
 			isEnd = true;
 		}
+
+	
+		
 		var rno = reply.rno
 		var bno = reply.bno
 		var rWriter = reply.rWriter
@@ -171,10 +176,7 @@ function drawHtml(data,page){
 	} // END : for문
 			console.log("-----------------------END : "+page+"page----------------------------------------")
 	html += '</li>'
-	console.log("마지막rno : "+rno)
 
-	
-	
 	
 	$("#li_page_"+page).remove(); // 페이지 중복방지를 위해 삭제할 댓글이 있는 해당 페이지를 제거
 	
@@ -182,12 +184,20 @@ function drawHtml(data,page){
 	
 	$("#rContents").val("") //텍스트박스 댓글 초기화(댓글 작성 완료후)
 	
-	
-	
-		
-	
 
 	
+	
+	
+	
+	
+	// 다음페이지를 위해 10의 배수마다 페이지 활성화
+	if(data.length % 10 == 0){
+		console.log("data.length : "+10)
+		isEnd = false;
+	}
+
+
+
 	
 } // END : drawHtml(data)
 
@@ -199,8 +209,11 @@ function drawHtml(data,page){
 $("#btn_reply_regist").click(function(){
 console.log("-----------#btn_reply_regist------------")
 
-var rContents = $('textarea[name=rContents]').val();
-
+var rContents = $('textarea[name=rContents]').val().trim();
+if(rContents == "" || rContents.length == 0){
+	alert("댓글 내용을 작성해주세요")
+	return;
+}
 console.log("page : "+page)
 
 	$.ajax({

@@ -179,9 +179,9 @@
 	</ul>	
 
 
-	<!-- 필터링확인 -->
+<%-- 	<!-- 필터링확인 -->
 	<span>order : ${ORDER} // </span><span>search : ${option} //</span>
-	<span>currentPage : ${bp.currentPage }</span>
+	<span>currentPage : ${bp.currentPage }</span> --%>
 
 
 </div>

@@ -121,6 +121,7 @@
 <script>
 
 
+
 /* ------ START : 변수설정------ */
 
 //첨부파일 배열에 담기
@@ -151,6 +152,40 @@ $(function () {
     $("#input_file").on("change", fileCheck); // 해당 셀렉터 태그에 값이 변함을 감지(change)
     
 });
+
+// 이미지 파일목록 삭제
+function fileDeleteDB(fno){
+	var pass = confirm('파일을 삭제하시겠습니까?');
+	if(pass){
+		$.ajax({
+			url : "${FileFormDeleteURL}",
+			type : 'POST',
+			data : {
+				<portlet:namespace/>fno : fno
+			},
+			dataType : 'json',
+			error : function(xhr, status, error) {
+	   	    	alert("파일 삭제 실패!");
+	   	     return false;
+	   	      },
+			success: function (data) {
+	   	    	  console.log("data : ", data)
+	   	    	if(data['result'] == "OK"){
+	   	    		alert("파일이 삭제되었습니다.");
+	   	    		$('#li-'+fno).remove();
+				} else
+					alert("서버오류입니다! 잠시 후 다시 시도해주세요");
+	   	      }
+		});
+	}
+}
+
+
+
+
+
+
+
 
 
 /*-----START : fileCheck 이벤트--------- */
@@ -339,3 +374,5 @@ $("#editForm").on("submit",function(e){
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- 첨부파일 CSS -->
+<link rel="stylesheet" type="text/css" href="${ctx}/css/attach.css">

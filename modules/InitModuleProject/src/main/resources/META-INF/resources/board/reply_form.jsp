@@ -50,7 +50,7 @@
 
 
 
-<!-- 감시대상 -->
+<!-- 감시대상 : Intersection Observer -->
 <div id="observer"></div>
 
 
@@ -85,7 +85,7 @@ getList(page)
 const io = new IntersectionObserver((entries) => {
 	  clearTimeout(timer);
 	  if (isEnd ==false && entries[0].isIntersecting) {
-	    timer = setTimeout(() => getList(++page), 1000);			
+	    timer = setTimeout(() => getList(++page), 1000);		// 1초 대기후 페이지추가	
 	 };
 
 });
@@ -99,7 +99,7 @@ io.observe($observer); // 타겟 감시 활성화
 
 /*----------/1/START : 댓글목록 로드-------------*/
 function getList(page){
-	console.log("page : getList("+page+")진입")
+	// console.log("page : getList("+page+")진입")
 	$.ajax({
 		type:"get",
 		url : "${ShowListReplyURL}",
@@ -171,10 +171,10 @@ function drawHtml(data,page){
 		     html +=      '</div>';
 		     html += '</div><hr>';
 		     html += '<div id="updateFrm'+pageCode+'"></div>';
-			console.log("pageCode : "+pageCode)
+			//console.log("pageCode : "+pageCode)
 			/*--------------------END : DB 댓글 정보 출력-----------------------*/
 	} // END : for문
-			console.log("-----------------------END : "+page+"page----------------------------------------")
+			//console.log("-----------------------END : "+page+"page----------------------------------------")
 	html += '</li>'
 
 	
@@ -203,8 +203,10 @@ function drawHtml(data,page){
 
 
 /*----------/1/END : 댓글목록 로드-------------*/
-//x
-//x
+
+
+
+
 /*---------/2/START : 클릭 이벤트(댓글등록) ----------*/
 $("#btn_reply_regist").click(function(){
 console.log("-----------#btn_reply_regist------------")
@@ -214,7 +216,7 @@ if(rContents == "" || rContents.length == 0){
 	alert("댓글 내용을 작성해주세요")
 	return;
 }
-console.log("page : "+page)
+//console.log("page : "+page)
 
 	$.ajax({
 		type : "post",
@@ -300,7 +302,7 @@ console.log("-----------btn_toggle(pageCode)------------")
 /*---------/4/START : 온클릭 이벤트(수정폼 생성)----------*/
 function update_reply_frm(pageCode,page){
 console.log("------------------update_reply_frm------------------------")
-console.log("pageCode : "+pageCode)
+//console.log("pageCode : "+pageCode)
 
 var showUpdateFrm = document.querySelector('#updateFrm'+pageCode); //CSS기본값 display=none 토글 클릭시 수정폼 보이기
 	showUpdateFrm.classList.toggle("active");
